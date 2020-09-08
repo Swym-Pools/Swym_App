@@ -5,9 +5,11 @@ export const TransactionKind = Object.freeze({
   SEND: 'send',
 });
 
-export default PropTypes.shape({
+const TransactionShape = PropTypes.shape({
   id: PropTypes.string.isRequired,
   kind: PropTypes.oneOf(Object.values(TransactionKind)).isRequired,
   amount: PropTypes.number.isRequired,
   timestamp: PropTypes.number.isRequired,
 });
+
+export default TransactionShape;

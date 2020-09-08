@@ -11,7 +11,7 @@ const WalletBalanceCard = ({ balance, onDepositSelected, onSendSelected }) => {
     <View style={CardStyles.sectionCard}>
       <View style={styles.balanceHeader}>
         <Text style={styles.balanceHeading}>{balance}</Text>
-        <Text style={styles.balanceSubheading}>Sats</Text>
+        <Text style={styles.balanceSubheading}>sats</Text>
       </View>
 
       <View style={styles.actionButtonsRow}>

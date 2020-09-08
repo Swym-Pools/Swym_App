@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import PropTypes from 'prop-types';
 import { View, StyleSheet, ActivityIndicator, SectionList } from 'react-native';
 import { fetchTransactionHistory, fetchUserAccount } from '../../utils/networking/API';
 import WalletBalanceCard from '../../components/wallets/WalletBalanceCard';

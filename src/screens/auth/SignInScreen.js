@@ -1,33 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  View,
-  Text,
-  StyleSheet,
-} from 'react-native';
-
+import { View, Text, StyleSheet } from 'react-native';
 
 const SignInScreen = () => {
-  return (
-    <Text>
-      Sign In
-    </Text>
-  );
+  return <Text>Sign In</Text>;
 };
 
+const styles = StyleSheet.create({});
 
-const styles = StyleSheet.create({
+SignInScreen.propTypes = {};
 
-});
-
-
-SignInScreen.propTypes = {
-
-};
-
-SignInScreen.defaultProps = {
-
-};
-
+SignInScreen.defaultProps = {};
 
 export default SignInScreen;
