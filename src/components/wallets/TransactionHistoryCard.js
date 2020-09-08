@@ -6,6 +6,9 @@ import {
   StyleSheet,
   FlatList,
 } from 'react-native';
+import Colors from '../../utils/styling/Colors';
+import CardStyles from '../../utils/styling/Cards';
+
 
 const keyExtractor = ({ id }) => id;
 
@@ -20,7 +23,7 @@ const TransactionHistoryCard = ({ transactions }) => {
   }
 
   return (
-    <View style={styles.rootContainer}>
+    <View style={CardStyles.sectionCard}>
       <Text>Transaction History</Text>
 
       <FlatList

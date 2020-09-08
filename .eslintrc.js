@@ -43,7 +43,9 @@ module.exports = {
         caseSensitive: false,
       },
     ],
+    'import/named': 0,
     'react/jsx-fragments': [1, 'syntax'],
+    'react/display-name': 0,
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     'react-native/sort-styles': [

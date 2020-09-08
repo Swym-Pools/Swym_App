@@ -1,10 +1,20 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, StyleSheet, ActivityIndicator, ScrollView } from 'react-native';
+import { View, StyleSheet, ActivityIndicator, SectionList } from 'react-native';
 import { fetchTransactionHistory, fetchUserAccount } from '../../utils/networking/API';
 import WalletBalanceCard from '../../components/wallets/WalletBalanceCard';
 import TransactionHistoryCard from '../../components/wallets/TransactionHistoryCard';
 import { sortTransactionsByDate } from '../../utils/transactions/TransactionUtils';
+import Colors from '../../utils/styling/Colors';
+
+export const SectionKind = Object.freeze({
+  WALLET_BALANCE: 'WALLET_BALANCE',
+  TRANSACTION_HISTORY: 'TRANSACTION_HISTORY',
+});
+
+function sectionListItemKeyExtractor(item, index) {
+  return index;
+}
 
 const WalletScreen = () => {
   const [transactionHistory, setTransactionHistory] = useState([]);
@@ -107,25 +117,43 @@ const WalletScreen = () => {
 
   return (
     <View style={styles.rootViewContainer}>
-      <WalletDetailsSection />
-      <TransactionHistorySection />
+      <SectionList
+        contentContainerStyle={styles.contentContainer}
+        sections={[
+          {
+            kind: SectionKind.WALLET_BALANCE,
+            data: [accountBalance],
+            renderItem: () => <WalletDetailsSection />,
+          },
+          {
+            kind: SectionKind.TRANSACTION_HISTORY,
+            data: [transactionHistory],
+            renderItem: () => <TransactionHistorySection />,
+          },
+        ]}
+        keyExtractor={sectionListItemKeyExtractor}
+        stickySectionHeadersEnabled={false}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   rootViewContainer: {
+    backgroundColor: Colors.blue,
+    flex: 1,
   },
 
   contentContainer: {
-    flex: 1,
     alignItems: 'center',
     paddingHorizontal: 12,
     paddingVertical: 20,
   },
 
   cardContainer: {
-    borderRadius: 12,
+    marginBottom: 20,
+    maxWidth: '100%',
+    minWidth: '100%',
   },
 });
 
