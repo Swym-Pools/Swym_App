@@ -5,7 +5,6 @@ import WalletScreen from '../screens/wallet/WalletScreen';
 import PoolScreen from '../screens/pool/PoolScreen';
 import AccountScreen from '../screens/account/AccountScreen';
 
-
 const WalletNavigationStack = createStackNavigator();
 
 const WalletScreenNavigation = () => {
@@ -15,7 +14,6 @@ const WalletScreenNavigation = () => {
     </WalletNavigationStack.Navigator>
   );
 };
-
 
 const PoolNavigationStack = createStackNavigator();
 
@@ -27,7 +25,6 @@ const PoolScreenNavigation = () => {
   );
 };
 
-
 const AccountNavigationStack = createStackNavigator();
 
 const AccountScreenNavigation = () => {
@@ -37,7 +34,6 @@ const AccountScreenNavigation = () => {
     </AccountNavigationStack.Navigator>
   );
 };
-
 
 const MainNavigationStack = createBottomTabNavigator();
 
@@ -61,7 +57,6 @@ const MainNavigation = () => {
       />
     </MainNavigationStack.Navigator>
   );
-}
+};
 
 export default MainNavigation;
-

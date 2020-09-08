@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import RootNavigation from './navigation/RootNavigation';
+import RootNavigation from './src/navigation/RootNavigation';
 import { NavigationContainer } from '@react-navigation/native';
 
 export default function App() {
