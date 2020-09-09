@@ -1,19 +1,130 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import { Button } from 'react-native-elements';
+import ButtonStyles from '../../utils/styling/Buttons';
+import UserAccountShape from '../../data/model-shapes/UserAccount';
+import useUserAccountState from '../../utils/hooks/UseUserAccountState';
+import Colors from '../../utils/styling/Colors';
 
-const PoolScreen = () => {
+const AccountScreen = ({ navigation }) => {
+  const { userAccount, isFetchingUserAccount, hasUserAccountFetchError } = useUserAccountState();
+
+  function onEditingSaved(editedAccount) {
+    // set account state and send changes to backend.
+  }
+
+  function activateEditMode() {
+    navigation.navigate('AccountEdit', {
+      currentAccount: userAccount,
+      onSave: onEditingSaved,
+    });
+  }
+
+  if (isFetchingUserAccount) {
+    return (
+      <View style={styles.rootContainer}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+
+  const AccountInfoSection = () => {
+    return (
+      <View style={[styles.nonTrailingViewSection, styles.accountInfoSection]}>
+        <View style={[styles.infoItem, styles.nonTrailingInfoItem]}>
+          <Text style={styles.infoItemHeading}>Username</Text>
+          <Text style={styles.infoItemText}>{userAccount.username}</Text>
+        </View>
+
+        <View style={[styles.infoItem, styles.nonTrailingInfoItem]}>
+          <Text style={styles.infoItemHeading}>Email</Text>
+          <Text style={styles.infoItemText}>{userAccount.email}</Text>
+        </View>
+
+        <View style={[styles.infoItem, styles.nonTrailingInfoItem]}>
+          <Text style={styles.infoItemHeading}>Phone Number</Text>
+          <Text style={styles.infoItemText}>{userAccount.phone}</Text>
+        </View>
+
+        <View style={styles.infoItem}>
+          <Text style={styles.infoItemHeading}>Withdrawal Address</Text>
+          <Text style={styles.infoItemText}>{userAccount.withdrawalAddress}</Text>
+        </View>
+      </View>
+    );
+  };
+
   return (
-    <View>
-      <Text>Username: BArmstrong</Text>
+    <View style={styles.rootContainer}>
+      <AccountInfoSection />
+
+      <View style={[styles.nonTrailingViewSection, styles.actionButtonSection]}>
+        <Button
+          containerStyle={ButtonStyles.actionButtonContainer}
+          buttonStyle={[ButtonStyles.actionButton]}
+          titleStyle={ButtonStyles.actionButtonTitle}
+          title="edit"
+          onPress={activateEditMode}
+          raised
+        />
+      </View>
+
+      <Text style={styles.helpText}>Need more help? Contact support at info@playswym.com</Text>
     </View>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  rootContainer: {
+    alignItems: 'center',
+    backgroundColor: Colors.blue,
+    flex: 1,
+    paddingHorizontal: 24,
+    paddingVertical: 32,
+  },
 
-PoolScreen.propTypes = {};
+  accountInfoSection: {
+    width: '100%',
+  },
 
-PoolScreen.defaultProps = {};
+  infoItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
 
-export default PoolScreen;
+  infoItemHeading: {
+    color: Colors.purple,
+    flex: 1,
+    fontSize: 15,
+    fontWeight: '600',
+    marginRight: 24,
+  },
+
+  infoItemText: {
+    color: Colors.white,
+    flex: 2,
+    fontSize: 15,
+  },
+
+  nonTrailingViewSection: {
+    marginBottom: 24,
+  },
+
+  nonTrailingInfoItem: {
+    marginBottom: 28,
+  },
+
+  helpText: {
+    color: Colors.purple,
+    fontSize: 14,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+});
+
+AccountScreen.propTypes = {};
+
+AccountScreen.defaultProps = {};
+
+export default AccountScreen;
