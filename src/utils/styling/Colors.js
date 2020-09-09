@@ -18,6 +18,8 @@ const Colors = {
   grayScale3: '#6C6C6C',
 
   shadow1: 'rgba(0, 0, 0, 0.18)',
+
+  iconDisabled: 'rgba(100, 100, 100, 0.62)',
 };
 
 export default Colors;

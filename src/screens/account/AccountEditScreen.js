@@ -1,18 +1,10 @@
 import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import {
-  View,
-  StyleSheet,
-  Text,
-  KeyboardAvoidingView,
-  SafeAreaView,
-  ScrollView,
-} from 'react-native';
+import { View, StyleSheet, Text, SafeAreaView, ScrollView } from 'react-native';
 import UserAccountShape from '../../data/model-shapes/UserAccount';
 import { Input, Button } from 'react-native-elements';
 import ButtonStyles from '../../utils/styling/Buttons';
 import Colors from '../../utils/styling/Colors';
-import useKeyboardAvoidingViewBehavior from '../../utils/hooks/UseKeyboardAvoidingViewBehavior';
 
 const AccountEditScreen = ({
   navigation,
@@ -25,8 +17,6 @@ const AccountEditScreen = ({
   const [phoneNumberString, setPhoneNumberString] = useState(`${currentAccount.phoneNumber}`);
   const [withdrawalAddress, setWithdrawalAddress] = useState(currentAccount.withdrawalAddress);
 
-  const keyboardAvoidingViewBehavior = useKeyboardAvoidingViewBehavior();
-
   const editedAccount = useMemo(() => {
     return {
       id: currentAccount.id,
@@ -36,7 +26,6 @@ const AccountEditScreen = ({
       withdrawalAddress,
     };
   }, [currentAccount.id, username, email, phoneNumberString, withdrawalAddress]);
-
 
   // TODO: More robust validation for these values.
   const isSaveEnabled = useMemo(() => {
@@ -144,7 +133,6 @@ const AccountEditScreen = ({
   return (
     <ScrollView style={styles.rootContainer}>
       <SafeAreaView style={styles.outerViewContentContainer}>
-
         <View style={styles.innerViewContentContainer}>
           <AccountInfoSection />
 

@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import PropTypes from 'prop-types';
 import { View, StyleSheet, ActivityIndicator, SectionList } from 'react-native';
-import { fetchTransactionHistory, fetchUserAccount } from '../../utils/networking/API';
+import { fetchTransactionHistory } from '../../utils/networking/API';
 import WalletBalanceCard from '../../components/wallets/WalletBalanceCard';
 import TransactionHistoryCard from '../../components/wallets/TransactionHistoryCard';
 import { sortTransactionsByDate } from '../../utils/transactions/TransactionUtils';
 import Colors from '../../utils/styling/Colors';
-import UserAccountShape from '../../data/model-shapes/UserAccount';
 import useUserAccountState from '../../utils/hooks/UseUserAccountState';
+import Navbar from '../../components/Navbar';
 
 export const SectionKind = Object.freeze({
   WALLET_BALANCE: 'WALLET_BALANCE',
@@ -142,5 +141,13 @@ const styles = StyleSheet.create({
 WalletScreen.propTypes = {};
 
 WalletScreen.defaultProps = {};
+
+WalletScreen.navigationOptions = () => {
+  return {
+    header: () => {
+      return <Navbar title="Wallet" />;
+    },
+  };
+};
 
 export default WalletScreen;
