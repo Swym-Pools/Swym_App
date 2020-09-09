@@ -8,7 +8,7 @@ function mapUserAccount(accountResult) {
     id: accountResult.id,
     username: accountResult.username,
     email: accountResult.email,
-    phone: accountResult.phone,
+    phoneNumber: accountResult.phoneNumber,
     balance: accountResult.balance,
     withdrawalAddress: accountResult.withdrawal_address,
   };

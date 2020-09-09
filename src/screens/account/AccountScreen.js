@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator, EdgeInsetsPropType } from 'react-native';
 import { Button } from 'react-native-elements';
 import ButtonStyles from '../../utils/styling/Buttons';
-import UserAccountShape from '../../data/model-shapes/UserAccount';
 import useUserAccountState from '../../utils/hooks/UseUserAccountState';
 import Colors from '../../utils/styling/Colors';
 
@@ -11,7 +10,9 @@ const AccountScreen = ({ navigation }) => {
   const { userAccount, isFetchingUserAccount, hasUserAccountFetchError } = useUserAccountState();
 
   function onEditingSaved(editedAccount) {
-    // set account state and send changes to backend.
+    // TODO: set account state and send changes to the backend.
+    console.log('onEditingSaved -- edited account:');
+    console.log(editedAccount.username);
   }
 
   function activateEditMode() {
@@ -21,39 +22,40 @@ const AccountScreen = ({ navigation }) => {
     });
   }
 
+  const AccountInfoSection = () => {
+    return (
+      <View style={[styles.nonTrailingViewSection, styles.accountInfoSection]}>
+        <View style={[styles.infoItem, styles.nonTrailingInfoItem]}>
+          <Text style={styles.infoItemHeading}>Username</Text>
+          <Text style={styles.infoItemText}>{userAccount?.username}</Text>
+        </View>
+
+        <View style={[styles.infoItem, styles.nonTrailingInfoItem]}>
+          <Text style={styles.infoItemHeading}>Email</Text>
+          <Text style={styles.infoItemText}>{userAccount?.email}</Text>
+        </View>
+
+        <View style={[styles.infoItem, styles.nonTrailingInfoItem]}>
+          <Text style={styles.infoItemHeading}>Phone Number</Text>
+          <Text style={styles.infoItemText}>{userAccount?.phoneNumber}</Text>
+        </View>
+
+        <View style={styles.infoItem}>
+          <Text style={styles.infoItemHeading}>Withdrawal Address</Text>
+          <Text style={styles.infoItemText}>{userAccount?.withdrawalAddress}</Text>
+        </View>
+      </View>
+    );
+  };
+
   if (isFetchingUserAccount) {
+
     return (
       <View style={styles.rootContainer}>
         <ActivityIndicator size="large" />
       </View>
     );
   }
-
-  const AccountInfoSection = () => {
-    return (
-      <View style={[styles.nonTrailingViewSection, styles.accountInfoSection]}>
-        <View style={[styles.infoItem, styles.nonTrailingInfoItem]}>
-          <Text style={styles.infoItemHeading}>Username</Text>
-          <Text style={styles.infoItemText}>{userAccount.username}</Text>
-        </View>
-
-        <View style={[styles.infoItem, styles.nonTrailingInfoItem]}>
-          <Text style={styles.infoItemHeading}>Email</Text>
-          <Text style={styles.infoItemText}>{userAccount.email}</Text>
-        </View>
-
-        <View style={[styles.infoItem, styles.nonTrailingInfoItem]}>
-          <Text style={styles.infoItemHeading}>Phone Number</Text>
-          <Text style={styles.infoItemText}>{userAccount.phone}</Text>
-        </View>
-
-        <View style={styles.infoItem}>
-          <Text style={styles.infoItemHeading}>Withdrawal Address</Text>
-          <Text style={styles.infoItemText}>{userAccount.withdrawalAddress}</Text>
-        </View>
-      </View>
-    );
-  };
 
   return (
     <View style={styles.rootContainer}>

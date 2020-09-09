@@ -13,7 +13,9 @@ const Colors = {
 
   borderColor: '#E3E3E3',
 
-  grayScale1: '#6C6C6C',
+  grayScale1: '#DCDCDC',
+  grayScale2: '#ACACAC',
+  grayScale3: '#6C6C6C',
 
   shadow1: 'rgba(0, 0, 0, 0.18)',
 };
