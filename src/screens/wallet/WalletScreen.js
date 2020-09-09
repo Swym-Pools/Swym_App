@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import PropTypes from 'prop-types';
 import { View, StyleSheet, ActivityIndicator, SectionList } from 'react-native';
 import { fetchTransactionHistory, fetchUserAccount } from '../../utils/networking/API';
 import WalletBalanceCard from '../../components/wallets/WalletBalanceCard';
 import TransactionHistoryCard from '../../components/wallets/TransactionHistoryCard';
 import { sortTransactionsByDate } from '../../utils/transactions/TransactionUtils';
 import Colors from '../../utils/styling/Colors';
+import UserAccountShape from '../../data/model-shapes/UserAccount';
+import useUserAccountState from '../../utils/hooks/UseUserAccountState';
 
 export const SectionKind = Object.freeze({
   WALLET_BALANCE: 'WALLET_BALANCE',
@@ -20,9 +23,7 @@ const WalletScreen = () => {
   const [isFetchingTransactionHistory, setIsFetchingTransactionHistory] = useState(false);
   const [hasTransactionHistoryFetchError, setHasTransactionHistoryFetchError] = useState(false);
 
-  const [userAccount, setUserAccount] = useState(null);
-  const [isFetchingUserAccount, setIsFetchingUserAccount] = useState(false);
-  const [hasUserAccountFetchError, setHasUserAccountFetchError] = useState(false);
+  const { userAccount, isFetchingUserAccount, hasUserAccountFetchError } = useUserAccountState();
 
   const sortedTransactions = useMemo(() => {
     return sortTransactionsByDate(transactionHistory);
@@ -33,26 +34,8 @@ const WalletScreen = () => {
   }, [userAccount]);
 
   useEffect(() => {
-    loadAccountDetails();
     loadTransactionHistory();
   }, []);
-
-  async function loadAccountDetails() {
-    setIsFetchingUserAccount(true);
-
-    try {
-      // TODO: Refactor after there's more clarity about how to retrieve authentication
-      // credentials from the API.
-      const userAccount = await fetchUserAccount();
-
-      setUserAccount(userAccount);
-      setHasUserAccountFetchError(false);
-    } catch (error) {
-      setHasUserAccountFetchError(true);
-    } finally {
-      setIsFetchingUserAccount(false);
-    }
-  }
 
   async function loadTransactionHistory() {
     setIsFetchingTransactionHistory(true);

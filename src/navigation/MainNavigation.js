@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import WalletScreen from '../screens/wallet/WalletScreen';
 import PoolScreen from '../screens/pool/PoolScreen';
 import AccountScreen from '../screens/account/AccountScreen';
+import AccountEditScreen from '../screens/account/AccountEditScreen';
 
 const WalletNavigationStack = createStackNavigator();
 
@@ -29,8 +30,13 @@ const AccountNavigationStack = createStackNavigator();
 
 const AccountScreenNavigation = () => {
   return (
-    <AccountNavigationStack.Navigator name="AccountNavigationRoot">
+    <AccountNavigationStack.Navigator
+      name="AccountNavigationRoot"
+      initialRouteName="Account"
+      mode="modal"
+    >
       <AccountNavigationStack.Screen name="Account" component={AccountScreen} />
+      <AccountNavigationStack.Screen name="AccountEdit" component={AccountEditScreen} />
     </AccountNavigationStack.Navigator>
   );
 };
@@ -39,7 +45,7 @@ const MainNavigationStack = createBottomTabNavigator();
 
 const MainNavigation = () => {
   return (
-    <MainNavigationStack.Navigator>
+    <MainNavigationStack.Navigator initialRouteName="Wallet">
       <MainNavigationStack.Screen
         name="Wallet"
         component={WalletScreenNavigation}
@@ -52,6 +58,7 @@ const MainNavigation = () => {
       />
       <MainNavigationStack.Screen
         name="Account"
+        key="UserAccountScreen"
         component={AccountScreenNavigation}
         options={{ headerShown: false }}
       />
