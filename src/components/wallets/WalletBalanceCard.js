@@ -5,13 +5,14 @@ import { Button } from 'react-native-elements';
 import ButtonStyles from '../../utils/styling/Buttons';
 import Colors from '../../utils/styling/Colors';
 import CardStyles from '../../utils/styling/Cards';
+import HeadingStyles from '../../utils/styling/Headings';
 
 const WalletBalanceCard = ({ balance, onDepositSelected, onSendSelected }) => {
   return (
     <View style={CardStyles.sectionCard}>
       <View style={styles.balanceHeader}>
-        <Text style={styles.balanceHeading}>{balance}</Text>
-        <Text style={styles.balanceSubheading}>sats</Text>
+        <Text style={[HeadingStyles.largeHeadline, styles.balanceHeading]}>{balance}</Text>
+        <Text style={[HeadingStyles.largeHeadlineLabel, styles.balanceSubheading]}>sats</Text>
       </View>
 
       <View style={styles.actionButtonsRow}>
@@ -48,15 +49,11 @@ const styles = StyleSheet.create({
 
   balanceHeading: {
     color: Colors.orange,
-    fontSize: 50,
-    fontWeight: 'bold',
     marginBottom: 4,
   },
 
   balanceSubheading: {
     color: Colors.orange,
-    fontSize: 18,
-    fontWeight: '700',
   },
 
   actionButtonsRow: {

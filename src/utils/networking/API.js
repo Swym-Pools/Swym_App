@@ -3,7 +3,7 @@ import sleep from '../sleep';
 import transactionHistory from './mock-data/transaction-history';
 import userAccount from './mock-data/user-account';
 import poolState from './mock-data/pool-state';
-import poolHistory from './mock-data/pool-history';
+import poolResultsHistory from './mock-data/pool-results-history';
 
 function mapUserAccount(accountResult) {
   return {
@@ -25,7 +25,7 @@ function mapPoolState(result) {
   };
 }
 
-function mapPoolHistoryResult(result) {
+function mapPoolResultsHistory(result) {
   return {
     prize: result.prize,
     winnerUsername: result.winner_username,
@@ -51,8 +51,8 @@ export async function fetchPoolState() {
   return mapPoolState(poolState.pool);
 }
 
-export async function fetchPoolHistory() {
+export async function fetchPoolResultsHistory() {
   await sleep(500);
 
-  return poolHistory.results.map(mapPoolHistoryResult);
+  return poolResultsHistory.results.map(mapPoolResultsHistory);
 }

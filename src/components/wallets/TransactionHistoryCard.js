@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, FlatList } from 'react-native';
 import Colors from '../../utils/styling/Colors';
 import CardStyles from '../../utils/styling/Cards';
 import TransactionListItem from './TransactionListItem';
+import TransactionShape from '../../data/model-shapes/Transaction';
 
 const keyExtractor = ({ id }) => id;
 
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
 });
 
 TransactionHistoryCard.propTypes = {
-  transactions: PropTypes.arrayOf(PropTypes.object).isRequired,
+  transactions: PropTypes.arrayOf(TransactionShape).isRequired,
 };
 
 TransactionHistoryCard.defaultProps = {};
