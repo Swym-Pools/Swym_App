@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { View, Text, StyleSheet, ActivityIndicator, EdgeInsetsPropType } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import { Button } from 'react-native-elements';
 import ButtonStyles from '../../utils/styling/Buttons';
 import useUserAccountState from '../../utils/hooks/UseUserAccountState';
 import Colors from '../../utils/styling/Colors';
+import Navbar from '../../components/Navbar';
 
 const AccountScreen = ({ navigation }) => {
   const { userAccount, isFetchingUserAccount, hasUserAccountFetchError } = useUserAccountState();
@@ -49,7 +49,6 @@ const AccountScreen = ({ navigation }) => {
   };
 
   if (isFetchingUserAccount) {
-
     return (
       <View style={styles.rootContainer}>
         <ActivityIndicator size="large" />
@@ -128,5 +127,13 @@ const styles = StyleSheet.create({
 AccountScreen.propTypes = {};
 
 AccountScreen.defaultProps = {};
+
+AccountScreen.navigationOptions = () => {
+  return {
+    header: () => {
+      return <Navbar title="Account" />;
+    },
+  };
+};
 
 export default AccountScreen;

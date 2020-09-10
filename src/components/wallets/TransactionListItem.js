@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import TransactionShape, { TransactionKind } from '../../data/model-shapes/Transaction';
 import { ListItem, Icon } from 'react-native-elements';
 import Colors from '../../utils/styling/Colors';
