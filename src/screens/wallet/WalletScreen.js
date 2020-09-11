@@ -1,12 +1,16 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { View, StyleSheet, ActivityIndicator, SectionList } from 'react-native';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
+import { View, StyleSheet, SectionList, Share } from 'react-native';
+import Clipboard from '@react-native-community/clipboard';
 import { fetchTransactionHistory } from '../../utils/networking/API';
-import WalletBalanceCard from '../../components/wallets/WalletBalanceCard';
-import TransactionHistoryCard from '../../components/wallets/TransactionHistoryCard';
 import { sortTransactionsByDate } from '../../utils/transactions/TransactionUtils';
 import Colors from '../../utils/styling/Colors';
 import useUserAccountState from '../../utils/hooks/UseUserAccountState';
 import Navbar from '../../components/Navbar';
+import WalletDetailsSection from './WalletDetailsSection';
+import TransactionHistorySection from './TransactionHistorySection';
+import BottomSheet from 'reanimated-bottom-sheet';
+import { SWYM_DEPOSIT_ADDRESS } from '../../utils/constants/Swym';
+import DepositSheet from './DepositSheet';
 
 export const SectionKind = Object.freeze({
   WALLET_BALANCE: 'WALLET_BALANCE',
@@ -23,6 +27,8 @@ const WalletScreen = () => {
   const [hasTransactionHistoryFetchError, setHasTransactionHistoryFetchError] = useState(false);
 
   const { userAccount, isFetchingUserAccount, hasUserAccountFetchError } = useUserAccountState();
+
+  const depositSheetRef = useRef(null);
 
   const sortedTransactions = useMemo(() => {
     return sortTransactionsByDate(transactionHistory);
@@ -51,50 +57,42 @@ const WalletScreen = () => {
     }
   }
 
-  function performDeposit() {}
+  function renderDepositSheet() {
+    // TODO: I'm thinking we'll need to fetch this dynamically.
+    const address = SWYM_DEPOSIT_ADDRESS;
+
+    return (
+      <DepositSheet
+        address={address}
+        onShareSelected={shareDepositAddress}
+        onCopySelected={copyDepositAddress}
+        onClose={hideDepositSheet}
+      />
+    );
+  }
+
+  function showDepositSheet() {
+    depositSheetRef.current.snapTo(0);
+  }
+
+  function hideDepositSheet() {
+    depositSheetRef.current.snapTo(1);
+  }
+
+  async function shareDepositAddress() {
+    hideDepositSheet();
+
+    await Share.share({
+      message: SWYM_DEPOSIT_ADDRESS,
+    });
+  }
+
+  function copyDepositAddress() {
+    Clipboard.setString(SWYM_DEPOSIT_ADDRESS);
+    hideDepositSheet();
+  }
+
   function performWithdrawal() {}
-
-  const WalletDetailsSection = () => {
-    if (isFetchingUserAccount) {
-      return (
-        <View style={styles.cardContainer}>
-          <ActivityIndicator size="large" />
-          {/* {hasUserAccountFetchError && (
-            <Text>TODO: Some Error Message</Text>
-          )} */}
-        </View>
-      );
-    } else {
-      return (
-        <View style={styles.cardContainer}>
-          <WalletBalanceCard
-            balance={accountBalance}
-            onDepositSelected={performDeposit}
-            onSendSelected={performWithdrawal}
-          />
-        </View>
-      );
-    }
-  };
-
-  const TransactionHistorySection = () => {
-    if (isFetchingTransactionHistory) {
-      return (
-        <View style={styles.cardContainer}>
-          <ActivityIndicator size="large" />
-          {/* {hasTransactionHistoryFetchError && (
-            <Text>TODO: Some Error Message</Text>
-          )} */}
-        </View>
-      );
-    } else {
-      return (
-        <View style={styles.cardContainer}>
-          <TransactionHistoryCard transactions={sortedTransactions} />
-        </View>
-      );
-    }
-  };
 
   return (
     <View style={styles.rootViewContainer}>
@@ -104,16 +102,44 @@ const WalletScreen = () => {
           {
             kind: SectionKind.WALLET_BALANCE,
             data: [accountBalance],
-            renderItem: () => <WalletDetailsSection />,
+            renderItem: () => {
+              return (
+                <View style={[styles.cardContainer, styles.viewSectionContainer]}>
+                  <WalletDetailsSection
+                    balance={accountBalance}
+                    isFetching={isFetchingUserAccount}
+                    onDepositSelected={showDepositSheet}
+                    onSendSelected={performWithdrawal}
+                  />
+                </View>
+              );
+            },
           },
           {
             kind: SectionKind.TRANSACTION_HISTORY,
             data: [transactionHistory],
-            renderItem: () => <TransactionHistorySection />,
+            renderItem: () => {
+              return (
+                <View style={[styles.cardContainer, styles.viewSectionContainer]}>
+                  <TransactionHistorySection
+                    transactions={sortedTransactions}
+                    isFetching={isFetchingTransactionHistory}
+                  />
+                </View>
+              );
+            },
           },
         ]}
         keyExtractor={sectionListItemKeyExtractor}
         stickySectionHeadersEnabled={false}
+      />
+      <BottomSheet
+        ref={depositSheetRef}
+        snapPoints={[450, 0]}
+        initialSnap={1}
+        borderRadius={16}
+        renderContent={renderDepositSheet}
+        enabledContentTapInteraction={false}
       />
     </View>
   );
@@ -121,8 +147,10 @@ const WalletScreen = () => {
 
 const styles = StyleSheet.create({
   rootViewContainer: {
+    alignItems: 'center',
     backgroundColor: Colors.blue,
     flex: 1,
+    justifyContent: 'center',
   },
 
   contentContainer: {
@@ -132,9 +160,12 @@ const styles = StyleSheet.create({
   },
 
   cardContainer: {
-    marginBottom: 20,
     maxWidth: '100%',
     minWidth: '100%',
+  },
+
+  viewSectionContainer: {
+    marginBottom: 20,
   },
 });
 
