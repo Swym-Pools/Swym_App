@@ -10,7 +10,10 @@ import WalletDetailsSection from './WalletDetailsSection';
 import TransactionHistorySection from './TransactionHistorySection';
 import BottomSheet from 'reanimated-bottom-sheet';
 import { SWYM_DEPOSIT_ADDRESS } from '../../utils/constants/Swym';
+import { FeedbackOverlayKind } from '../../utils/constants/FeedbackOverlays';
 import DepositSheet from './DepositSheet';
+import { Overlay } from 'react-native-elements';
+import makeOverlayContent from '../../components/feedback-overlays/MakeOverlayContent';
 
 export const SectionKind = Object.freeze({
   WALLET_BALANCE: 'WALLET_BALANCE',
@@ -27,6 +30,9 @@ const WalletScreen = () => {
   const [hasTransactionHistoryFetchError, setHasTransactionHistoryFetchError] = useState(false);
 
   const { userAccount, isFetchingUserAccount, hasUserAccountFetchError } = useUserAccountState();
+
+  const [isShowingFeedbackOverlay, setIsShowingFeedbackOverlay] = useState(false);
+  const [feedbackOverlayKind, setFeedbackOverlayKind] = useState(null);
 
   const depositSheetRef = useRef(null);
 
@@ -92,7 +98,22 @@ const WalletScreen = () => {
     hideDepositSheet();
   }
 
-  function performWithdrawal() {}
+  function performWithdrawal() {
+    // if (accountBalance === 0) {
+    if (true) {
+      activateFeedbackOverlay(FeedbackOverlayKind.EMPTY_BALANCE);
+    }
+  }
+
+  function activateFeedbackOverlay(overlayKind) {
+    setFeedbackOverlayKind(overlayKind);
+    setIsShowingFeedbackOverlay(true);
+  }
+
+  function hideFeedbackOverlay(overlayKind) {
+    setIsShowingFeedbackOverlay(false);
+  }
+
 
   return (
     <View style={styles.rootViewContainer}>
@@ -141,6 +162,9 @@ const WalletScreen = () => {
         renderContent={renderDepositSheet}
         enabledContentTapInteraction={false}
       />
+      <Overlay isVisible={isShowingFeedbackOverlay} onBackdropPress={hideFeedbackOverlay}>
+        {makeOverlayContent(feedbackOverlayKind, { onClose: hideFeedbackOverlay })}
+      </Overlay>
     </View>
   );
 };
