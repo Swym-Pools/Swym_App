@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { View, StyleSheet, SectionList, Text, TouchableOpacity, Share } from 'react-native';
+import { View, StyleSheet, SectionList, Share } from 'react-native';
+import Clipboard from '@react-native-community/clipboard';
 import { fetchTransactionHistory } from '../../utils/networking/API';
 import { sortTransactionsByDate } from '../../utils/transactions/TransactionUtils';
 import Colors from '../../utils/styling/Colors';
@@ -87,6 +88,7 @@ const WalletScreen = () => {
   }
 
   function copyDepositAddress() {
+    Clipboard.setString(SWYM_DEPOSIT_ADDRESS);
     hideDepositSheet();
   }
 

@@ -4,7 +4,6 @@ import { View, StyleSheet, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import QRCode from 'react-native-qrcode-svg';
 import Colors from '../../utils/styling/Colors';
-import { colors } from 'react-native-elements';
 
 const DepositSheet = ({ address, onCopySelected, onShareSelected, onClose, qrCodeSize }) => {
   return (
@@ -49,12 +48,12 @@ const styles = StyleSheet.create({
   rootContainer: {
     alignItems: 'center',
     backgroundColor: Colors.white,
-    justifyContent: 'flex-start',
-    height: '100%',
-    paddingVertical: 42,
+    borderColor: Colors.borderColorTranslucent,
     borderRadius: 16,
     borderWidth: 2,
-    borderColor: Colors.borderColorTranslucent,
+    height: '100%',
+    justifyContent: 'flex-start',
+    paddingVertical: 42,
   },
 
   qrCodeSection: {
