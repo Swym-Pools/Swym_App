@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { View, StyleSheet, SectionList, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, SectionList, Text, TouchableOpacity, Share } from 'react-native';
 import { fetchTransactionHistory } from '../../utils/networking/API';
 import { sortTransactionsByDate } from '../../utils/transactions/TransactionUtils';
 import Colors from '../../utils/styling/Colors';
@@ -78,8 +78,12 @@ const WalletScreen = () => {
     depositSheetRef.current.snapTo(1);
   }
 
-  function shareDepositAddress() {
+  async function shareDepositAddress() {
     hideDepositSheet();
+
+    await Share.share({
+      message: SWYM_DEPOSIT_ADDRESS,
+    });
   }
 
   function copyDepositAddress() {
