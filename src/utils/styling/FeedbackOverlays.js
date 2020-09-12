@@ -3,9 +3,22 @@ import Colors from './Colors';
 
 const FeedbackOverlayStyles = StyleSheet.create({
   messageText: {
-    color: Colors.purple,
-    fontWeight: '700',
     fontSize: 18,
+    fontWeight: '700',
+  },
+
+  overlayWrapper: {
+    padding: 0,
+  },
+
+  confirmationButtonText: {
+    fontSize: 16,
+    fontWeight: '600',
+  },
+
+  confirmationButtonContent: {
+    borderRadius: 6,
+    minWidth: 120,
   },
 });
 

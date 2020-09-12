@@ -14,6 +14,7 @@ import { FeedbackOverlayKind } from '../../utils/constants/FeedbackOverlays';
 import DepositSheet from './DepositSheet';
 import { Overlay } from 'react-native-elements';
 import makeOverlayContent from '../../components/feedback-overlays/MakeOverlayContent';
+import FeedbackOverlayStyles from '../../utils/styling/FeedbackOverlays';
 
 export const SectionKind = Object.freeze({
   WALLET_BALANCE: 'WALLET_BALANCE',
@@ -101,7 +102,8 @@ const WalletScreen = () => {
   function performWithdrawal() {
     // if (accountBalance === 0) {
     if (true) {
-      activateFeedbackOverlay(FeedbackOverlayKind.EMPTY_BALANCE);
+      // activateFeedbackOverlay(FeedbackOverlayKind.EMPTY_BALANCE);
+      activateFeedbackOverlay(FeedbackOverlayKind.CHECK_EMAIL_TO_CONFIRM_WITHDRAWAL_ADDRESS);
     }
   }
 
@@ -162,7 +164,11 @@ const WalletScreen = () => {
         renderContent={renderDepositSheet}
         enabledContentTapInteraction={false}
       />
-      <Overlay isVisible={isShowingFeedbackOverlay} onBackdropPress={hideFeedbackOverlay}>
+      <Overlay
+        isVisible={isShowingFeedbackOverlay}
+        onBackdropPress={hideFeedbackOverlay}
+        overlayStyle={FeedbackOverlayStyles.overlayWrapper}
+      >
         {makeOverlayContent(feedbackOverlayKind, { onClose: hideFeedbackOverlay })}
       </Overlay>
     </View>

@@ -1,20 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, StyleSheet, Text } from 'react-native';
-import { Button } from 'react-native-elements';
-import FeedbackOverlayStyles from '../../utils/styling/FeedbackOverlays';
+import { View, Text, StyleSheet } from 'react-native';
 import Colors from '../../utils/styling/Colors';
+import FeedbackOverlayStyles from '../../utils/styling/FeedbackOverlays';
+import { Button } from 'react-native-elements';
 
-const EmptyBalanceOverlayContent = ({ onClose }) => {
+const CheckEmailToConfirmWithdrawalAddressOverlayContent = ({ onClose }) => {
   return (
     <View style={styles.rootContainer}>
       <View style={styles.mainContentContainer}>
         <View style={styles.mainTextContainer}>
           <Text style={[FeedbackOverlayStyles.messageText, styles.messageText]}>
-            You currently have no BTC saved with Swym.
-          </Text>
-          <Text style={[FeedbackOverlayStyles.messageText, styles.messageText]}>
-            We recommend buying BTC on Cash App.
+            Check your email to confirm send or withdrawal address.
           </Text>
         </View>
 
@@ -34,6 +31,7 @@ const EmptyBalanceOverlayContent = ({ onClose }) => {
 
 const styles = StyleSheet.create({
   rootContainer: {
+    backgroundColor: Colors.blue,
     flexBasis: '70%',
     maxWidth: 500,
     minWidth: '80%',
@@ -54,18 +52,26 @@ const styles = StyleSheet.create({
   },
 
   messageText: {
-    color: Colors.purple,
+    color: Colors.white,
     marginBottom: 36,
     textAlign: 'center',
   },
+
+  confirmationButtonContent: {
+    backgroundColor: Colors.deepblue,
+  },
+
+  confirmationButtonText: {
+    color: Colors.white,
+  },
 });
 
-EmptyBalanceOverlayContent.propTypes = {
+CheckEmailToConfirmWithdrawalAddressOverlayContent.propTypes = {
   onClose: PropTypes.func,
 };
 
-EmptyBalanceOverlayContent.defaultProps = {
+CheckEmailToConfirmWithdrawalAddressOverlayContent.defaultProps = {
   onClose: () => {},
 };
 
-export default EmptyBalanceOverlayContent;
+export default CheckEmailToConfirmWithdrawalAddressOverlayContent;
