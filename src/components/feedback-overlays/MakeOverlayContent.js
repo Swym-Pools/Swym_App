@@ -1,6 +1,7 @@
 import React from 'react';
 import { FeedbackOverlayKind } from '../../utils/constants/FeedbackOverlays';
 import CheckEmailToConfirmWithdrawalAddressOverlayContent from './CheckEmailToConfirmWithdrawalAddressOverlayContent';
+import DepositCompletedOverlayContent from './DepositCompletedOverlayContent';
 import EmptyBalanceOverlayContent from './EmptyBalanceOverlayContent';
 import SentBTCFollowOnBlockchainOverlayContent from './SentBTCFollowOnBlockchainOverlayContent';
 
@@ -12,6 +13,8 @@ export default function makeOverlayContent(overlayKind, props = {}) {
       return <CheckEmailToConfirmWithdrawalAddressOverlayContent {...props} />;
     case FeedbackOverlayKind.SENT_BTC_FOLLOW_ON_BLOCKCHAIN:
       return <SentBTCFollowOnBlockchainOverlayContent {...props} />;
+    case FeedbackOverlayKind.DEPOSIT_COMPLETED:
+      return <DepositCompletedOverlayContent {...props} />;
     default:
       break;
   }

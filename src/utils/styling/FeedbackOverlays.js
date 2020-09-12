@@ -48,6 +48,10 @@ const FeedbackOverlayStyles = StyleSheet.create({
     top: 24,
     width: 40,
   },
+
+  closeButtonContent: {
+    backgroundColor: Colors.grayScale2,
+  },
 });
 
 export default FeedbackOverlayStyles;

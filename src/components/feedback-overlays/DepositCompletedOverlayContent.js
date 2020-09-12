@@ -4,9 +4,8 @@ import { View, StyleSheet, Text } from 'react-native';
 import { Button } from 'react-native-elements';
 import FeedbackOverlayStyles from '../../utils/styling/FeedbackOverlays';
 import Colors from '../../utils/styling/Colors';
-import HeadingStyles from '../../utils/styling/Headings';
 
-const SentBTCFollowOnBlockchainOverlayContent = ({ amountSent, onFollowSelected, onClose }) => {
+const DepositCompletedOverlayContent = ({ onClose }) => {
   return (
     <View style={[FeedbackOverlayStyles.rootContainer, styles.rootContainer]}>
       <View style={FeedbackOverlayStyles.mainContentContainer}>
@@ -18,24 +17,23 @@ const SentBTCFollowOnBlockchainOverlayContent = ({ amountSent, onFollowSelected,
         />
 
         <View style={styles.mainTextContainer}>
-          <Text style={styles.amountText} numberOfLines={1}>
-            {amountSent}
+          <Text style={[FeedbackOverlayStyles.messageText, styles.messageText]}>
+            If you deposited Bitcoin, check back soon once the transaction has cleared.
           </Text>
-          <Text style={[HeadingStyles.largeHeadlineLabel, styles.amountLabel]}>SATS</Text>
-        </View>
 
-        <View>
-          <Text style={[FeedbackOverlayStyles.messageText, styles.messageText]}>SENT!</Text>
+          <Text style={[FeedbackOverlayStyles.messageText, styles.messageText]}>
+            This can take up to 24 hours.
+          </Text>
         </View>
 
         <Button
-          title="Follow on Blockchain"
+          title="Got It"
           buttonStyle={[
             FeedbackOverlayStyles.confirmationButtonContent,
             styles.confirmationButtonContent,
           ]}
           titleStyle={[FeedbackOverlayStyles.confirmationButtonText, styles.confirmationButtonText]}
-          onPress={onFollowSelected}
+          onPress={onClose}
         />
       </View>
     </View>
@@ -43,42 +41,26 @@ const SentBTCFollowOnBlockchainOverlayContent = ({ amountSent, onFollowSelected,
 };
 
 const styles = StyleSheet.create({
-  rootContainer: {
-    backgroundColor: Colors.blue,
-  },
-
   mainTextContainer: {
     alignItems: 'center',
     marginBottom: 24,
     width: '80%',
   },
 
-  amountText: {
-    fontSize: 40,
-    fontWeight: '200',
-    marginBottom: 2,
-  },
-
-  amountLabel: {
-    fontWeight: '600',
-  },
-
   messageText: {
-    color: Colors.white,
+    color: Colors.purple,
     marginBottom: 36,
   },
 
   confirmationButtonContent: {
-    backgroundColor: Colors.purple,
+    backgroundColor: Colors.blue,
   },
 });
 
-SentBTCFollowOnBlockchainOverlayContent.propTypes = {
-  amountSent: PropTypes.number.isRequired,
-  onFollowSelected: PropTypes.func.isRequired,
+DepositCompletedOverlayContent.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-SentBTCFollowOnBlockchainOverlayContent.defaultProps = {};
+DepositCompletedOverlayContent.defaultProps = {};
 
-export default SentBTCFollowOnBlockchainOverlayContent;
+export default DepositCompletedOverlayContent;

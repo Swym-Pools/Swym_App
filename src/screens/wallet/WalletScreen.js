@@ -101,12 +101,17 @@ const WalletScreen = () => {
   }
 
   function handleWithdrawSelection() {
-    // if (accountBalance === 0) {
-    if (false) {
+    if (accountBalance === 0) {
       activateFeedbackOverlay(FeedbackOverlayKind.EMPTY_BALANCE, { onClose: hideFeedbackOverlay });
     } else {
       performWithdrawal(accountBalance);
     }
+  }
+
+  function handleDepositCompletion() {
+    activateFeedbackOverlay(FeedbackOverlayKind.DEPOSIT_COMPLETED, {
+      onClose: hideFeedbackOverlay,
+    });
   }
 
   function performWithdrawal(amountSent) {
@@ -128,7 +133,6 @@ const WalletScreen = () => {
   function hideFeedbackOverlay() {
     setIsShowingFeedbackOverlay(false);
   }
-
 
   return (
     <View style={styles.rootViewContainer}>
@@ -171,7 +175,7 @@ const WalletScreen = () => {
       />
       <BottomSheet
         ref={depositSheetRef}
-        snapPoints={[450, 0]}
+        snapPoints={['60%', '0%']}
         initialSnap={1}
         borderRadius={16}
         renderContent={renderDepositSheet}
