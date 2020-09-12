@@ -7,8 +7,8 @@ import { Button } from 'react-native-elements';
 
 const CheckEmailToConfirmWithdrawalAddressOverlayContent = ({ onClose }) => {
   return (
-    <View style={styles.rootContainer}>
-      <View style={styles.mainContentContainer}>
+    <View style={[FeedbackOverlayStyles.rootContainer, styles.rootContainer]}>
+      <View style={FeedbackOverlayStyles.mainContentContainer}>
         <View style={styles.mainTextContainer}>
           <Text style={[FeedbackOverlayStyles.messageText, styles.messageText]}>
             Check your email to confirm send or withdrawal address.
@@ -32,17 +32,6 @@ const CheckEmailToConfirmWithdrawalAddressOverlayContent = ({ onClose }) => {
 const styles = StyleSheet.create({
   rootContainer: {
     backgroundColor: Colors.blue,
-    flexBasis: '70%',
-    maxWidth: 500,
-    minWidth: '80%',
-  },
-
-  mainContentContainer: {
-    alignItems: 'center',
-    borderRadius: 16,
-    flex: 1,
-    justifyContent: 'center',
-    padding: 16,
   },
 
   mainTextContainer: {

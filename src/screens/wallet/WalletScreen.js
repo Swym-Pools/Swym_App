@@ -34,6 +34,7 @@ const WalletScreen = () => {
 
   const [isShowingFeedbackOverlay, setIsShowingFeedbackOverlay] = useState(false);
   const [feedbackOverlayKind, setFeedbackOverlayKind] = useState(null);
+  const [feedbackOverlayProps, setFeedbackOverlayProps] = useState({});
 
   const depositSheetRef = useRef(null);
 
@@ -99,20 +100,32 @@ const WalletScreen = () => {
     hideDepositSheet();
   }
 
-  function performWithdrawal() {
+  function handleWithdrawSelection() {
     // if (accountBalance === 0) {
-    if (true) {
-      // activateFeedbackOverlay(FeedbackOverlayKind.EMPTY_BALANCE);
-      activateFeedbackOverlay(FeedbackOverlayKind.CHECK_EMAIL_TO_CONFIRM_WITHDRAWAL_ADDRESS);
+    if (false) {
+      activateFeedbackOverlay(FeedbackOverlayKind.EMPTY_BALANCE, { onClose: hideFeedbackOverlay });
+    } else {
+      performWithdrawal(accountBalance);
     }
   }
 
-  function activateFeedbackOverlay(overlayKind) {
+  function performWithdrawal(amountSent) {
+    const overlayProps = {
+      amountSent,
+      onFollowSelected: hideFeedbackOverlay, // TODO: Implement transaction following somehow.
+      onClose: hideFeedbackOverlay,
+    };
+
+    activateFeedbackOverlay(FeedbackOverlayKind.SENT_BTC_FOLLOW_ON_BLOCKCHAIN, overlayProps);
+  }
+
+  function activateFeedbackOverlay(overlayKind, props) {
     setFeedbackOverlayKind(overlayKind);
+    setFeedbackOverlayProps(props);
     setIsShowingFeedbackOverlay(true);
   }
 
-  function hideFeedbackOverlay(overlayKind) {
+  function hideFeedbackOverlay() {
     setIsShowingFeedbackOverlay(false);
   }
 
@@ -132,7 +145,7 @@ const WalletScreen = () => {
                     balance={accountBalance}
                     isFetching={isFetchingUserAccount}
                     onDepositSelected={showDepositSheet}
-                    onSendSelected={performWithdrawal}
+                    onSendSelected={handleWithdrawSelection}
                   />
                 </View>
               );
@@ -169,7 +182,7 @@ const WalletScreen = () => {
         onBackdropPress={hideFeedbackOverlay}
         overlayStyle={FeedbackOverlayStyles.overlayWrapper}
       >
-        {makeOverlayContent(feedbackOverlayKind, { onClose: hideFeedbackOverlay })}
+        {makeOverlayContent(feedbackOverlayKind, feedbackOverlayProps)}
       </Overlay>
     </View>
   );
