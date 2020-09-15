@@ -1,6 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import Colors from '../../utils/styling/Colors';
 import SwymNameLogo from '../../components/SwymNameLogo';
 import { Button, Image, Input } from 'react-native-elements';
@@ -8,6 +7,7 @@ import ButtonStyles from '../../utils/styling/Buttons';
 import NavigationShape from '../../data/shapes/Navigation';
 import { useForm, Controller } from 'react-hook-form';
 import FormStyles from '../../utils/styling/Forms';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const SignInScreen = ({ navigation }) => {
   const { control, handleSubmit, errors } = useForm();
@@ -17,13 +17,13 @@ const SignInScreen = ({ navigation }) => {
   }
 
   return (
-    <View style={styles.rootContainer}>
+    <KeyboardAwareScrollView contentContainerStyle={styles.rootContainer}>
       <SwymNameLogo style={styles.logoNameContainer} />
 
       <Image
         containerStyle={styles.logoImageContainer}
         style={styles.logoImage}
-        source={require('../../../assets/images/logo-orange.png')}
+        source={require('../../../assets/images/logo-white.png')}
       />
 
       <View style={styles.formContainer}>
@@ -93,7 +93,7 @@ const SignInScreen = ({ navigation }) => {
           onPress={handleSubmit(onSignInSubmitted)}
         />
       </View>
-    </View>
+    </KeyboardAwareScrollView>
   );
 };
 
@@ -163,7 +163,7 @@ SignInScreen.navigationOptions = ({ navigation }) => {
           title="Sign Up"
           type="clear"
           onPress={() => {
-            navigation.navigate('Sign-Up');
+            navigation.replace('Sign-Up');
           }}
         />
       );
