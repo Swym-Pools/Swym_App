@@ -8,6 +8,7 @@ import FormStyles from '../../../utils/styling/Forms';
 import Colors from '../../../utils/styling/Colors';
 import ButtonStyles from '../../../utils/styling/Buttons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import NavbarStyles from '../../../utils/styling/Navbar';
 
 const SignUpFormScreen = ({ navigation }) => {
   const { control, handleSubmit, errors } = useForm();
@@ -185,5 +186,15 @@ SignUpFormScreen.propTypes = {
 };
 
 SignUpFormScreen.defaultProps = {};
+
+SignUpFormScreen.navigationOptions = ({ navigation }) => {
+  return {
+    headerBackTitle: '',
+    headerTitle: () => {
+      return <Text style={NavbarStyles.mainTitle}>Create Your Account</Text>;
+    },
+    headerTitleStyle: NavbarStyles.mainTitle,
+  };
+};
 
 export default SignUpFormScreen;

@@ -9,8 +9,16 @@ const SignUpNavigationStack = createStackNavigator();
 const SignUpNavigation = () => {
   return (
     <SignUpNavigationStack.Navigator initialRouteName="Sign-Up Root" mode="modal">
-      <SignUpNavigationStack.Screen name="Sign-Up Root" component={SignUpRootScreen} />
-      <SignUpNavigationStack.Screen name="Sign-Up Form" component={SignUpFormScreen} />
+      <SignUpNavigationStack.Screen
+        name="Sign-Up Root"
+        component={SignUpRootScreen}
+        options={{ headerShown: false }}
+      />
+      <SignUpNavigationStack.Screen
+        name="Sign-Up Form"
+        component={SignUpFormScreen}
+        options={SignUpFormScreen.navigationOptions}
+      />
     </SignUpNavigationStack.Navigator>
   );
 };
@@ -25,7 +33,11 @@ const AuthNavigation = () => {
         component={SignInScreen}
         options={SignInScreen.navigationOptions}
       />
-      <AuthNavigationStack.Screen name="Sign-Up" component={SignUpNavigation} />
+      <AuthNavigationStack.Screen
+        name="Sign-Up"
+        component={SignUpNavigation}
+        options={{ headerShown: false }}
+      />
     </AuthNavigationStack.Navigator>
   );
 };
