@@ -6,6 +6,7 @@ const Colors = {
   orange: '#FF6700',
   blue: '#39C6F4',
   purple: '#493F99',
+  errorRed: '#D00000',
   deepblue: '#001A33',
   sand: '#E7F1D1',
   green: '#45B649',

@@ -20,6 +20,7 @@
     "moment": "^2.27.0",
     "react": "~16.11.0",
     "react-dom": "~16.11.0",
+    "react-hook-form": "^6.8.2",
     "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz",
     "react-native-elements": "^2.3.2",
     "react-native-gesture-handler": "~1.6.0",
