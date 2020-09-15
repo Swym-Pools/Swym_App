@@ -31,7 +31,7 @@ const SignInScreen = ({ navigation }) => {
           control={control}
           name="username"
           defaultValue=""
-          rules={{ required: true }}
+          rules={{ required: true, minLength: 2 }}
           render={({ onChange, onBlur, value }) => (
             <View style={styles.formFieldContainer}>
               <Input
@@ -48,8 +48,11 @@ const SignInScreen = ({ navigation }) => {
                 onSubmitEditing={handleSubmit(onSignInSubmitted)}
               />
 
-              {errors.username && (
-                <Text style={FormStyles.errorText}> A username is required.</Text>
+              {errors.username?.type === 'required' && (
+                <Text style={FormStyles.errorText}>A username is required.</Text>
+              )}
+              {errors.username?.type === 'minLength' && (
+                <Text style={FormStyles.errorText}>Please choose a longer name.</Text>
               )}
             </View>
           )}
@@ -59,7 +62,7 @@ const SignInScreen = ({ navigation }) => {
           control={control}
           name="password"
           defaultValue=""
-          rules={{ required: true }}
+          rules={{ required: true, minLength: 4 }}
           render={({ onChange, onBlur, value }) => (
             <View style={styles.formFieldContainer}>
               <Input
@@ -77,7 +80,12 @@ const SignInScreen = ({ navigation }) => {
                 onSubmitEditing={handleSubmit(onSignInSubmitted)}
               />
 
-              {errors.password && <Text style={FormStyles.errorText}>A password is required.</Text>}
+              {errors.password?.type === 'required' && (
+                <Text style={FormStyles.errorText}>A password is required.</Text>
+              )}
+              {errors.password?.type === 'minLength' && (
+                <Text style={FormStyles.errorText}>Please try a longer password.</Text>
+              )}
             </View>
           )}
         />
