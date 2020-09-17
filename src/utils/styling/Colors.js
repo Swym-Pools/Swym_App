@@ -6,6 +6,7 @@ const Colors = {
   orange: '#FF6700',
   blue: '#39C6F4',
   purple: '#493F99',
+  errorRed: '#C02020',
   deepblue: '#001A33',
   sand: '#E7F1D1',
   green: '#45B649',
@@ -20,6 +21,7 @@ const Colors = {
   grayScale5: '#202020',
 
   shadow1: 'rgba(0, 0, 0, 0.18)',
+  shadow2: 'rgba(30, 30, 30, 0.48)',
 
   iconDisabled: 'rgba(100, 100, 100, 0.62)',
 };

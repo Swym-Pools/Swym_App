@@ -13,7 +13,7 @@ const WalletNavigationStack = createStackNavigator();
 const WalletScreenNavigation = () => {
   return (
     <WalletNavigationStack.Navigator
-      name="WalletNavigationRoot"
+      initialRouteName="Wallet"
       screenOptions={WalletScreen.navigationOptions}
     >
       <WalletNavigationStack.Screen
@@ -30,7 +30,7 @@ const PoolNavigationStack = createStackNavigator();
 const PoolScreenNavigation = () => {
   return (
     <PoolNavigationStack.Navigator
-      name="PoolNavigationRoot"
+      initialRouteName="Pool"
       screenOptions={PoolScreen.navigationOptions}
     >
       <PoolNavigationStack.Screen name="Pool" component={PoolScreen} />
@@ -43,7 +43,6 @@ const AccountNavigationStack = createStackNavigator();
 const AccountScreenNavigation = () => {
   return (
     <AccountNavigationStack.Navigator
-      name="AccountNavigationRoot"
       initialRouteName="Account"
       screenOptions={AccountScreen.navigationOptions}
       mode="modal"

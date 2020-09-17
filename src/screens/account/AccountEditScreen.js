@@ -5,6 +5,7 @@ import UserAccountShape from '../../data/model-shapes/UserAccount';
 import { Input, Button } from 'react-native-elements';
 import ButtonStyles from '../../utils/styling/Buttons';
 import Colors from '../../utils/styling/Colors';
+import FormStyles from '../../utils/styling/Forms';
 
 const AccountEditScreen = ({
   navigation,
@@ -71,9 +72,9 @@ const AccountEditScreen = ({
       <View style={{ ...styles.nonTrailingViewSection, ...styles.accountInfoSection }}>
         <Input
           containerStyle={styles.nonTrailingInfoItem}
-          inputContainerStyle={styles.inputContainer}
+          inputContainerStyle={FormStyles.inputContainer}
           label="Username"
-          labelStyle={styles.labelText}
+          labelStyle={[FormStyles.labelText, styles.labelText]}
           placeholder="Enter a username"
           placeholderTextColor={Colors.grayScale1}
           selectionColor={Colors.grayScale1}
@@ -86,9 +87,9 @@ const AccountEditScreen = ({
 
         <Input
           containerStyle={styles.nonTrailingInfoItem}
-          inputContainerStyle={styles.inputContainer}
+          inputContainerStyle={FormStyles.inputContainer}
           label="Email"
-          labelStyle={styles.labelText}
+          labelStyle={[FormStyles.labelText, styles.labelText]}
           placeholder="Enter an email address"
           placeholderTextColor={Colors.grayScale1}
           selectionColor={Colors.grayScale1}
@@ -101,9 +102,9 @@ const AccountEditScreen = ({
 
         <Input
           containerStyle={styles.nonTrailingInfoItem}
-          inputContainerStyle={styles.inputContainer}
+          inputContainerStyle={FormStyles.inputContainer}
           label="Phone Number"
-          labelStyle={styles.labelText}
+          labelStyle={[FormStyles.labelText, styles.labelText]}
           placeholder="Enter a phone Number"
           placeholderTextColor={Colors.grayScale1}
           selectionColor={Colors.grayScale1}
@@ -115,9 +116,9 @@ const AccountEditScreen = ({
         />
 
         <Input
-          inputContainerStyle={styles.inputContainer}
+          inputContainerStyle={FormStyles.inputContainer}
           label="Withdrawal Address"
-          labelStyle={styles.labelText}
+          labelStyle={[FormStyles.labelText, styles.labelText]}
           placeholder="BTC Wallet Address"
           placeholderTextColor={Colors.grayScale1}
           selectionColor={Colors.grayScale1}
@@ -179,15 +180,8 @@ const styles = StyleSheet.create({
     width: '100%',
   },
 
-  inputContainer: {
-    borderBottomColor: Colors.grayScale1,
-  },
-
   labelText: {
     color: Colors.purple,
-    fontSize: 15,
-    fontWeight: '600',
-    marginRight: 24,
   },
 
   nonTrailingViewSection: {
