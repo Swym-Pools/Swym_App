@@ -1,0 +1,35 @@
+{
+    "paths": [
+        {
+            "name": "/src",
+            "lambdaFunction": "SwymLambdaFunction",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/src"
+        }
+    ],
+    "resourceName": "SwymAPI",
+    "apiName": "SwymAPI",
+    "functionArns": [
+        {
+            "lambdaFunction": "SwymLambdaFunction"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "amplify-swymapp-dev-73045-authRole",
+        "unAuthRoleName": "amplify-swymapp-dev-73045-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "SwymLambdaFunction",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-swymapp-dev-73045-authRole",
+      "UnauthRoleArn": "arn:aws:iam::875159046450:role/amplify-swymapp-dev-73045-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::875159046450:role/amplify-swymapp-dev-73045-authRole",
+      "Region": "us-west-2",
+      "DeploymentBucketName": "amplify-swymapp-dev-73045-deployment",
+      "UnauthRoleName": "amplify-swymapp-dev-73045-unauthRole",
+      "StackName": "amplify-swymapp-dev-73045",
+      "StackId": "arn:aws:cloudformation:us-west-2:875159046450:stack/amplify-swymapp-dev-73045/0abff0e0-fc17-11ea-aad4-0ac14e4470d7",
+      "AmplifyAppId": "d1n2qmlfh91r5u"
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+    "tableName": "SwymDB",
+    "partitionKeyName": "UserID",
+    "partitionKeyType": "N",
+    "sortKeyName": "Phone",
+    "sortKeyType": "N"
+}
