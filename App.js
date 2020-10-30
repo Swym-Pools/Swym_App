@@ -8,7 +8,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <RootNavigation isSignedIn={isSignedIn} />
+      <RootNavigation isSignedIn={isSignedIn} setIsSignedIn={setIsSignedIn}/>
     </NavigationContainer>
   );
 }
