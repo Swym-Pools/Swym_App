@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Button, Input } from 'react-native-elements';
+import PropTypes from 'prop-types';
 import SwymNameLogo from '../../../components/SwymNameLogo';
 import NavigationShape from '../../../data/shapes/Navigation';
 import { useForm, Controller } from 'react-hook-form';
@@ -9,13 +10,44 @@ import Colors from '../../../utils/styling/Colors';
 import ButtonStyles from '../../../utils/styling/Buttons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import NavbarStyles from '../../../utils/styling/Navbar';
+import { createUserAccount } from '../../../utils/networking/API';
 
-const SignUpFormScreen = ({ navigation }) => {
-  const { control, handleSubmit, errors } = useForm();
+const SignUpFormScreen = ({ navigation, setIsSignedIn }) => {
+  const [errorsExist, setErrorsExist] = useState(false);
+  const { control, formState, handleSubmit, watch, errors, setError } = useForm();
+  const password = useRef({});
+  password.current = watch('password', '');
 
-  function onSignUpSubmitted({ username, email, password }) {
-    // TODO: Process Sign Up on API and transition to main view on success
-  }
+  const onSignUpSubmitted = async ({ username, email, password }) => {
+    if (Object.keys(errors).length) {
+      return;
+    }
+
+    const newUser = {
+      username,
+      email,
+      password,
+    };
+
+    const response = await createUserAccount(newUser);
+
+    if (response.status === 200) {
+      setIsSignedIn(true);
+    } else if (response.data === 'User already exists') {
+      setError('username', { type: 'manual', message: 'User already exists' });
+    }
+
+    // navigation.replace('Wallet');
+    // navigation.navigate('Wallet', { user: res.data });
+  };
+
+  useEffect(() => {
+    if (errors.username || errors.email || errors.password || errors.passwordConfirmation) {
+      setErrorsExist(true);
+    } else {
+      setErrorsExist(false);
+    }
+  }, [errors.username, errors.email, errors.password, errors.passwordConfirmation]);
 
   return (
     <KeyboardAwareScrollView contentContainerStyle={styles.rootContainer}>
@@ -27,9 +59,10 @@ const SignUpFormScreen = ({ navigation }) => {
           name="username"
           defaultValue=""
           rules={{ required: true }}
-          render={({ onChange, onBlur, value }) => (
+          render={({ onChange, value, name }) => (
             <View style={styles.formFieldContainer}>
               <Input
+                name={name}
                 inputContainerStyle={FormStyles.inputContainer}
                 label="Username"
                 labelStyle={styles.labelText}
@@ -44,7 +77,9 @@ const SignUpFormScreen = ({ navigation }) => {
               />
 
               {errors.username && (
-                <Text style={FormStyles.errorText}> A username is required.</Text>
+                <Text style={FormStyles.errorText}>
+                  {errors.username.message ? errors.username.message : 'A username is required.'}
+                </Text>
               )}
             </View>
           )}
@@ -54,10 +89,17 @@ const SignUpFormScreen = ({ navigation }) => {
           control={control}
           name="email"
           defaultValue=""
-          rules={{ required: true }}
-          render={({ onChange, onBlur, value }) => (
+          rules={{
+            required: true,
+            pattern: {
+              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+              message: 'Invalid email address',
+            },
+          }}
+          render={({ onChange, value, name }) => (
             <View style={styles.formFieldContainer}>
               <Input
+                name={name}
                 inputContainerStyle={FormStyles.inputContainer}
                 label="Email"
                 labelStyle={styles.labelText}
@@ -72,7 +114,9 @@ const SignUpFormScreen = ({ navigation }) => {
               />
 
               {errors.email && (
-                <Text style={FormStyles.errorText}> An email address is required.</Text>
+                <Text style={FormStyles.errorText}>
+                  {errors.email.message ? errors.email.message : 'An email address is required.'}
+                </Text>
               )}
             </View>
           )}
@@ -83,9 +127,10 @@ const SignUpFormScreen = ({ navigation }) => {
           name="password"
           defaultValue=""
           rules={{ required: true }}
-          render={({ onChange, onBlur, value }) => (
+          render={({ onChange, value, name }) => (
             <View style={styles.formFieldContainer}>
               <Input
+                name={name}
                 inputContainerStyle={{ ...FormStyles.inputContainer }}
                 label="Password"
                 labelStyle={styles.labelText}
@@ -109,10 +154,14 @@ const SignUpFormScreen = ({ navigation }) => {
           control={control}
           name="passwordConfirmation"
           defaultValue=""
-          rules={{ required: true }}
-          render={({ onChange, onBlur, value }) => (
+          rules={{
+            required: true,
+            validate: (value) => value === password.current || 'The passwords do not match',
+          }}
+          render={({ onChange, value, name }) => (
             <View style={styles.formFieldContainer}>
               <Input
+                name={name}
                 inputContainerStyle={{ ...FormStyles.inputContainer }}
                 label="Confirm Password"
                 labelStyle={styles.labelText}
@@ -128,7 +177,11 @@ const SignUpFormScreen = ({ navigation }) => {
               />
 
               {errors.passwordConfirmation && (
-                <Text style={FormStyles.errorText}>Password confirmation is required.</Text>
+                <Text style={FormStyles.errorText}>
+                  {errors.passwordConfirmation.message
+                    ? errors.passwordConfirmation.message
+                    : 'Password confirmation is required.'}
+                </Text>
               )}
             </View>
           )}
@@ -143,6 +196,7 @@ const SignUpFormScreen = ({ navigation }) => {
           buttonStyle={[ButtonStyles.actionButton]}
           titleStyle={ButtonStyles.actionButtonTitle}
           onPress={handleSubmit(onSignUpSubmitted)}
+          disabled={errorsExist || formState.isSubmitting}
         />
       </View>
     </KeyboardAwareScrollView>
@@ -183,6 +237,7 @@ const styles = StyleSheet.create({
 
 SignUpFormScreen.propTypes = {
   navigation: NavigationShape.isRequired,
+  setIsSignedIn: PropTypes.func,
 };
 
 SignUpFormScreen.defaultProps = {};

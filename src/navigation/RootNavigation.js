@@ -3,16 +3,18 @@ import PropTypes from 'prop-types';
 import MainNavigation from './MainNavigation';
 import AuthNavigation from './AuthNavigation';
 
-const RootNavigation = ({ isSignedIn }) => {
+const RootNavigation = ({ isSignedIn, setIsSignedIn, logout }) => {
   if (isSignedIn) {
-    return <MainNavigation />;
+    return <MainNavigation setIsSignedIn={setIsSignedIn} logout={logout} />;
   } else {
-    return <AuthNavigation />;
+    return <AuthNavigation setIsSignedIn={setIsSignedIn} />;
   }
 };
 
 RootNavigation.propTypes = {
   isSignedIn: PropTypes.bool.isRequired,
+  setIsSignedIn: PropTypes.func,
+  logout: PropTypes.func,
 };
 
 RootNavigation.defaultProps = {};

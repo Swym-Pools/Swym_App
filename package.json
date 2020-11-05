@@ -3,7 +3,7 @@
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
-    "ios": "expo start --ios",
+    "ios": "API_URL=https://blooming-meadow-37606.herokuapp.com expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
     "lint": "eslint src/",
@@ -15,6 +15,7 @@
     "@react-navigation/bottom-tabs": "^5.8.0",
     "@react-navigation/native": "^5.7.3",
     "@react-navigation/stack": "^5.9.0",
+    "axios": "^0.21.0",
     "expo": "~38.0.8",
     "expo-status-bar": "^1.0.2",
     "moment": "^2.27.0",

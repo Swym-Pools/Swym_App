@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, SectionList, Text } from 'react-native';
+import PropTypes from 'prop-types';
 import Navbar from '../../components/Navbar';
 import { fetchPoolResultsHistory, fetchPoolState } from '../../utils/networking/API';
 import Colors from '../../utils/styling/Colors';
 import PoolResultsHistoryCard from '../../components/pool/PoolResultsHistoryCard';
 import EstimatedPrizeSection from './EstimatedPrizeSection';
 import TotalSavingsSection from './TotalSavingsSection';
+import NavigationShape from '../../data/shapes/Navigation';
 
 export const SectionKind = Object.freeze({
   ESTIMATED_PRIZE: 'ESTIMATED_PRIZE',
@@ -18,7 +20,7 @@ function sectionListItemKeyExtractor(index) {
   return index;
 }
 
-const PoolScreen = () => {
+const PoolScreen = ({ navigation, logout }) => {
   const [poolResultsHistory, setPoolResultsHistory] = useState([]);
   const [isFetchingPoolResultsHistory, setIsFetchingPoolResultsHistory] = useState(false);
   const [poolResultsHistoryFetchError, setHasPoolResultsHistoryFetchError] = useState(false);
@@ -31,6 +33,10 @@ const PoolScreen = () => {
     loadPoolState();
     loadPoolResultsHistory();
   }, []);
+
+  useEffect(() => {
+    navigation.setParams({ logout });
+  }, [navigation, logout]);
 
   async function loadPoolState() {
     setIsFetchingPoolState(true);
@@ -160,14 +166,17 @@ const styles = StyleSheet.create({
   },
 });
 
-PoolScreen.propTypes = {};
+PoolScreen.propTypes = {
+  navigation: NavigationShape.isRequired,
+  logout: PropTypes.func,
+};
 
 PoolScreen.defaultProps = {};
 
-PoolScreen.navigationOptions = () => {
+PoolScreen.navigationOptions = ({ route }) => {
   return {
     header: () => {
-      return <Navbar title="Pool" />;
+      return <Navbar title="Pool" logout={route.params && route.params.logout} />;
     },
   };
 };

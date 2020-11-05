@@ -4,7 +4,7 @@ import { View, StyleSheet, Text } from 'react-native';
 import Colors from '../utils/styling/Colors';
 import { Image, Button } from 'react-native-elements';
 
-const Navbar = ({ title }) => {
+const Navbar = ({ title, logout }) => {
   return (
     <View style={styles.rootContainer}>
       <Image
@@ -21,6 +21,9 @@ const Navbar = ({ title }) => {
         title="Log Out"
         buttonStyle={styles.logoutButton}
         titleStyle={styles.logoutButtonText}
+        onPress={async () => {
+          logout();
+        }}
       />
     </View>
   );
@@ -77,6 +80,7 @@ const styles = StyleSheet.create({
 
 Navbar.propTypes = {
   title: PropTypes.string.isRequired,
+  logout: PropTypes.func,
 };
 
 Navbar.defaultProps = {};

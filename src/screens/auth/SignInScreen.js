@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import PropTypes from 'prop-types';
 import Colors from '../../utils/styling/Colors';
 import SwymNameLogo from '../../components/SwymNameLogo';
 import { Button, Image, Input } from 'react-native-elements';
@@ -8,14 +9,22 @@ import NavigationShape from '../../data/shapes/Navigation';
 import { useForm, Controller } from 'react-hook-form';
 import FormStyles from '../../utils/styling/Forms';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { validateLogin } from '../../utils/networking/API';
 
-const SignInScreen = ({ navigation }) => {
-  const { control, handleSubmit, errors } = useForm();
+const SignInScreen = ({ setIsSignedIn }) => {
+  const { control, handleSubmit, errors, setError } = useForm();
 
-  function onSignInSubmitted({ username, password }) {
+  const onSignInSubmitted = async ({ username, password }) => {
     // TODO: Process User sign in here
-  }
+    const response = await validateLogin({ username, password });
 
+    if (response.status === 200) {
+      setIsSignedIn(true);
+    } else if (response.data === 'Wrong username and/or password') {
+      setError('username', { type: 'manual', message: 'Wrong username and/or password' });
+    }
+  };
+  console.log(errors.username);
   return (
     <KeyboardAwareScrollView contentContainerStyle={styles.rootContainer}>
       <SwymNameLogo style={styles.logoNameContainer} />
@@ -32,9 +41,10 @@ const SignInScreen = ({ navigation }) => {
           name="username"
           defaultValue=""
           rules={{ required: true, minLength: 2 }}
-          render={({ onChange, onBlur, value }) => (
+          render={({ onChange, value, name }) => (
             <View style={styles.formFieldContainer}>
               <Input
+                name={name}
                 inputContainerStyle={FormStyles.inputContainer}
                 label="Username"
                 labelStyle={styles.labelText}
@@ -47,12 +57,14 @@ const SignInScreen = ({ navigation }) => {
                 onChangeText={(value) => onChange(value)}
                 onSubmitEditing={handleSubmit(onSignInSubmitted)}
               />
-
               {errors.username?.type === 'required' && (
                 <Text style={FormStyles.errorText}>A username is required.</Text>
               )}
               {errors.username?.type === 'minLength' && (
                 <Text style={FormStyles.errorText}>Please choose a longer name.</Text>
+              )}
+              {errors.username?.message === 'Wrong username and/or password' && (
+                <Text style={FormStyles.errorText}>{errors.username.message}</Text>
               )}
             </View>
           )}
@@ -63,9 +75,10 @@ const SignInScreen = ({ navigation }) => {
           name="password"
           defaultValue=""
           rules={{ required: true, minLength: 4 }}
-          render={({ onChange, onBlur, value }) => (
+          render={({ onChange, value, name }) => (
             <View style={styles.formFieldContainer}>
               <Input
+                name={name}
                 inputContainerStyle={{ ...FormStyles.inputContainer }}
                 label="Password"
                 labelStyle={styles.labelText}
@@ -157,6 +170,7 @@ const styles = StyleSheet.create({
 
 SignInScreen.propTypes = {
   navigation: NavigationShape.isRequired,
+  setIsSignedIn: PropTypes.func,
 };
 
 SignInScreen.defaultProps = {};

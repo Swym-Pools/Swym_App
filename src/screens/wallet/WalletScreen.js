@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { View, StyleSheet, SectionList, Share } from 'react-native';
 import Clipboard from '@react-native-community/clipboard';
+import PropTypes from 'prop-types';
 import { fetchTransactionHistory } from '../../utils/networking/API';
 import { sortTransactionsByDate } from '../../utils/transactions/TransactionUtils';
 import Colors from '../../utils/styling/Colors';
@@ -15,6 +16,7 @@ import DepositSheet from './DepositSheet';
 import { Overlay } from 'react-native-elements';
 import makeOverlayContent from '../../components/feedback-overlays/MakeOverlayContent';
 import FeedbackOverlayStyles from '../../utils/styling/FeedbackOverlays';
+import NavigationShape from '../../data/shapes/Navigation';
 
 export const SectionKind = Object.freeze({
   WALLET_BALANCE: 'WALLET_BALANCE',
@@ -25,7 +27,7 @@ function sectionListItemKeyExtractor(item, index) {
   return index;
 }
 
-const WalletScreen = () => {
+const WalletScreen = ({ navigation }) => {
   const [transactionHistory, setTransactionHistory] = useState([]);
   const [isFetchingTransactionHistory, setIsFetchingTransactionHistory] = useState(false);
   const [hasTransactionHistoryFetchError, setHasTransactionHistoryFetchError] = useState(false);
@@ -216,14 +218,18 @@ const styles = StyleSheet.create({
   },
 });
 
-WalletScreen.propTypes = {};
+WalletScreen.propTypes = {
+  navigation: NavigationShape.isRequired,
+  logout: PropTypes.func,
+};
 
 WalletScreen.defaultProps = {};
 
-WalletScreen.navigationOptions = () => {
+WalletScreen.navigationOptions = ({ route }) => {
+  console.log('ROUTE', route);
   return {
     header: () => {
-      return <Navbar title="Wallet" />;
+      return <Navbar title="Wallet" logout={route.params?.logout} />;
     },
   };
 };
