@@ -27,12 +27,16 @@ function sectionListItemKeyExtractor(item, index) {
   return index;
 }
 
-const WalletScreen = ({ navigation }) => {
+const WalletScreen = ({ route }) => {
+  const { userId } = route.params;
   const [transactionHistory, setTransactionHistory] = useState([]);
   const [isFetchingTransactionHistory, setIsFetchingTransactionHistory] = useState(false);
   const [hasTransactionHistoryFetchError, setHasTransactionHistoryFetchError] = useState(false);
 
-  const { userAccount, isFetchingUserAccount, hasUserAccountFetchError } = useUserAccountState();
+  const { userAccount, isFetchingUserAccount, hasUserAccountFetchError } = useUserAccountState(
+    userId,
+  );
+  console.log('USER? ', userAccount, isFetchingUserAccount, hasUserAccountFetchError);
 
   const [isShowingFeedbackOverlay, setIsShowingFeedbackOverlay] = useState(false);
   const [feedbackOverlayKind, setFeedbackOverlayKind] = useState(null);
@@ -226,7 +230,6 @@ WalletScreen.propTypes = {
 WalletScreen.defaultProps = {};
 
 WalletScreen.navigationOptions = ({ route }) => {
-  console.log('ROUTE', route);
   return {
     header: () => {
       return <Navbar title="Wallet" logout={route.params?.logout} />;

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import { Button } from 'react-native-elements';
 import PropTypes from 'prop-types';
@@ -8,12 +8,13 @@ import Colors from '../../utils/styling/Colors';
 import Navbar from '../../components/Navbar';
 import NavigationShape from '../../data/shapes/Navigation';
 
-const AccountScreen = ({ navigation, logout }) => {
-  const { userAccount, isFetchingUserAccount, hasUserAccountFetchError } = useUserAccountState();
-
-  useEffect(() => {
-    navigation.setParams({ logout });
-  }, [navigation, logout]);
+const AccountScreen = ({ navigation, route }) => {
+  const { userId } = route.params;
+  console.log('USER ID', userId);
+  const { userAccount, isFetchingUserAccount, hasUserAccountFetchError } = useUserAccountState(
+    userId,
+  );
+  console.log('USER? ', userAccount, isFetchingUserAccount, hasUserAccountFetchError);
 
   function onEditingSaved(editedAccount) {
     // TODO: set account state and send changes to the backend.
@@ -132,13 +133,12 @@ const styles = StyleSheet.create({
 
 AccountScreen.propTypes = {
   navigation: NavigationShape.isRequired,
-  logout: PropTypes.func,
+  route: PropTypes.object,
 };
 
 AccountScreen.defaultProps = {};
 
 AccountScreen.navigationOptions = ({ route }) => {
-  console.log('ROUTE', route);
   return {
     header: () => {
       return <Navbar title="Account" logout={route.params?.logout} />;

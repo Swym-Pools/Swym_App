@@ -11,7 +11,8 @@ import FormStyles from '../../utils/styling/Forms';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { validateLogin } from '../../utils/networking/API';
 
-const SignInScreen = ({ setIsSignedIn }) => {
+const SignInScreen = ({ route }) => {
+  const { setIsSignedIn, setUserId } = route.params;
   const { control, handleSubmit, errors, setError } = useForm();
 
   const onSignInSubmitted = async ({ username, password }) => {
@@ -19,12 +20,14 @@ const SignInScreen = ({ setIsSignedIn }) => {
     const response = await validateLogin({ username, password });
 
     if (response.status === 200) {
+      const userId = response.data.id;
+      setUserId(userId);
       setIsSignedIn(true);
     } else if (response.data === 'Wrong username and/or password') {
       setError('username', { type: 'manual', message: 'Wrong username and/or password' });
     }
   };
-  console.log(errors.username);
+
   return (
     <KeyboardAwareScrollView contentContainerStyle={styles.rootContainer}>
       <SwymNameLogo style={styles.logoNameContainer} />
@@ -170,6 +173,7 @@ const styles = StyleSheet.create({
 
 SignInScreen.propTypes = {
   navigation: NavigationShape.isRequired,
+  route: PropTypes.object,
   setIsSignedIn: PropTypes.func,
 };
 

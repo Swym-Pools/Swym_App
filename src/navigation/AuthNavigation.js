@@ -7,56 +7,54 @@ import SignUpFormScreen from '../screens/auth/sign-up/SignUpFormScreen';
 
 const SignUpNavigationStack = createStackNavigator();
 
-const SignUpNavigation = ({ setIsSignedIn }) => {
+const SignUpNavigation = ({ route }) => {
+  const { setIsSignedIn, setUserId } = route.params;
+
   return (
     <SignUpNavigationStack.Navigator initialRouteName="Sign-Up Root" mode="modal">
       <SignUpNavigationStack.Screen
         name="Sign-Up Root"
-        // component={SignUpRootScreen}
+        component={SignUpRootScreen}
         options={{ headerShown: false }}
-      >
-        {(props) => <SignUpRootScreen {...props} setIsSignedIn={setIsSignedIn} />}
-      </SignUpNavigationStack.Screen>
+      />
       <SignUpNavigationStack.Screen
         name="Sign-Up Form"
-        // component={SignUpFormScreen}
+        component={SignUpFormScreen}
         options={SignUpFormScreen.navigationOptions}
-      >
-        {(props) => <SignUpFormScreen {...props} setIsSignedIn={setIsSignedIn} />}
-      </SignUpNavigationStack.Screen>
+        initialParams={{ setIsSignedIn, setUserId }}
+      />
     </SignUpNavigationStack.Navigator>
   );
 };
 
 SignUpNavigation.propTypes = {
-  setIsSignedIn: PropTypes.func,
+  route: PropTypes.object,
 };
 
 const AuthNavigationStack = createStackNavigator();
 
-const AuthNavigation = ({ setIsSignedIn }) => {
+const AuthNavigation = ({ setIsSignedIn, setUserId }) => {
   return (
     <AuthNavigationStack.Navigator initialRouteName="Sign-In">
       <AuthNavigationStack.Screen
         name="Sign-In"
-        // component={SignInScreen}
+        component={SignInScreen}
         options={SignInScreen.navigationOptions}
-      >
-        {(props) => <SignInScreen {...props} setIsSignedIn={setIsSignedIn} />}
-      </AuthNavigationStack.Screen>
+        initialParams={{ setIsSignedIn, setUserId }}
+      />
       <AuthNavigationStack.Screen
         name="Sign-Up"
-        // component={SignUpNavigation}
+        component={SignUpNavigation}
         options={{ headerShown: false }}
-      >
-        {(props) => <SignUpNavigation {...props} setIsSignedIn={setIsSignedIn} />}
-      </AuthNavigationStack.Screen>
+        initialParams={{ setIsSignedIn, setUserId }}
+      />
     </AuthNavigationStack.Navigator>
   );
 };
 
 AuthNavigation.propTypes = {
   setIsSignedIn: PropTypes.func,
+  setUserId: PropTypes.func,
 };
 
 export default AuthNavigation;

@@ -51,7 +51,6 @@ export async function createUserAccount(user) {
 
 export async function validateLogin(user) {
   try {
-    console.log('sending: ', user);
     const response = await axios.put(`${API_URL}/auth/login`, user);
     return response;
   } catch (err) {
@@ -59,10 +58,9 @@ export async function validateLogin(user) {
   }
 }
 
-export async function fetchUserAccount(user) {
+export async function fetchUserAccount(userId) {
   try {
-    console.log('sending: ', user);
-    const response = await axios.put(`${API_URL}/auth/me`, user);
+    const response = await axios.get(`${API_URL}/api/user/${userId}`);
     return response;
   } catch (err) {
     return err.response;
@@ -72,10 +70,8 @@ export async function fetchUserAccount(user) {
 export async function logoutUser() {
   try {
     const response = await axios.delete(`${API_URL}/auth/logout`);
-    console.log('logged out');
     return response;
   } catch (err) {
-    console.log('logged out error');
     return err.response;
   }
 }

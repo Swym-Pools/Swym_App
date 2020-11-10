@@ -10,10 +10,14 @@ export default function useUserAccountState(userId) {
     async function loadAccountDetails() {
       setIsFetchingUserAccount(true);
 
+      console.log('<><><><><> FETCHING <><><><><><>');
+      console.log(`<><><><><> ${userId} <><><><><><>`);
       try {
         // TODO: Refactor after there's more clarity about how to retrieve authentication
         // credentials from the API.
-        const userAccount = await fetchUserAccount(userId);
+        const response = await fetchUserAccount(userId);
+        const userAccount = response.data;
+        console.log('FETCHED A USER?', response);
 
         setUserAccount(userAccount);
         setHasUserAccountFetchError(false);

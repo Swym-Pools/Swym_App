@@ -12,7 +12,8 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import NavbarStyles from '../../../utils/styling/Navbar';
 import { createUserAccount } from '../../../utils/networking/API';
 
-const SignUpFormScreen = ({ navigation, setIsSignedIn }) => {
+const SignUpFormScreen = ({ route }) => {
+  const { setIsSignedIn, setUserId } = route.params;
   const [errorsExist, setErrorsExist] = useState(false);
   const { control, formState, handleSubmit, watch, errors, setError } = useForm();
   const password = useRef({});
@@ -32,13 +33,12 @@ const SignUpFormScreen = ({ navigation, setIsSignedIn }) => {
     const response = await createUserAccount(newUser);
 
     if (response.status === 200) {
+      const userId = response.data.id;
+      setUserId(userId);
       setIsSignedIn(true);
     } else if (response.data === 'User already exists') {
       setError('username', { type: 'manual', message: 'User already exists' });
     }
-
-    // navigation.replace('Wallet');
-    // navigation.navigate('Wallet', { user: res.data });
   };
 
   useEffect(() => {
@@ -58,7 +58,7 @@ const SignUpFormScreen = ({ navigation, setIsSignedIn }) => {
           control={control}
           name="username"
           defaultValue=""
-          rules={{ required: true }}
+          rules={{ required: true, minLength: 2 }}
           render={({ onChange, value, name }) => (
             <View style={styles.formFieldContainer}>
               <Input
@@ -126,7 +126,7 @@ const SignUpFormScreen = ({ navigation, setIsSignedIn }) => {
           control={control}
           name="password"
           defaultValue=""
-          rules={{ required: true }}
+          rules={{ required: true, minLength: 4 }}
           render={({ onChange, value, name }) => (
             <View style={styles.formFieldContainer}>
               <Input
@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
 
 SignUpFormScreen.propTypes = {
   navigation: NavigationShape.isRequired,
-  setIsSignedIn: PropTypes.func,
+  route: PropTypes.object,
 };
 
 SignUpFormScreen.defaultProps = {};
