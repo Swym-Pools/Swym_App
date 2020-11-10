@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
 
 WalletScreen.propTypes = {
   navigation: NavigationShape.isRequired,
-  logout: PropTypes.func,
+  route: PropTypes.object,
 };
 
 WalletScreen.defaultProps = {};

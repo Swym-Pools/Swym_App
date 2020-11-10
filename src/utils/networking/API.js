@@ -60,7 +60,16 @@ export async function validateLogin(user) {
 
 export async function fetchUserAccount(userId) {
   try {
-    const response = await axios.get(`${API_URL}/api/user/${userId}`);
+    const response = await axios.get(`${API_URL}/api/users/${userId}`);
+    return response;
+  } catch (err) {
+    return err.response;
+  }
+}
+
+export async function editUserAccount(user) {
+  try {
+    const response = await axios.put(`${API_URL}/api/users/${user.id}`, user);
     return response;
   } catch (err) {
     return err.response;
