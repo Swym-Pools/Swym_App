@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { View, StyleSheet, Text, SafeAreaView, ScrollView } from 'react-native';
 import UserAccountShape from '../../data/model-shapes/UserAccount';
@@ -10,20 +10,23 @@ import FormStyles from '../../utils/styling/Forms';
 const AccountEditScreen = ({
   navigation,
   route: {
-    params: { currentAccount, onSave },
+    params: { currentAccount, onSave, updateUser },
   },
 }) => {
   const [username, setUsername] = useState(currentAccount.username);
   const [email, setEmail] = useState(currentAccount.email);
-  const [phoneNumberString, setPhoneNumberString] = useState(`${currentAccount.phoneNumber}`);
-  const [withdrawalAddress, setWithdrawalAddress] = useState(currentAccount.withdrawalAddress);
+  const [phoneNumberString, setPhoneNumberString] = useState(currentAccount.phoneNumber || '');
+  const [withdrawalAddress, setWithdrawalAddress] = useState(
+    currentAccount.withdrawalAddress || '',
+  );
+  const [errors, setErrors] = useState({});
 
   const editedAccount = useMemo(() => {
     return {
       id: currentAccount.id,
       username,
       email,
-      phone: Number(phoneNumberString),
+      phoneNumber: Number(phoneNumberString),
       withdrawalAddress,
     };
   }, [currentAccount.id, username, email, phoneNumberString, withdrawalAddress]);
@@ -38,9 +41,12 @@ const AccountEditScreen = ({
     );
   }, [username, email, phoneNumberString, withdrawalAddress]);
 
-  function saveChanges() {
-    onSave(editedAccount);
-    navigation.goBack();
+  async function saveChanges() {
+    const response = await onSave(editedAccount);
+    if (response.status === 200) {
+      updateUser(response.data);
+      navigation.goBack();
+    }
   }
 
   function onUsernameChanged(newValue) {
@@ -55,9 +61,10 @@ const AccountEditScreen = ({
     setPhoneNumberString(newValue);
   }
 
-  function onWithdrawalAddressChanged(newValue) {
+  const onWithdrawalAddressChanged = useCallback((newValue) => {
+    console.log(newValue);
     setWithdrawalAddress(newValue);
-  }
+  }, []);
 
   function handleSubmit() {
     if (isSaveEnabled === false) {
@@ -67,75 +74,69 @@ const AccountEditScreen = ({
     saveChanges();
   }
 
-  const AccountInfoSection = () => {
-    return (
-      <View style={{ ...styles.nonTrailingViewSection, ...styles.accountInfoSection }}>
-        <Input
-          containerStyle={styles.nonTrailingInfoItem}
-          inputContainerStyle={FormStyles.inputContainer}
-          label="Username"
-          labelStyle={[FormStyles.labelText, styles.labelText]}
-          placeholder="Enter a username"
-          placeholderTextColor={Colors.grayScale1}
-          selectionColor={Colors.grayScale1}
-          underlineColorAndroid={Colors.grayScale1}
-          textContentType="username"
-          value={username}
-          onChangeText={onUsernameChanged}
-          onSubmitEditing={handleSubmit}
-        />
-
-        <Input
-          containerStyle={styles.nonTrailingInfoItem}
-          inputContainerStyle={FormStyles.inputContainer}
-          label="Email"
-          labelStyle={[FormStyles.labelText, styles.labelText]}
-          placeholder="Enter an email address"
-          placeholderTextColor={Colors.grayScale1}
-          selectionColor={Colors.grayScale1}
-          underlineColorAndroid={Colors.grayScale1}
-          textContentType="emailAddress"
-          value={email}
-          onChangeText={onEmailChanged}
-          onSubmitEditing={handleSubmit}
-        />
-
-        <Input
-          containerStyle={styles.nonTrailingInfoItem}
-          inputContainerStyle={FormStyles.inputContainer}
-          label="Phone Number"
-          labelStyle={[FormStyles.labelText, styles.labelText]}
-          placeholder="Enter a phone Number"
-          placeholderTextColor={Colors.grayScale1}
-          selectionColor={Colors.grayScale1}
-          underlineColorAndroid={Colors.grayScale1}
-          textContentType="telephoneNumber"
-          value={phoneNumberString}
-          onChangeText={onPhoneNumberStringChanged}
-          onSubmitEditing={handleSubmit}
-        />
-
-        <Input
-          inputContainerStyle={FormStyles.inputContainer}
-          label="Withdrawal Address"
-          labelStyle={[FormStyles.labelText, styles.labelText]}
-          placeholder="BTC Wallet Address"
-          placeholderTextColor={Colors.grayScale1}
-          selectionColor={Colors.grayScale1}
-          underlineColorAndroid={Colors.grayScale1}
-          value={withdrawalAddress}
-          onChangeText={onWithdrawalAddressChanged}
-          onSubmitEditing={handleSubmit}
-        />
-      </View>
-    );
-  };
-
   return (
     <ScrollView style={styles.rootContainer}>
       <SafeAreaView style={styles.outerViewContentContainer}>
         <View style={styles.innerViewContentContainer}>
-          <AccountInfoSection />
+          <View style={{ ...styles.nonTrailingViewSection, ...styles.accountInfoSection }}>
+            <Input
+              containerStyle={styles.nonTrailingInfoItem}
+              inputContainerStyle={FormStyles.inputContainer}
+              label="Username"
+              labelStyle={[FormStyles.labelText, styles.labelText]}
+              placeholder="Enter a username"
+              placeholderTextColor={Colors.grayScale1}
+              selectionColor={Colors.grayScale1}
+              underlineColorAndroid={Colors.grayScale1}
+              textContentType="username"
+              value={username}
+              onChangeText={onUsernameChanged}
+              onSubmitEditing={handleSubmit}
+            />
+
+            <Input
+              containerStyle={styles.nonTrailingInfoItem}
+              inputContainerStyle={FormStyles.inputContainer}
+              label="Email"
+              labelStyle={[FormStyles.labelText, styles.labelText]}
+              placeholder="Enter an email address"
+              placeholderTextColor={Colors.grayScale1}
+              selectionColor={Colors.grayScale1}
+              underlineColorAndroid={Colors.grayScale1}
+              textContentType="emailAddress"
+              value={email}
+              onChangeText={onEmailChanged}
+              onSubmitEditing={handleSubmit}
+            />
+
+            <Input
+              containerStyle={styles.nonTrailingInfoItem}
+              inputContainerStyle={FormStyles.inputContainer}
+              label="Phone Number"
+              labelStyle={[FormStyles.labelText, styles.labelText]}
+              placeholder="Enter a phone Number"
+              placeholderTextColor={Colors.grayScale1}
+              selectionColor={Colors.grayScale1}
+              underlineColorAndroid={Colors.grayScale1}
+              textContentType="telephoneNumber"
+              value={phoneNumberString}
+              onChangeText={onPhoneNumberStringChanged}
+              onSubmitEditing={handleSubmit}
+            />
+
+            <Input
+              inputContainerStyle={FormStyles.inputContainer}
+              label="Withdrawal Address"
+              labelStyle={[FormStyles.labelText, styles.labelText]}
+              placeholder="BTC Wallet Address"
+              placeholderTextColor={Colors.grayScale1}
+              selectionColor={Colors.grayScale1}
+              underlineColorAndroid={Colors.grayScale1}
+              value={withdrawalAddress}
+              onChangeText={onWithdrawalAddressChanged}
+              onSubmitEditing={handleSubmit}
+            />
+          </View>
 
           <View style={[styles.nonTrailingViewSection, styles.actionButtonSection]}>
             <Button

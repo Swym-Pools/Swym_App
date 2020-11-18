@@ -34,10 +34,13 @@ function mapPoolResultsHistory(result) {
   };
 }
 
-export async function fetchTransactionHistory() {
-  await sleep(500);
-
-  return transactionHistory.results;
+export async function fetchTransactionHistory(userId) {
+  try {
+    const response = await axios.get(`${API_URL}/api/transactions/user/${userId}`);
+    return response;
+  } catch (err) {
+    return err.response;
+  }
 }
 
 export async function createUserAccount(user) {

@@ -32,6 +32,7 @@ const WalletScreen = ({ route }) => {
   const [transactionHistory, setTransactionHistory] = useState([]);
   const [isFetchingTransactionHistory, setIsFetchingTransactionHistory] = useState(false);
   const [hasTransactionHistoryFetchError, setHasTransactionHistoryFetchError] = useState(false);
+  const [userBalance, setUserBalance] = useState(0);
 
   const { userAccount, isFetchingUserAccount, hasUserAccountFetchError } = useUserAccountState(
     userId,
@@ -49,21 +50,30 @@ const WalletScreen = ({ route }) => {
   }, [transactionHistory]);
 
   const accountBalance = useMemo(() => {
-    return userAccount === null ? 0 : userAccount.balance;
-  }, [userAccount]);
+    console.log('user account!', userAccount);
+    console.log('balance', userBalance);
+    console.log(userAccount === null ? 0 : userBalance);
+    return userAccount === null ? 0 : userBalance;
+  }, [userAccount, userBalance]);
 
   useEffect(() => {
-    loadTransactionHistory();
-  }, []);
+    if (userAccount !== null) {
+      loadTransactionHistory(userAccount.id);
+    }
+  }, [userAccount]);
 
-  async function loadTransactionHistory() {
+  async function loadTransactionHistory(userId) {
     setIsFetchingTransactionHistory(true);
 
     try {
-      const transactionHistory = await fetchTransactionHistory();
+      const response = await fetchTransactionHistory(userId);
 
-      setTransactionHistory(transactionHistory);
-      setHasTransactionHistoryFetchError(false);
+      if (response.status === 200) {
+        const { transactions, balance } = response.data;
+        setTransactionHistory(transactions);
+        setUserBalance(balance);
+        setHasTransactionHistoryFetchError(false);
+      }
     } catch (error) {
       setHasTransactionHistoryFetchError(true);
     } finally {
@@ -147,7 +157,7 @@ const WalletScreen = ({ route }) => {
         sections={[
           {
             kind: SectionKind.WALLET_BALANCE,
-            data: [accountBalance],
+            data: [userBalance],
             renderItem: () => {
               return (
                 <View style={[styles.cardContainer, styles.viewSectionContainer]}>

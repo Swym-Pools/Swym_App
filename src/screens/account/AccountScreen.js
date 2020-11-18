@@ -7,25 +7,28 @@ import useUserAccountState from '../../utils/hooks/UseUserAccountState';
 import Colors from '../../utils/styling/Colors';
 import Navbar from '../../components/Navbar';
 import NavigationShape from '../../data/shapes/Navigation';
+import { editUserAccount } from '../../utils/networking/API';
 
 const AccountScreen = ({ navigation, route }) => {
   const { userId } = route.params;
   console.log('USER ID', userId);
-  const { userAccount, isFetchingUserAccount, hasUserAccountFetchError } = useUserAccountState(
-    userId,
-  );
+  const {
+    userAccount,
+    isFetchingUserAccount,
+    hasUserAccountFetchError,
+    updateUser,
+  } = useUserAccountState(userId);
   console.log('USER? ', userAccount, isFetchingUserAccount, hasUserAccountFetchError);
 
   function onEditingSaved(editedAccount) {
-    // TODO: set account state and send changes to the backend.
-    console.log('onEditingSaved -- edited account:');
-    console.log(editedAccount.username);
+    return editUserAccount(editedAccount);
   }
 
   function activateEditMode() {
     navigation.navigate('AccountEdit', {
       currentAccount: userAccount,
       onSave: onEditingSaved,
+      updateUser,
     });
   }
 

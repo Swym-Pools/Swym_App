@@ -20,12 +20,15 @@ const TransactionHistorySection = ({ transactions, isFetching }) => {
       ) : (
         <View>
           <Text style={styles.sectionHeading}>Transaction History</Text>
-
-          <FlatList
-            data={transactions}
-            keyExtractor={keyExtractor}
-            renderItem={renderTransactionItem}
-          />
+          {transactions.length ? (
+            <FlatList
+              data={transactions}
+              keyExtractor={keyExtractor}
+              renderItem={renderTransactionItem}
+            />
+          ) : (
+            <Text style={styles.growContainer}>No Transactions</Text>
+          )}
         </View>
       )}
     </View>
@@ -38,6 +41,11 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: '700',
     marginBottom: 24,
+  },
+  growContainer: {
+    display: 'flex',
+    flex: 1,
+    justifyContent: 'center',
   },
 });
 
