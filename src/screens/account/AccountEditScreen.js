@@ -206,6 +206,7 @@ AccountEditScreen.propTypes = {
     params: PropTypes.shape({
       currentAccount: UserAccountShape,
       onSave: PropTypes.func.isRequired,
+      updateUser: PropTypes.func.isRequired,
     }),
   }),
 };

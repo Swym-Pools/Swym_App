@@ -4,7 +4,7 @@ import transactionHistory from './mock-data/transaction-history';
 import userAccount from './mock-data/user-account';
 import poolState from './mock-data/pool-state';
 import poolResultsHistory from './mock-data/pool-results-history';
-const API_URL = process.env.API_URL || 'https://blooming-meadow-37606.herokuapp.com';
+const API_URL = process.env.API_URL || 'https://swym-backend.herokuapp.com';
 
 function mapUserAccount(accountResult) {
   return {
@@ -37,6 +37,7 @@ function mapPoolResultsHistory(result) {
 export async function fetchTransactionHistory(userId) {
   try {
     const response = await axios.get(`${API_URL}/api/transactions/user/${userId}`);
+    console.log('DATA', response.data);
     return response;
   } catch (err) {
     return err.response;
@@ -89,9 +90,22 @@ export async function logoutUser() {
 }
 
 export async function fetchPoolState() {
-  await sleep(500);
+  try {
+    const response = await axios.get(`${API_URL}/api/champions/`);
+    return response;
+  } catch (err) {
+    return err.response;
+  }
+}
 
-  return mapPoolState(poolState.pool);
+export async function generateCode(userId) {
+  try {
+    const response = await axios.get(`${API_URL}/api/generateCode/${userId}`);
+    console.log('code response', response);
+    return response;
+  } catch (err) {
+    return err.response;
+  }
 }
 
 export async function fetchPoolResultsHistory() {

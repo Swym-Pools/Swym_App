@@ -13,8 +13,7 @@ const DepositSheet = ({ address, onCopySelected, onShareSelected, onClose, qrCod
           <Text style={styles.addressHeadingText}>Address QR Code</Text>
           <Text style={styles.addressText}>{address}</Text>
         </View>
-
-        <QRCode value={address} size={qrCodeSize} />
+        {address ? <QRCode value={address} size={qrCodeSize} /> : null}
       </View>
 
       <TouchableOpacity

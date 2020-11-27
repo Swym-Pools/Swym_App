@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { View, StyleSheet, SectionList, Share } from 'react-native';
-import Clipboard from '@react-native-community/clipboard';
+import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
+import { View, StyleSheet, SectionList, Share, Clipboard } from 'react-native';
+// import Clipboard from '@react-native-community/clipboard';
+
 import PropTypes from 'prop-types';
-import { fetchTransactionHistory } from '../../utils/networking/API';
+import { fetchTransactionHistory, generateCode } from '../../utils/networking/API';
 import { sortTransactionsByDate } from '../../utils/transactions/TransactionUtils';
 import Colors from '../../utils/styling/Colors';
 import useUserAccountState from '../../utils/hooks/UseUserAccountState';
@@ -34,10 +35,14 @@ const WalletScreen = ({ route }) => {
   const [hasTransactionHistoryFetchError, setHasTransactionHistoryFetchError] = useState(false);
   const [userBalance, setUserBalance] = useState(0);
 
+  // Address/Clipboard
+  const [address, setAddress] = useState('');
+  // For Clipboard Hook
+  // const [data, setString] = useClipboard('');
+
   const { userAccount, isFetchingUserAccount, hasUserAccountFetchError } = useUserAccountState(
     userId,
   );
-  console.log('USER? ', userAccount, isFetchingUserAccount, hasUserAccountFetchError);
 
   const [isShowingFeedbackOverlay, setIsShowingFeedbackOverlay] = useState(false);
   const [feedbackOverlayKind, setFeedbackOverlayKind] = useState(null);
@@ -50,17 +55,22 @@ const WalletScreen = ({ route }) => {
   }, [transactionHistory]);
 
   const accountBalance = useMemo(() => {
-    console.log('user account!', userAccount);
-    console.log('balance', userBalance);
-    console.log(userAccount === null ? 0 : userBalance);
     return userAccount === null ? 0 : userBalance;
   }, [userAccount, userBalance]);
+
+  const generateAddress = useCallback(async () => {
+    if (userAccount) {
+      const response = await generateCode(userAccount.id);
+      setAddress(response.data);
+    }
+  }, [userAccount]);
 
   useEffect(() => {
     if (userAccount !== null) {
       loadTransactionHistory(userAccount.id);
+      generateAddress();
     }
-  }, [userAccount]);
+  }, [userAccount, generateAddress]);
 
   async function loadTransactionHistory(userId) {
     setIsFetchingTransactionHistory(true);
@@ -70,7 +80,17 @@ const WalletScreen = ({ route }) => {
 
       if (response.status === 200) {
         const { transactions, balance } = response.data;
-        setTransactionHistory(transactions);
+
+        const transactionsHistory = transactions.map((transaction) => {
+          return {
+            id: `${transaction.id}`,
+            kind: transaction.amount > 0 ? 'deposit' : 'send',
+            amount: Math.abs(transaction.amount),
+            timestamp: transaction.createdAt,
+          };
+        });
+
+        setTransactionHistory(transactionsHistory);
         setUserBalance(balance);
         setHasTransactionHistoryFetchError(false);
       }
@@ -83,7 +103,7 @@ const WalletScreen = ({ route }) => {
 
   function renderDepositSheet() {
     // TODO: I'm thinking we'll need to fetch this dynamically.
-    const address = SWYM_DEPOSIT_ADDRESS;
+    // const address = SWYM_DEPOSIT_ADDRESS;
 
     return (
       <DepositSheet
@@ -100,6 +120,7 @@ const WalletScreen = ({ route }) => {
   }
 
   function hideDepositSheet() {
+    generateAddress();
     depositSheetRef.current.snapTo(1);
   }
 
@@ -107,12 +128,14 @@ const WalletScreen = ({ route }) => {
     hideDepositSheet();
 
     await Share.share({
-      message: SWYM_DEPOSIT_ADDRESS,
+      message: address,
     });
   }
 
-  function copyDepositAddress() {
-    Clipboard.setString(SWYM_DEPOSIT_ADDRESS);
+  async function copyDepositAddress() {
+    const addressToSet = address;
+    console.log('CLIP BOARD', Clipboard);
+    await Clipboard.setString(addressToSet);
     hideDepositSheet();
   }
 

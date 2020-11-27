@@ -31,7 +31,7 @@ const PoolScreen = ({ navigation, logout }) => {
 
   useEffect(() => {
     loadPoolState();
-    loadPoolResultsHistory();
+    // loadPoolResultsHistory()
   }, []);
 
   useEffect(() => {
@@ -42,10 +42,22 @@ const PoolScreen = ({ navigation, logout }) => {
     setIsFetchingPoolState(true);
 
     try {
-      const poolState = await fetchPoolState();
-
-      setPoolState(poolState);
-      setHasPoolStateFetchError(false);
+      const response = await fetchPoolState();
+      console.log(poolState);
+      if (response.status === 200) {
+        const { poolResultsHistory, totalSavings } = response.data;
+        const poolState = {
+          poolResultsHistory: poolResultsHistory.map((item) => ({
+            id: item.id,
+            winnerUsername: item.user.username,
+            prize: item.amount,
+            drawingTimestamp: item.createdAt,
+          })),
+          totalSavings: Number(totalSavings),
+        };
+        setPoolState(poolState);
+        setHasPoolStateFetchError(false);
+      }
     } catch (error) {
       setHasPoolStateFetchError(true);
     } finally {
@@ -53,20 +65,20 @@ const PoolScreen = ({ navigation, logout }) => {
     }
   }
 
-  async function loadPoolResultsHistory() {
-    setIsFetchingPoolResultsHistory(true);
+  // async function loadPoolResultsHistory() {
+  //   setIsFetchingPoolResultsHistory(true);
 
-    try {
-      const resultsHistory = await fetchPoolResultsHistory();
+  //   try {
+  //     const resultsHistory = await fetchPoolResultsHistory();
 
-      setPoolResultsHistory(resultsHistory);
-      setHasPoolResultsHistoryFetchError(false);
-    } catch (error) {
-      setHasPoolResultsHistoryFetchError(true);
-    } finally {
-      setIsFetchingPoolResultsHistory(false);
-    }
-  }
+  //     setPoolResultsHistory(resultsHistory);
+  //     setHasPoolResultsHistoryFetchError(false);
+  //   } catch (error) {
+  //     setHasPoolResultsHistoryFetchError(true);
+  //   } finally {
+  //     setIsFetchingPoolResultsHistory(false);
+  //   }
+  // }
 
   return (
     <View style={styles.rootViewContainer}>
@@ -120,8 +132,10 @@ const PoolScreen = ({ navigation, logout }) => {
               return (
                 <View style={[styles.cardContainer, styles.viewSectionContainer]}>
                   <PoolResultsHistoryCard
-                    results={poolResultsHistory}
-                    isFetching={isFetchingPoolResultsHistory}
+                    results={
+                      poolState?.poolResultsHistory?.length ? poolState.poolResultsHistory : []
+                    }
+                    isFetching={isFetchingPoolState}
                   />
                 </View>
               );
