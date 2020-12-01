@@ -2,7 +2,7 @@
 
 The Swym app enables you to win Bitcoin by simply saving money.
 
-Visit our [website](https://www.swympools.org) and sign up for early access to the upcoming giveaways.
+Visit our [website](https://www.swympools.org) and join the pool.
 
 ## Contributing
 
