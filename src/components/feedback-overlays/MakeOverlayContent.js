@@ -4,6 +4,7 @@ import CheckEmailToConfirmWithdrawalAddressOverlayContent from './CheckEmailToCo
 import DepositCompletedOverlayContent from './DepositCompletedOverlayContent';
 import EmptyBalanceOverlayContent from './EmptyBalanceOverlayContent';
 import SentBTCFollowOnBlockchainOverlayContent from './SentBTCFollowOnBlockchainOverlayContent';
+import ChampionOverlayContent from './ChampionOverlayContent';
 
 export default function makeOverlayContent(overlayKind, props = {}) {
   switch (overlayKind) {
@@ -15,6 +16,8 @@ export default function makeOverlayContent(overlayKind, props = {}) {
       return <SentBTCFollowOnBlockchainOverlayContent {...props} />;
     case FeedbackOverlayKind.DEPOSIT_COMPLETED:
       return <DepositCompletedOverlayContent {...props} />;
+    case FeedbackOverlayKind.CHAMPION_ANNOUNCEMENT:
+      return <ChampionOverlayContent {...props} />;
     default:
       break;
   }

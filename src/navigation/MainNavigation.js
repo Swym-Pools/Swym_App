@@ -116,6 +116,7 @@ const MainNavigation = ({ userId, logout }) => {
         inactiveBackgroundColor: Colors.blue,
         activeTintColor: Colors.purple,
         inactiveTintColor: Colors.iconDisabled,
+        style: { backgroundColor: Colors.blue },
       }}
     >
       <MainNavigationStack.Screen

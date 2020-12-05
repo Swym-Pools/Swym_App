@@ -11,13 +11,13 @@ import Navbar from '../../components/Navbar';
 import WalletDetailsSection from './WalletDetailsSection';
 import TransactionHistorySection from './TransactionHistorySection';
 import BottomSheet from 'reanimated-bottom-sheet';
-import { SWYM_DEPOSIT_ADDRESS } from '../../utils/constants/Swym';
 import { FeedbackOverlayKind } from '../../utils/constants/FeedbackOverlays';
 import DepositSheet from './DepositSheet';
 import { Overlay } from 'react-native-elements';
 import makeOverlayContent from '../../components/feedback-overlays/MakeOverlayContent';
 import FeedbackOverlayStyles from '../../utils/styling/FeedbackOverlays';
 import NavigationShape from '../../data/shapes/Navigation';
+import ChampionAnnouncementModal from '../../components/ChampionAnnouncementModal';
 
 export const SectionKind = Object.freeze({
   WALLET_BALANCE: 'WALLET_BALANCE',
@@ -227,6 +227,7 @@ const WalletScreen = ({ route }) => {
       >
         {makeOverlayContent(feedbackOverlayKind, feedbackOverlayProps)}
       </Overlay>
+      <ChampionAnnouncementModal modalVisible={false} />
     </View>
   );
 };
