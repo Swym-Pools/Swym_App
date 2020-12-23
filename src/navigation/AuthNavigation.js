@@ -21,7 +21,7 @@ const SignUpNavigation = ({ route }) => {
         name="Sign-Up Form"
         component={SignUpFormScreen}
         options={SignUpFormScreen.navigationOptions}
-        initialParams={{ setIsSignedIn, setUserId }}
+        initialParams={{ setIsSignedIn: (bool) => setIsSignedIn(bool), setUserId }}
       />
     </SignUpNavigationStack.Navigator>
   );
@@ -40,13 +40,13 @@ const AuthNavigation = ({ setIsSignedIn, setUserId }) => {
         name="Sign-In"
         component={SignInScreen}
         options={SignInScreen.navigationOptions}
-        initialParams={{ setIsSignedIn, setUserId }}
+        initialParams={{ setIsSignedIn: (bool) => setIsSignedIn(bool), setUserId }}
       />
       <AuthNavigationStack.Screen
         name="Sign-Up"
         component={SignUpNavigation}
         options={{ headerShown: false }}
-        initialParams={{ setIsSignedIn, setUserId }}
+        initialParams={{ setIsSignedIn: (bool) => setIsSignedIn(bool), setUserId }}
       />
     </AuthNavigationStack.Navigator>
   );

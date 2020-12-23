@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import RootNavigation from './src/navigation/RootNavigation';
 import { NavigationContainer } from '@react-navigation/native';
 import { logoutUser } from './src/utils/networking/API';
+import { YellowBox } from 'react-native';
 
 export default function App() {
   const [isSignedIn, setIsSignedIn] = useState(false);
@@ -16,6 +17,8 @@ export default function App() {
       setUserId(null);
     }
   };
+
+  YellowBox.ignoreWarnings(['Non-serializable values were found in the navigation state']);
 
   return (
     <NavigationContainer>

@@ -22,7 +22,7 @@ const WalletScreenNavigation = ({ route }) => {
         name="Wallet"
         component={WalletScreen}
         options={WalletScreen.navigationOptions}
-        initialParams={{ logout, userId }}
+        initialParams={{ logout: () => logout(), userId }}
       />
     </WalletNavigationStack.Navigator>
   );
@@ -45,7 +45,7 @@ const PoolScreenNavigation = ({ route }) => {
         name="Pool"
         component={PoolScreen}
         screenOptions={PoolScreen.navigationOptions}
-        initialParams={{ logout, userId }}
+        initialParams={{ logout: () => logout(), userId }}
       />
     </PoolNavigationStack.Navigator>
   );
@@ -68,12 +68,12 @@ const AccountScreenNavigation = ({ route }) => {
       <AccountNavigationStack.Screen
         name="Account"
         component={AccountScreen}
-        initialParams={{ logout, userId }}
+        initialParams={{ logout: () => logout(), userId }}
       />
       <AccountNavigationStack.Screen
         name="AccountEdit"
         component={AccountEditScreen}
-        initialParams={{ logout, userId }}
+        initialParams={{ logout: () => logout(), userId }}
       />
     </AccountNavigationStack.Navigator>
   );
@@ -123,20 +123,20 @@ const MainNavigation = ({ userId, logout }) => {
         name="Wallet"
         component={WalletScreenNavigation}
         options={{ headerShown: false }}
-        initialParams={{ logout, userId }}
+        initialParams={{ logout: () => logout(), userId }}
       />
       <MainNavigationStack.Screen
         name="Pool"
         component={PoolScreenNavigation}
         options={{ headerShown: false }}
-        initialParams={{ logout, userId }}
+        initialParams={{ logout: () => logout(), userId }}
       />
       <MainNavigationStack.Screen
         name="Account"
         key="UserAccountScreen"
         component={AccountScreenNavigation}
         options={{ headerShown: false }}
-        initialParams={{ logout, userId }}
+        initialParams={{ logout: () => logout(), userId }}
       />
     </MainNavigationStack.Navigator>
   );

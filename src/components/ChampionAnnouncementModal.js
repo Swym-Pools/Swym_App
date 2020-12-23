@@ -32,8 +32,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     marginTop: 22,
-    // backgroundColor: '#000',
-    // opacity: 0.2,
   },
   modalView: {
     alignItems: 'center',
@@ -45,13 +43,6 @@ const styles = StyleSheet.create({
     margin: 20,
     padding: 35,
     position: 'absolute',
-    // shadowColor: Colors.blue,
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 1,
-    // },
-    // shadowOpacity: 0.85,
-    // shadowRadius: 3.84,
     width: 350,
   },
   imageContainer: {
@@ -94,7 +85,7 @@ const styles = StyleSheet.create({
 
 ChampionAnnouncementModal.propTypes = {
   onClose: PropTypes.func,
-  modalVisible: PropTypes.boolean,
+  modalVisible: PropTypes.bool,
 };
 
 ChampionAnnouncementModal.defaultProps = {

@@ -65,7 +65,8 @@ const BalanceToSendContent = ({ amountAvailable, onClose }) => {
               label="Enter amount to withdraw:"
               labelStyle={styles.inputLabel}
               selectionColor={Colors.black}
-              value={amount}
+              // textContentType="number"
+              value={`${amount}`}
               onChangeText={onAmountChanged}
               onSubmitEditing={handleSubmit}
               keyboardType={'numeric'}
@@ -198,7 +199,7 @@ const styles = StyleSheet.create({
 
 BalanceToSendContent.propTypes = {
   amountAvailable: PropTypes.number,
-  onClose: PropTypes.func.isRequired,
+  onClose: PropTypes.func,
 };
 
 BalanceToSendContent.defaultProps = {};

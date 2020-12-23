@@ -17,11 +17,12 @@ export default function makeOverlayContent(overlayKind, props = {}) {
       return <SentBTCFollowOnBlockchainOverlayContent {...props} />;
     case FeedbackOverlayKind.DEPOSIT_COMPLETED:
       return <DepositCompletedOverlayContent {...props} />;
-    case FeedbackOverlayKind.CHAMPION_ANNOUNCEMENT:
-      return <ChampionOverlayContent {...props} />;
+    // case FeedbackOverlayKind.CHAMPION_ANNOUNCEMENT:
+    //   return <ChampionOverlayContent {...props} />;
+    default:
     case FeedbackOverlayKind.BALANCE_TO_SEND:
       return <BalanceToSendContent {...props} />;
-    default:
-      return;
+    // default:
+    //   return;
   }
 }
