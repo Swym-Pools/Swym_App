@@ -13,7 +13,6 @@ const AccountEditScreen = ({
     params: { currentAccount, onSave, updateUser },
   },
 }) => {
-  console.log('~~~~~~~~~ CURRENT ACCOUNT!! ~~~~~~~~~', currentAccount);
   const [username, setUsername] = useState(currentAccount.username);
   const [email, setEmail] = useState(currentAccount.email);
   const [phoneNumberString, setPhoneNumberString] = useState(`${currentAccount.phoneNumber}` || '');
@@ -50,7 +49,6 @@ const AccountEditScreen = ({
     } else if (response.data === 'Validation error') {
       setErrors({ ...errors, username: 'Username or Email is taken' });
     }
-    console.log('RESPONSE!!!', response);
   }
 
   function onUsernameChanged(newValue) {
