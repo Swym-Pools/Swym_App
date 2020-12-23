@@ -9,13 +9,26 @@ const CheckEmailToConfirmWithdrawalAddressOverlayContent = ({ onClose }) => {
   return (
     <View style={[FeedbackOverlayStyles.rootContainer, styles.rootContainer]}>
       <View style={FeedbackOverlayStyles.mainContentContainer}>
+        <Button
+          title="X"
+          buttonStyle={FeedbackOverlayStyles.closeButtonContent}
+          containerStyle={FeedbackOverlayStyles.closeButtonContainer}
+          onPress={onClose}
+        />
+
         <View style={styles.mainTextContainer}>
-          <Text style={[FeedbackOverlayStyles.messageText, styles.messageText]}>
+          {/* <Text style={[FeedbackOverlayStyles.messageText, styles.messageText]}>
             Check your email to confirm send or withdrawal address.
+  </Text>*/}
+          <Text style={[FeedbackOverlayStyles.messageText, styles.messageText]}>
+            You can only send to the withdrawal address saved on your profile.
+          </Text>
+          <Text style={[FeedbackOverlayStyles.messageText, styles.messageText, styles.purpleText]}>
+            Please navigate to the accounts page to save your withdrawal address.
           </Text>
         </View>
 
-        <Button
+        {/* <Button
           title="Got It"
           buttonStyle={[
             FeedbackOverlayStyles.confirmationButtonContent,
@@ -23,7 +36,7 @@ const CheckEmailToConfirmWithdrawalAddressOverlayContent = ({ onClose }) => {
           ]}
           titleStyle={[FeedbackOverlayStyles.confirmationButtonText, styles.confirmationButtonText]}
           onPress={onClose}
-        />
+        /> */}
       </View>
     </View>
   );
@@ -42,8 +55,14 @@ const styles = StyleSheet.create({
 
   messageText: {
     color: Colors.white,
+    fontSize: 24,
+    fontWeight: '600',
     marginBottom: 36,
     textAlign: 'center',
+  },
+
+  purpleText: {
+    color: Colors.purple,
   },
 
   confirmationButtonContent: {

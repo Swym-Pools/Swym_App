@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { View, StyleSheet, SectionList, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import Navbar from '../../components/Navbar';
@@ -32,18 +32,18 @@ const PoolScreen = ({ navigation, logout }) => {
   useEffect(() => {
     loadPoolState();
     // loadPoolResultsHistory()
-  }, []);
+  }, [loadPoolState]);
 
   useEffect(() => {
     navigation.setParams({ logout });
   }, [navigation, logout]);
 
-  async function loadPoolState() {
+  const loadPoolState = useCallback(async () => {
     setIsFetchingPoolState(true);
 
     try {
       const response = await fetchPoolState();
-      console.log(poolState);
+
       if (response.status === 200) {
         const { poolResultsHistory, totalSavings } = response.data;
         const poolState = {
@@ -63,7 +63,7 @@ const PoolScreen = ({ navigation, logout }) => {
     } finally {
       setIsFetchingPoolState(false);
     }
-  }
+  }, []);
 
   // async function loadPoolResultsHistory() {
   //   setIsFetchingPoolResultsHistory(true);
@@ -118,7 +118,7 @@ const PoolScreen = ({ navigation, logout }) => {
               return (
                 <View style={[styles.cardContainer, styles.viewSectionContainer]}>
                   <TotalSavingsSection
-                    totalSavings={poolState?.totalSavings}
+                    totalSavings={poolState?.totalSavings ? poolState?.totalSavings : 0}
                     isFetching={isFetchingPoolState}
                   />
                 </View>

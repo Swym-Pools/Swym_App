@@ -36,8 +36,10 @@ const PoolResultsHistoryCard = ({ results, isFetching }) => {
 
       {isFetching ? (
         <ActivityIndicator size="large" />
-      ) : (
+      ) : results.length ? (
         <FlatList data={results} keyExtractor={keyExtractor} renderItem={renderResultItem} />
+      ) : (
+        <Text>No Results</Text>
       )}
     </View>
   );

@@ -11,14 +11,12 @@ import { editUserAccount } from '../../utils/networking/API';
 
 const AccountScreen = ({ navigation, route }) => {
   const { userId } = route.params;
-  console.log('USER ID', userId);
   const {
     userAccount,
     isFetchingUserAccount,
     hasUserAccountFetchError,
     updateUser,
   } = useUserAccountState(userId);
-  console.log('USER? ', userAccount, isFetchingUserAccount, hasUserAccountFetchError);
 
   function onEditingSaved(editedAccount) {
     return editUserAccount(editedAccount);

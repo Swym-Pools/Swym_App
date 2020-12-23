@@ -6,6 +6,7 @@ const UserAccountShape = PropTypes.shape({
   email: PropTypes.string.isRequired,
   phoneNumber: PropTypes.string,
   // balance: PropTypes.number.isRequired,
+  isWinner: PropTypes.bool,
   withdrawalAddress: PropTypes.string,
 });
 

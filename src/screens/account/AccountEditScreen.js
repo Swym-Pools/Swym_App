@@ -13,9 +13,10 @@ const AccountEditScreen = ({
     params: { currentAccount, onSave, updateUser },
   },
 }) => {
+  console.log('~~~~~~~~~ CURRENT ACCOUNT!! ~~~~~~~~~', currentAccount);
   const [username, setUsername] = useState(currentAccount.username);
   const [email, setEmail] = useState(currentAccount.email);
-  const [phoneNumberString, setPhoneNumberString] = useState(currentAccount.phoneNumber || '');
+  const [phoneNumberString, setPhoneNumberString] = useState(`${currentAccount.phoneNumber}` || '');
   const [withdrawalAddress, setWithdrawalAddress] = useState(
     currentAccount.withdrawalAddress || '',
   );
@@ -36,7 +37,7 @@ const AccountEditScreen = ({
     return (
       username.trim().length !== 0 &&
       email.trim().length !== 0 &&
-      phoneNumberString.trim().length !== 0 &&
+      String(phoneNumberString).trim().length !== 0 &&
       withdrawalAddress.trim().length !== 0
     );
   }, [username, email, phoneNumberString, withdrawalAddress]);
@@ -46,7 +47,10 @@ const AccountEditScreen = ({
     if (response.status === 200) {
       updateUser(response.data);
       navigation.goBack();
+    } else if (response.data === 'Validation error') {
+      setErrors({ ...errors, username: 'Username or Email is taken' });
     }
+    console.log('RESPONSE!!!', response);
   }
 
   function onUsernameChanged(newValue) {
@@ -58,19 +62,25 @@ const AccountEditScreen = ({
   }
 
   function onPhoneNumberStringChanged(newValue) {
-    setPhoneNumberString(newValue);
+    const numberOnlyValue = Number(newValue);
+    if (!Number.isNaN(numberOnlyValue) && newValue.length <= 10) {
+      if (errors.phoneNumber) {
+        const errorsUpdate = { ...errors };
+        delete errorsUpdate.phoneNumber;
+        setErrors(errorsUpdate);
+      }
+      setPhoneNumberString(newValue);
+    }
   }
 
   const onWithdrawalAddressChanged = useCallback((newValue) => {
-    console.log(newValue);
     setWithdrawalAddress(newValue);
   }, []);
 
-  function handleSubmit() {
+  async function handleSubmit() {
     if (isSaveEnabled === false) {
       return;
     }
-
     saveChanges();
   }
 
@@ -92,6 +102,7 @@ const AccountEditScreen = ({
               value={username}
               onChangeText={onUsernameChanged}
               onSubmitEditing={handleSubmit}
+              errorMessage={errors.username ? errors.username : ''}
             />
 
             <Input

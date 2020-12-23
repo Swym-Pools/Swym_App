@@ -37,7 +37,6 @@ function mapPoolResultsHistory(result) {
 export async function fetchTransactionHistory(userId) {
   try {
     const response = await axios.get(`${API_URL}/api/transactions/user/${userId}`);
-    console.log('DATA', response.data);
     return response;
   } catch (err) {
     return err.response;
@@ -101,7 +100,6 @@ export async function fetchPoolState() {
 export async function generateCode(userId) {
   try {
     const response = await axios.get(`${API_URL}/api/generateCode/${userId}`);
-    console.log('code response', response);
     return response;
   } catch (err) {
     return err.response;

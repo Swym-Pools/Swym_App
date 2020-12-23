@@ -34,11 +34,10 @@ const WalletScreen = ({ route }) => {
   const [isFetchingTransactionHistory, setIsFetchingTransactionHistory] = useState(false);
   const [hasTransactionHistoryFetchError, setHasTransactionHistoryFetchError] = useState(false);
   const [userBalance, setUserBalance] = useState(0);
+  const [showAnnouncementModal, setShowAnnouncementModal] = useState(false);
 
   // Address/Clipboard
   const [address, setAddress] = useState('');
-  // For Clipboard Hook
-  // const [data, setString] = useClipboard('');
 
   const { userAccount, isFetchingUserAccount, hasUserAccountFetchError } = useUserAccountState(
     userId,
@@ -71,6 +70,14 @@ const WalletScreen = ({ route }) => {
       generateAddress();
     }
   }, [userAccount, generateAddress]);
+
+  useEffect(() => {
+    if (userAccount !== null) {
+      if (userAccount.isWinner) {
+        setShowAnnouncementModal(true);
+      }
+    }
+  }, [userAccount]);
 
   async function loadTransactionHistory(userId) {
     setIsFetchingTransactionHistory(true);
@@ -134,7 +141,6 @@ const WalletScreen = ({ route }) => {
 
   async function copyDepositAddress() {
     const addressToSet = address;
-    console.log('CLIP BOARD', Clipboard);
     await Clipboard.setString(addressToSet);
     hideDepositSheet();
   }
@@ -142,8 +148,16 @@ const WalletScreen = ({ route }) => {
   function handleWithdrawSelection() {
     if (accountBalance === 0) {
       activateFeedbackOverlay(FeedbackOverlayKind.EMPTY_BALANCE, { onClose: hideFeedbackOverlay });
+    } else if (!userAccount.withdrawalAddress) {
+      activateFeedbackOverlay(FeedbackOverlayKind.CHECK_EMAIL_TO_CONFIRM_WITHDRAWAL_ADDRESS, {
+        onClose: hideFeedbackOverlay,
+      });
     } else {
-      performWithdrawal(accountBalance);
+      // performWithdrawal(accountBalance);
+      activateFeedbackOverlay(FeedbackOverlayKind.BALANCE_TO_SEND, {
+        onClose: hideFeedbackOverlay,
+        amountAvailable: accountBalance,
+      });
     }
   }
 
