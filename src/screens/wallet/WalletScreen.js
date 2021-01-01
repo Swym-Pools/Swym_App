@@ -109,9 +109,6 @@ const WalletScreen = ({ route }) => {
   }
 
   function renderDepositSheet() {
-    // TODO: I'm thinking we'll need to fetch this dynamically.
-    // const address = SWYM_DEPOSIT_ADDRESS;
-
     return (
       <DepositSheet
         address={address}
@@ -155,7 +152,9 @@ const WalletScreen = ({ route }) => {
     } else {
       // performWithdrawal(accountBalance);
       activateFeedbackOverlay(FeedbackOverlayKind.BALANCE_TO_SEND, {
+        userAccount: userAccount,
         onClose: hideFeedbackOverlay,
+        loadTransactionHistory,
         amountAvailable: accountBalance,
       });
     }

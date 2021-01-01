@@ -4,7 +4,7 @@ import CheckEmailToConfirmWithdrawalAddressOverlayContent from './CheckEmailToCo
 import DepositCompletedOverlayContent from './DepositCompletedOverlayContent';
 import EmptyBalanceOverlayContent from './EmptyBalanceOverlayContent';
 import SentBTCFollowOnBlockchainOverlayContent from './SentBTCFollowOnBlockchainOverlayContent';
-import ChampionOverlayContent from './ChampionOverlayContent';
+// import ChampionOverlayContent from './ChampionOverlayContent';
 import BalanceToSendContent from './BalanceToSendContent';
 
 export default function makeOverlayContent(overlayKind, props = {}) {

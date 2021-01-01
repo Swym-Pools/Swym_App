@@ -4,11 +4,20 @@ import { View, StyleSheet, Text } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import FeedbackOverlayStyles from '../../utils/styling/FeedbackOverlays';
 import Colors from '../../utils/styling/Colors';
+import { withdrawFunds } from '../../utils/networking/API';
 
-const BalanceToSendContent = ({ amountAvailable, onClose }) => {
+const BalanceToSendContent = ({
+  userAccount,
+  amountAvailable,
+  loadTransactionHistory,
+  onClose,
+}) => {
   const [amount, setAmount] = useState(0);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
+  const [disableSubmit, setDisableSubmit] = useState(false);
+
+  console.log('USER ACCOUNT', userAccount);
 
   const onAmountChanged = useCallback((value) => {
     const numberOnlyValue = Number(value);
@@ -20,19 +29,33 @@ const BalanceToSendContent = ({ amountAvailable, onClose }) => {
     }
   }, []);
 
-  const handleSubmit = useCallback(() => {
+  const handleSubmit = useCallback(async () => {
+    setDisableSubmit(true);
+
     if (amount < 1000) {
       setError('Amount must be greater than 1,000');
     } else if (amount > amountAvailable) {
       setError('Amount greater than amount available');
     } else {
       try {
-        setSuccess(true);
+        console.log(userAccount);
+        const reqBody = {
+          amount: -amount,
+          username: userAccount.username,
+          withdrawalAddress: userAccount.withdrawalAddress,
+        };
+        const response = await withdrawFunds(userAccount.id, reqBody);
+        if (response.status === 200) {
+          await loadTransactionHistory(userAccount.id);
+          setSuccess(true);
+        }
       } catch (err) {
         setError('Something went wrong');
       }
     }
-  }, [amount, amountAvailable]);
+
+    setDisableSubmit(false);
+  }, [userAccount, amount, loadTransactionHistory, amountAvailable]);
 
   return (
     <View style={[FeedbackOverlayStyles.rootContainer, styles.rootContainer]}>
@@ -84,6 +107,7 @@ const BalanceToSendContent = ({ amountAvailable, onClose }) => {
                 styles.confirmationButtonText,
               ]}
               onPress={handleSubmit}
+              disabled={disableSubmit}
             />
           </View>
         </View>
@@ -198,7 +222,9 @@ const styles = StyleSheet.create({
 });
 
 BalanceToSendContent.propTypes = {
+  userAccount: PropTypes.object,
   amountAvailable: PropTypes.number,
+  loadTransactionHistory: PropTypes.func,
   onClose: PropTypes.func,
 };
 

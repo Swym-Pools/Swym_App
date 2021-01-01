@@ -1,30 +1,27 @@
 import sleep from '../sleep';
 import axios from 'axios';
-import transactionHistory from './mock-data/transaction-history';
-import userAccount from './mock-data/user-account';
-import poolState from './mock-data/pool-state';
 import poolResultsHistory from './mock-data/pool-results-history';
 const API_URL = process.env.API_URL || 'https://swym-backend.herokuapp.com';
 
-function mapUserAccount(accountResult) {
-  return {
-    id: accountResult.id,
-    username: accountResult.username,
-    email: accountResult.email,
-    phoneNumber: accountResult.phoneNumber,
-    balance: accountResult.balance,
-    withdrawalAddress: accountResult.withdrawal_address,
-  };
-}
+// function mapUserAccount(accountResult) {
+//   return {
+//     id: accountResult.id,
+//     username: accountResult.username,
+//     email: accountResult.email,
+//     phoneNumber: accountResult.phoneNumber,
+//     balance: accountResult.balance,
+//     withdrawalAddress: accountResult.withdrawal_address,
+//   };
+// }
 
-function mapPoolState(result) {
-  return {
-    estimatedPrize: result.estimated_prize,
-    totalSavings: result.total_savings,
-    isLive: result.is_live,
-    secondsUntilNextSelection: result.seconds_until_next_selection,
-  };
-}
+// function mapPoolState(result) {
+//   return {
+//     estimatedPrize: result.estimated_prize,
+//     totalSavings: result.total_savings,
+//     isLive: result.is_live,
+//     secondsUntilNextSelection: result.seconds_until_next_selection,
+//   };
+// }
 
 function mapPoolResultsHistory(result) {
   return {
@@ -100,6 +97,15 @@ export async function fetchPoolState() {
 export async function generateCode(userId) {
   try {
     const response = await axios.get(`${API_URL}/api/generateCode/${userId}`);
+    return response;
+  } catch (err) {
+    return err.response;
+  }
+}
+
+export async function withdrawFunds(userId, reqBody) {
+  try {
+    const response = await axios.post(`${API_URL}/api/transactions/withdraw/${userId}`, reqBody);
     return response;
   } catch (err) {
     return err.response;
