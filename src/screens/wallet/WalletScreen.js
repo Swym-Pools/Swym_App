@@ -50,7 +50,7 @@ const WalletScreen = ({ route }) => {
   const depositSheetRef = useRef(null);
 
   const sortedTransactions = useMemo(() => {
-    return sortTransactionsByDate(transactionHistory);
+    return sortTransactionsByDate(transactionHistory, false);
   }, [transactionHistory]);
 
   const accountBalance = useMemo(() => {
