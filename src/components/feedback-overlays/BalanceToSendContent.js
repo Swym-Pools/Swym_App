@@ -17,8 +17,6 @@ const BalanceToSendContent = ({
   const [success, setSuccess] = useState(false);
   const [disableSubmit, setDisableSubmit] = useState(false);
 
-  console.log('USER ACCOUNT', userAccount);
-
   const onAmountChanged = useCallback((value) => {
     const numberOnlyValue = Number(value);
     if (!Number.isNaN(numberOnlyValue)) {

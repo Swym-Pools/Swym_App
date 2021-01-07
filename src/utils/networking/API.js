@@ -88,6 +88,7 @@ export async function logoutUser() {
 export async function fetchPoolState() {
   try {
     const response = await axios.get(`${API_URL}/api/champions/`);
+    console.log(response.data);
     return response;
   } catch (err) {
     return err.response;

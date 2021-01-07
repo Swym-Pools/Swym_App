@@ -44,8 +44,9 @@ const PoolScreen = ({ navigation, logout }) => {
     try {
       const response = await fetchPoolState();
 
+      console.log('RESPONSE!! -->', response.data);
       if (response.status === 200) {
-        const { poolResultsHistory, totalSavings } = response.data;
+        const { poolResultsHistory, totalSavings, estimatedPrize } = response.data;
         const poolState = {
           poolResultsHistory: poolResultsHistory.map((item) => ({
             id: item.id,
@@ -53,7 +54,8 @@ const PoolScreen = ({ navigation, logout }) => {
             prize: item.amount,
             drawingTimestamp: item.createdAt,
           })),
-          totalSavings: Number(totalSavings),
+          totalSavings,
+          estimatedPrize,
         };
         setPoolState(poolState);
         setHasPoolStateFetchError(false);
