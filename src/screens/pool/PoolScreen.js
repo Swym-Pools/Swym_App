@@ -44,7 +44,6 @@ const PoolScreen = ({ navigation, logout }) => {
     try {
       const response = await fetchPoolState();
 
-      console.log('RESPONSE!! -->', response.data);
       if (response.status === 200) {
         const { poolResultsHistory, totalSavings, estimatedPrize } = response.data;
         const poolState = {
