@@ -36,7 +36,6 @@ const BalanceToSendContent = ({
       setError('Amount greater than amount available');
     } else {
       try {
-        console.log(userAccount);
         const reqBody = {
           amount: -amount,
           username: userAccount.username,

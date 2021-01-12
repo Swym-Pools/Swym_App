@@ -8,6 +8,7 @@ const UserAccountShape = PropTypes.shape({
   // balance: PropTypes.number.isRequired,
   isWinner: PropTypes.bool,
   withdrawalAddress: PropTypes.string,
+  withdrawAddressConfirmed: PropTypes.bool.isRequired,
 });
 
 export default UserAccountShape;

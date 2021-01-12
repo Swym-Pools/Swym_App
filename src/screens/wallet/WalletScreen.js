@@ -43,6 +43,8 @@ const WalletScreen = ({ route }) => {
     userId,
   );
 
+  console.log('USER ACCOUNT! -->', userAccount);
+
   const [isShowingFeedbackOverlay, setIsShowingFeedbackOverlay] = useState(false);
   const [feedbackOverlayKind, setFeedbackOverlayKind] = useState(null);
   const [feedbackOverlayProps, setFeedbackOverlayProps] = useState({});
@@ -145,7 +147,7 @@ const WalletScreen = ({ route }) => {
   function handleWithdrawSelection() {
     if (accountBalance === 0) {
       activateFeedbackOverlay(FeedbackOverlayKind.EMPTY_BALANCE, { onClose: hideFeedbackOverlay });
-    } else if (!userAccount.withdrawalAddress) {
+    } else if (!userAccount.withdrawalAddress || !userAccount.withdrawAddressConfirmed) {
       activateFeedbackOverlay(FeedbackOverlayKind.CHECK_EMAIL_TO_CONFIRM_WITHDRAWAL_ADDRESS, {
         onClose: hideFeedbackOverlay,
       });
