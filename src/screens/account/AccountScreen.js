@@ -43,10 +43,10 @@ const AccountScreen = ({ navigation, route }) => {
           <Text style={styles.infoItemText}>{userAccount?.email}</Text>
         </View>
 
-        <View style={[styles.infoItem, styles.nonTrailingInfoItem]}>
+        {/* <View style={[styles.infoItem, styles.nonTrailingInfoItem]}>
           <Text style={styles.infoItemHeading}>Phone Number</Text>
           <Text style={styles.infoItemText}>{userAccount?.phoneNumber}</Text>
-        </View>
+        </View> */}
 
         <View style={styles.infoItem}>
           <Text style={styles.infoItemHeading}>Withdrawal Address</Text>
