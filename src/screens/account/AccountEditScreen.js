@@ -26,7 +26,7 @@ const AccountEditScreen = ({
       id: currentAccount.id,
       username,
       email,
-      phoneNumber: Number(phoneNumberString),
+      // phoneNumber: Number(phoneNumberString),
       withdrawalAddress,
     };
   }, [currentAccount.id, username, email, phoneNumberString, withdrawalAddress]);
@@ -36,7 +36,7 @@ const AccountEditScreen = ({
     return (
       username.trim().length !== 0 &&
       email.trim().length !== 0 &&
-      String(phoneNumberString).trim().length !== 0 &&
+      // String(phoneNumberString).trim().length !== 0 &&
       withdrawalAddress.trim().length !== 0
     );
   }, [username, email, phoneNumberString, withdrawalAddress]);
@@ -118,7 +118,7 @@ const AccountEditScreen = ({
               onSubmitEditing={handleSubmit}
             />
 
-            <Input
+            {/* <Input
               containerStyle={styles.nonTrailingInfoItem}
               inputContainerStyle={FormStyles.inputContainer}
               label="Phone Number"
@@ -131,7 +131,7 @@ const AccountEditScreen = ({
               value={phoneNumberString}
               onChangeText={onPhoneNumberStringChanged}
               onSubmitEditing={handleSubmit}
-            />
+            /> */}
 
             <Input
               inputContainerStyle={FormStyles.inputContainer}

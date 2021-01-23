@@ -13,7 +13,7 @@ const TransactionListItem = ({ transaction }) => {
     <View style={styles.rootContainer}>
       <ListItem key={transaction.id}>
         <ListItem.Content>
-          <ListItem.Title style={styles.leftTitleText}>{transaction.amount}</ListItem.Title>
+          <ListItem.Title style={styles.leftTitleText}>{transaction.amount.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}</ListItem.Title>
         </ListItem.Content>
         <ListItem.Title style={styles.rightTitleText}>{transaction.kind}</ListItem.Title>
         <Icon name={iconName} type="ionicon" color={Colors.purple} />
