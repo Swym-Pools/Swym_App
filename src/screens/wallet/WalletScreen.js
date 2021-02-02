@@ -43,8 +43,6 @@ const WalletScreen = ({ route }) => {
     userId,
   );
 
-  console.log('USER ACCOUNT! -->', userAccount);
-
   const [isShowingFeedbackOverlay, setIsShowingFeedbackOverlay] = useState(false);
   const [feedbackOverlayKind, setFeedbackOverlayKind] = useState(null);
   const [feedbackOverlayProps, setFeedbackOverlayProps] = useState({});

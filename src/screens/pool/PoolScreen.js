@@ -20,7 +20,7 @@ function sectionListItemKeyExtractor(index) {
   return index;
 }
 
-const PoolScreen = ({ navigation, logout }) => {
+const PoolScreen = () => {
   const [poolResultsHistory, setPoolResultsHistory] = useState([]);
   const [isFetchingPoolResultsHistory, setIsFetchingPoolResultsHistory] = useState(false);
   const [poolResultsHistoryFetchError, setHasPoolResultsHistoryFetchError] = useState(false);
@@ -33,10 +33,6 @@ const PoolScreen = ({ navigation, logout }) => {
     loadPoolState();
     // loadPoolResultsHistory()
   }, [loadPoolState]);
-
-  useEffect(() => {
-    navigation.setParams({ logout });
-  }, [navigation, logout]);
 
   const loadPoolState = useCallback(async () => {
     setIsFetchingPoolState(true);
@@ -183,7 +179,7 @@ const styles = StyleSheet.create({
 
 PoolScreen.propTypes = {
   navigation: NavigationShape.isRequired,
-  logout: PropTypes.func,
+  route: PropTypes.object,
 };
 
 PoolScreen.defaultProps = {};
@@ -191,7 +187,7 @@ PoolScreen.defaultProps = {};
 PoolScreen.navigationOptions = ({ route }) => {
   return {
     header: () => {
-      return <Navbar title="Pool" logout={route.params && route.params.logout} />;
+      return <Navbar title="Pool" logout={route.params?.logout} />;
     },
   };
 };
