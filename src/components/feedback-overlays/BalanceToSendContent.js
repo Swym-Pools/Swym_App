@@ -119,8 +119,7 @@ const BalanceToSendContent = ({
 
           <View style={styles.mainTextContainer}>
             <Text style={styles.successText}>
-              Your BTC will be sent to your withdrawal address within 24 hours. Please check your
-              email for confirmation.
+              Your BTC will be sent to your withdrawal address within 24 hours.
             </Text>
           </View>
         </View>

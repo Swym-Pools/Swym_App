@@ -24,7 +24,7 @@ const CheckEmailToConfirmWithdrawalAddressOverlayContent = ({ onClose }) => {
             You can only send to the withdrawal address saved on your profile.
           </Text>
           <Text style={[FeedbackOverlayStyles.messageText, styles.messageText, styles.purpleText]}>
-            Please navigate to the accounts page to save your withdrawal address.
+            Please navigate to the accounts page to save your withdrawal address and confirm it via email.
           </Text>
         </View>
 

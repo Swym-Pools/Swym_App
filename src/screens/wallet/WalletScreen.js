@@ -279,7 +279,7 @@ WalletScreen.defaultProps = {};
 WalletScreen.navigationOptions = ({ route }) => {
   return {
     header: () => {
-      return <Navbar title="Wallet" logout={route.params?.logout} />;
+      return <Navbar title="Savings" logout={route.params?.logout} />;
     },
   };
 };
