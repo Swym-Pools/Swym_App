@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Swym_App",
-    "slug": "Swym_App",
-    "version": "1.0.0",
+    "name": "Swym",
+    "slug": "Swym",
+    "version": "0.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -17,8 +17,9 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "swym"
+      "bundleIdentifier": "org.swympools.swym",
+      "buildNumber": "0.3.0",
+      "supportsTablet": true
     },
     "web": {
       "favicon": "./assets/favicon.png"
