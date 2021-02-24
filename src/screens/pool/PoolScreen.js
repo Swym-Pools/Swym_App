@@ -89,7 +89,7 @@ const PoolScreen = () => {
               return (
                 <View style={styles.viewSectionContainer}>
                   {/* TODO: Un-hardcode this */}
-                  <Text style={styles.countdownText}>Swym champion announced in 53 minutes.</Text>
+                  <Text style={styles.countdownText}>Swym champion announced first of every month</Text>
                 </View>
               );
             },
