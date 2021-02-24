@@ -82,6 +82,15 @@ export async function fetchPoolState() {
   }
 }
 
+export async function fetchMostRecentWinner() {
+  try {
+    const response = await axios.get(`${API_URL}/api/champions/mostRecent`);
+    return response;
+  } catch (err) {
+    return err.response;
+  }
+}
+
 export async function generateCode(userId) {
   try {
     const response = await axios.get(`${API_URL}/api/generateCode/${userId}`);

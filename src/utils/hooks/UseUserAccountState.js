@@ -9,7 +9,6 @@ export default function useUserAccountState(userId) {
   useEffect(() => {
     async function loadAccountDetails() {
       setIsFetchingUserAccount(true);
-      console.log('loading user', userId);
       try {
         // TODO: Refactor after there's more clarity about how to retrieve authentication
         // credentials from the API.

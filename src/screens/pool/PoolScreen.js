@@ -31,7 +31,6 @@ const PoolScreen = () => {
 
   useEffect(() => {
     loadPoolState();
-    // loadPoolResultsHistory()
   }, [loadPoolState]);
 
   const loadPoolState = useCallback(async () => {
@@ -43,12 +42,14 @@ const PoolScreen = () => {
       if (response.status === 200) {
         const { poolResultsHistory, totalSavings, estimatedPrize } = response.data;
         const poolState = {
-          poolResultsHistory: poolResultsHistory.map((item) => ({
-            id: item.id,
-            winnerUsername: item.user.username,
-            prize: item.amount,
-            drawingTimestamp: item.createdAt,
-          })),
+          poolResultsHistory: poolResultsHistory
+            .map((item) => ({
+              id: item.id,
+              winnerUsername: item.user.username,
+              prize: item.amount,
+              drawingTimestamp: item.createdAt,
+            }))
+            .sort((a, b) => b.drawingTimestamp >= a.drawingTimestamp),
           totalSavings,
           estimatedPrize,
         };
@@ -61,21 +62,6 @@ const PoolScreen = () => {
       setIsFetchingPoolState(false);
     }
   }, []);
-
-  // async function loadPoolResultsHistory() {
-  //   setIsFetchingPoolResultsHistory(true);
-
-  //   try {
-  //     const resultsHistory = await fetchPoolResultsHistory();
-
-  //     setPoolResultsHistory(resultsHistory);
-  //     setHasPoolResultsHistoryFetchError(false);
-  //   } catch (error) {
-  //     setHasPoolResultsHistoryFetchError(true);
-  //   } finally {
-  //     setIsFetchingPoolResultsHistory(false);
-  //   }
-  // }
 
   return (
     <View style={styles.rootViewContainer}>

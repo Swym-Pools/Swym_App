@@ -1,12 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { View, StyleSheet, Text, Modal } from 'react-native';
 import { Button, Image } from 'react-native-elements';
+import { fetchMostRecentWinner } from '../utils/networking/API';
 import Colors from '../utils/styling/Colors';
-import FeedbackOverlayStyles from '../utils/styling/FeedbackOverlays';
 
 const ChampionAnnouncementModal = ({ modalVisible, onClose, winner }) => {
-  console.log('colors', Colors.purple);
+  const [isLoading, setIsLoading] = useState(true);
+  const [mostRecentWinner, setMostRecentWinner] = useState(null);
+
+  useEffect(() => {
+    async function loadMostRecentWinner() {
+      const response = await fetchMostRecentWinner();
+      if (response.status === 200) {
+        setMostRecentWinner(response.data);
+      }
+      setIsLoading(false);
+    }
+
+    loadMostRecentWinner();
+  }, []);
+
   return (
     <Modal animationType="slide" transparent={true} visible={modalVisible}>
       <View style={styles.centeredView}>
@@ -23,8 +37,15 @@ const ChampionAnnouncementModal = ({ modalVisible, onClose, winner }) => {
             source={require('../../assets/images/splash.png')}
             style={styles.image}
           />
-          <Text style={styles.headerText}>You won!</Text>
-          <Text style={styles.messageText}>+10.50 BTC</Text>
+          <Text style={winner ? styles.headerText : [styles.headerText, styles.smallerHeader]}>
+            {winner ? 'You won!' : 'Better luck next time'}
+          </Text>
+
+          <Text style={winner ? styles.messageText : [styles.messageText, styles.smallerMessage]}>
+            {winner
+              ? `+${mostRecentWinner.amount} sats`
+              : `${mostRecentWinner.user.username} won +${mostRecentWinner.amount} sats`}
+          </Text>
           <Text style={styles.subMessageText}>
             {winner
               ? 'just got deposited to your Swym account'
@@ -66,18 +87,27 @@ const styles = StyleSheet.create({
   },
   headerText: {
     color: Colors.purple,
-    fontSize: 30,
+    fontSize: 25,
     fontWeight: 'bold',
     marginBottom: 100,
+  },
+  smallerHeader: {
+    fontSize: 25,
   },
   messageText: {
     color: Colors.orange,
     fontSize: 40,
     fontWeight: 'bold',
     marginBottom: 10,
+    textAlign: 'center',
     textShadowColor: Colors.orange,
     textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 3,
+  },
+  smallerMessage: {
+    fontSize: 20,
+    marginBottom: 20,
+    marginTop: 20,
   },
   subMessageText: {
     color: Colors.purple,
@@ -90,19 +120,20 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     position: 'absolute',
     right: 20,
-    top: 15,
+    top: 10,
   },
   closeButtonContent: {
     backgroundColor: Colors.white,
     color: Colors.grayScale3,
     fontSize: 20,
+    fontWeight: 'bold',
   },
 });
 
 ChampionAnnouncementModal.propTypes = {
   onClose: PropTypes.func,
   modalVisible: PropTypes.bool,
-  winner: PropTypes.object,
+  winner: PropTypes.bool,
 };
 
 ChampionAnnouncementModal.defaultProps = {};

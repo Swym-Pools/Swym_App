@@ -76,10 +76,8 @@ const WalletScreen = ({ route }) => {
   }, [userAccount, generateAddress]);
 
   useEffect(() => {
-    if (userAccount !== null) {
-      // if (userAccount.isWinner) {
+    if (userAccount !== null && typeof userAccount.isWinner === 'boolean') {
       setShowAnnouncementModal(true);
-      // }
     }
   }, [userAccount]);
 
@@ -251,7 +249,11 @@ const WalletScreen = ({ route }) => {
       </Overlay>
 
       {/** Announcement if a user is a champion or loses */}
-      <ChampionAnnouncementModal modalVisible={showAnnouncementModal} onClose={hideChampionModal} />
+      <ChampionAnnouncementModal
+        modalVisible={showAnnouncementModal}
+        onClose={hideChampionModal}
+        winner={userAccount ? !!userAccount.isWinner : false}
+      />
     </View>
   );
 };
