@@ -3,26 +3,6 @@ import axios from 'axios';
 import poolResultsHistory from './mock-data/pool-results-history';
 const API_URL = process.env.API_URL || 'https://swym-backend.herokuapp.com';
 
-// function mapUserAccount(accountResult) {
-//   return {
-//     id: accountResult.id,
-//     username: accountResult.username,
-//     email: accountResult.email,
-//     phoneNumber: accountResult.phoneNumber,
-//     balance: accountResult.balance,
-//     withdrawalAddress: accountResult.withdrawal_address,
-//   };
-// }
-
-// function mapPoolState(result) {
-//   return {
-//     estimatedPrize: result.estimated_prize,
-//     totalSavings: result.total_savings,
-//     isLive: result.is_live,
-//     secondsUntilNextSelection: result.seconds_until_next_selection,
-//   };
-// }
-
 function mapPoolResultsHistory(result) {
   return {
     prize: result.prize,
@@ -75,6 +55,14 @@ export async function editUserAccount(user) {
     return err.response;
   }
 }
+export async function resetUserIsWinner(userId) {
+  try {
+    const response = await axios.put(`${API_URL}/api/users/resetWinner/${userId}`);
+    return response;
+  } catch (err) {
+    return err.response;
+  }
+}
 
 export async function logoutUser() {
   try {
@@ -88,6 +76,15 @@ export async function logoutUser() {
 export async function fetchPoolState() {
   try {
     const response = await axios.get(`${API_URL}/api/champions/`);
+    return response;
+  } catch (err) {
+    return err.response;
+  }
+}
+
+export async function fetchMostRecentWinner() {
+  try {
+    const response = await axios.get(`${API_URL}/api/champions/mostRecent`);
     return response;
   } catch (err) {
     return err.response;

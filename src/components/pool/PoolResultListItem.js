@@ -8,7 +8,8 @@ import moment from 'moment';
 
 const PoolResultListItem = ({ result }) => {
   const prizeText = useMemo(() => {
-    return `${satoshisToBitcoin(result.prize).toFixed(5)}`;
+    // return `${satoshisToBitcoin(result.prize).toFixed(5)}`;
+    return `${result.prize}`;
   }, [result.prize]);
 
   const dateText = useMemo(() => {

@@ -9,7 +9,8 @@ import HeadingStyles from '../../utils/styling/Headings';
 const TotalSavingsSection = ({ totalSavings, isFetching }) => {
   const savingsText = useMemo(() => {
     if (totalSavings) {
-      return `${satoshisToBitcoin(totalSavings).toFixed(5)}`;
+      // return `${satoshisToBitcoin(totalSavings).toFixed(5)}`;
+      return `${totalSavings}`;
     }
     return '';
   }, [totalSavings]);
@@ -21,7 +22,7 @@ const TotalSavingsSection = ({ totalSavings, isFetching }) => {
       ) : (
         <View style={styles.mainContentContainer}>
           <Text style={[HeadingStyles.largeHeadlineLabel, styles.headlineLabelText]}>
-            Total Savings (BTC)
+            Total Savings (sats)
           </Text>
 
           <Text
