@@ -17,7 +17,7 @@ const PoolResultsHistoryCard = ({ results, isFetching }) => {
   const ColumnHeadingsRow = () => {
     return (
       <View style={styles.columnHeadingsRow}>
-        <Text style={[HeadingStyles.listHeadingLabel, styles.columnHeading]}>Prize (BTC)</Text>
+        <Text style={[HeadingStyles.listHeadingLabel, styles.columnHeading]}>Prize (sats)</Text>
         <Text style={[HeadingStyles.listHeadingLabel, styles.columnHeading]}>Winner</Text>
         <Text
           style={[HeadingStyles.listHeadingLabel, styles.columnHeading, styles.rightColumnHeading]}

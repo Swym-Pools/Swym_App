@@ -20,6 +20,8 @@ const Colors = {
   grayScale4: '#3C3C3C',
   grayScale5: '#202020',
 
+  whiteBackgroundOpacity: '#ffffffBF',
+
   shadow1: 'rgba(0, 0, 0, 0.18)',
   shadow2: 'rgba(30, 30, 30, 0.48)',
 

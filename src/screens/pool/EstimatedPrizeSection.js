@@ -9,7 +9,8 @@ import HeadingStyles from '../../utils/styling/Headings';
 const EstimatedPrizeSection = ({ estimatedPrize, isFetching }) => {
   const prizeText = useMemo(() => {
     if (estimatedPrize) {
-      return `${satoshisToBitcoin(estimatedPrize).toFixed(5)}`;
+      // return `${satoshisToBitcoin(estimatedPrize).toFixed(5)}`;
+      return `${estimatedPrize}`;
     }
     return '';
   }, [estimatedPrize]);
@@ -21,7 +22,7 @@ const EstimatedPrizeSection = ({ estimatedPrize, isFetching }) => {
       ) : (
         <View style={styles.mainContentContainer}>
           <Text style={[HeadingStyles.largeHeadlineLabel, styles.headlineLabelText]}>
-            Estimated Prize (BTC)
+            Estimated Prize (sats)
           </Text>
 
           <Text

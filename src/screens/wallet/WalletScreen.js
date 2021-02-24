@@ -3,7 +3,11 @@ import { View, StyleSheet, SectionList, Share, Clipboard } from 'react-native';
 // import Clipboard from '@react-native-community/clipboard';
 
 import PropTypes from 'prop-types';
-import { fetchTransactionHistory, generateCode } from '../../utils/networking/API';
+import {
+  fetchTransactionHistory,
+  generateCode,
+  resetUserIsWinner,
+} from '../../utils/networking/API';
 import { sortTransactionsByDate } from '../../utils/transactions/TransactionUtils';
 import Colors from '../../utils/styling/Colors';
 import useUserAccountState from '../../utils/hooks/UseUserAccountState';
@@ -73,9 +77,9 @@ const WalletScreen = ({ route }) => {
 
   useEffect(() => {
     if (userAccount !== null) {
-      if (userAccount.isWinner) {
-        setShowAnnouncementModal(true);
-      }
+      // if (userAccount.isWinner) {
+      setShowAnnouncementModal(true);
+      // }
     }
   }, [userAccount]);
 
@@ -186,6 +190,11 @@ const WalletScreen = ({ route }) => {
     setIsShowingFeedbackOverlay(false);
   }
 
+  async function hideChampionModal() {
+    await resetUserIsWinner(userId);
+    setShowAnnouncementModal(false);
+  }
+
   return (
     <View style={styles.rootViewContainer}>
       <SectionList
@@ -240,7 +249,9 @@ const WalletScreen = ({ route }) => {
       >
         {makeOverlayContent(feedbackOverlayKind, feedbackOverlayProps)}
       </Overlay>
-      <ChampionAnnouncementModal modalVisible={false} />
+
+      {/** Announcement if a user is a champion or loses */}
+      <ChampionAnnouncementModal modalVisible={showAnnouncementModal} onClose={hideChampionModal} />
     </View>
   );
 };
