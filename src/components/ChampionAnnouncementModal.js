@@ -24,34 +24,45 @@ const ChampionAnnouncementModal = ({ modalVisible, onClose, winner }) => {
   return (
     <Modal animationType="slide" transparent={true} visible={modalVisible}>
       <View style={styles.centeredView}>
-        <View style={styles.modalView}>
-          <Button
-            title="X"
-            type="clear"
-            containerStyle={styles.closeButtonContainer}
-            titleStyle={styles.closeButtonContent}
-            onPress={onClose}
-          />
-          <Image
-            containerStyle={styles.imageContainer}
-            source={require('../../assets/images/splash.png')}
-            style={styles.image}
-          />
-          <Text style={winner ? styles.headerText : [styles.headerText, styles.smallerHeader]}>
-            {winner ? 'You won!' : 'Better luck next time'}
-          </Text>
+        {isLoading ? (
+          <View style={styles.modalView}>
+            <Image
+              containerStyle={styles.logoContainer}
+              source={require('../../assets/images/logo-orange.png')}
+              style={styles.logo}
+            />
+            <Text>Loading...</Text>
+          </View>
+        ) : (
+          <View style={styles.modalView}>
+            <Button
+              title="X"
+              type="clear"
+              containerStyle={styles.closeButtonContainer}
+              titleStyle={styles.closeButtonContent}
+              onPress={onClose}
+            />
+            <Image
+              containerStyle={styles.imageContainer}
+              source={require('../../assets/images/splash.png')}
+              style={styles.image}
+            />
+            <Text style={winner ? styles.headerText : [styles.headerText, styles.smallerHeader]}>
+              {winner ? 'You won!' : 'Better luck next time'}
+            </Text>
 
-          <Text style={winner ? styles.messageText : [styles.messageText, styles.smallerMessage]}>
-            {winner
-              ? `+${mostRecentWinner.amount} sats`
-              : `${mostRecentWinner.user.username} won +${mostRecentWinner.amount} sats`}
-          </Text>
-          <Text style={styles.subMessageText}>
-            {winner
-              ? 'just got deposited to your Swym account'
-              : 'Keep saving with Swym to win the next prize!'}
-          </Text>
-        </View>
+            <Text style={winner ? styles.messageText : [styles.messageText, styles.smallerMessage]}>
+              {winner
+                ? `+${mostRecentWinner.amount} sats`
+                : `${mostRecentWinner?.user.username} won +${mostRecentWinner.amount} sats`}
+            </Text>
+            <Text style={styles.subMessageText}>
+              {winner
+                ? 'just got deposited to your Swym account'
+                : 'Keep saving with Swym to win the next prize!'}
+            </Text>
+          </View>
+        )}
       </View>
     </Modal>
   );
@@ -127,6 +138,11 @@ const styles = StyleSheet.create({
     color: Colors.grayScale3,
     fontSize: 20,
     fontWeight: 'bold',
+  },
+  logoContainer: {},
+  logo: {
+    height: 40,
+    width: 40,
   },
 });
 
