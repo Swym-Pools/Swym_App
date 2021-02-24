@@ -15,7 +15,9 @@ const WalletDetailsSection = ({ balance, isFetching, onDepositSelected, onSendSe
       ) : (
         <View style={styles.mainContentContainer}>
           <View style={styles.balanceHeader}>
-            <Text style={[HeadingStyles.largeHeadline, styles.balanceHeading]}>{balance}</Text>
+            <Text style={[HeadingStyles.largeHeadline, styles.balanceHeading]}>
+              {balance.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
+            </Text>
             <Text style={[HeadingStyles.largeHeadlineLabel, styles.balanceSubheading]}>sats</Text>
           </View>
 
