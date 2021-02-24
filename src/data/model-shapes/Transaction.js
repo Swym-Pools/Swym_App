@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 export const TransactionKind = Object.freeze({
   DEPOSIT: 'deposit',
-  SEND: 'send',
+  SEND: 'withdraw',
 });
 
 const TransactionShape = PropTypes.shape({
