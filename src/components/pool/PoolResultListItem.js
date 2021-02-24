@@ -20,7 +20,7 @@ const PoolResultListItem = ({ result }) => {
     <ListItem key={`{result.drawingTimeStamp}`} containerStyle={styles.listItemContainer}>
       {/* <ListItem.Content> */}
       <ListItem.Title style={styles.textItem} numberOfLines={1}>
-        {prizeText}
+        {prizeText.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}
       </ListItem.Title>
       <ListItem.Title style={styles.textItem} numberOfLines={1} ellipsizeMode="tail">
         {result.winnerUsername}

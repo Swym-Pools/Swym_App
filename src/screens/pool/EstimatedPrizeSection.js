@@ -10,7 +10,7 @@ const EstimatedPrizeSection = ({ estimatedPrize, isFetching }) => {
   const prizeText = useMemo(() => {
     if (estimatedPrize) {
       // return `${satoshisToBitcoin(estimatedPrize).toFixed(5)}`;
-      return `${estimatedPrize}`;
+      return `${estimatedPrize.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}`;
     }
     return '';
   }, [estimatedPrize]);
