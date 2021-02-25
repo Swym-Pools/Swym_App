@@ -93,7 +93,7 @@ const WalletScreen = ({ route }) => {
         const transactionsHistory = transactions.map((transaction) => {
           return {
             id: `${transaction.id}`,
-            kind: transaction.amount > 0 ? 'deposit' : 'send',
+            kind: transaction.amount > 0 ? 'deposit' : 'withdraw',
             amount: Math.abs(transaction.amount),
             timestamp: transaction.createdAt,
           };

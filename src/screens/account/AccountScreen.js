@@ -79,7 +79,7 @@ const AccountScreen = ({ navigation, route }) => {
         />
       </View>
 
-      <Text style={styles.helpText}>Need more help? Contact support at info@playswym.com</Text>
+      <Text style={styles.helpText}>Need more help? Contact support at info@swympools.org</Text>
     </View>
   );
 };

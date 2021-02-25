@@ -29,14 +29,14 @@ const WalletDetailsSection = ({ balance, isFetching, onDepositSelected, onSendSe
               ]}
               buttonStyle={[ButtonStyles.actionButton]}
               titleStyle={ButtonStyles.actionButtonTitle}
-              title="Save"
+              title="Deposit"
               onPress={onDepositSelected}
               raised
             />
             <Button
               buttonStyle={ButtonStyles.actionButton}
               titleStyle={ButtonStyles.actionButtonTitle}
-              title="Send"
+              title="Withdraw"
               onPress={onSendSelected}
               raised
             />

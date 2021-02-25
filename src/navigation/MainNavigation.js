@@ -19,7 +19,7 @@ const WalletScreenNavigation = ({ route }) => {
       screenOptions={WalletScreen.navigationOptions}
     >
       <WalletNavigationStack.Screen
-        name="Wallet"
+        name="Savings"
         component={WalletScreen}
         options={WalletScreen.navigationOptions}
         initialParams={{ logout: () => logout(), userId }}
@@ -87,7 +87,7 @@ function makeTabBarIcon({ name: routeName }, opts) {
   const { color, size } = opts;
 
   switch (routeName) {
-    case 'Wallet':
+    case 'Savings':
       return <SimpleLineIcons name="wallet" size={size} color={color} />;
     case 'Pool':
       return <Ionicons name="ios-water" size={size} color={color} />;
@@ -103,7 +103,7 @@ const MainNavigationStack = createBottomTabNavigator();
 const MainNavigation = ({ userId, logout }) => {
   return (
     <MainNavigationStack.Navigator
-      initialRouteName="Wallet"
+      initialRouteName="Savings"
       screenOptions={({ route }) => {
         return {
           tabBarIcon: ({ focused, color, size }) => {
@@ -120,7 +120,7 @@ const MainNavigation = ({ userId, logout }) => {
       }}
     >
       <MainNavigationStack.Screen
-        name="Wallet"
+        name="Savings"
         component={WalletScreenNavigation}
         options={{ headerShown: false }}
         initialParams={{ logout: () => logout(), userId }}

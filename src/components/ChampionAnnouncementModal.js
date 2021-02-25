@@ -111,9 +111,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 10,
     textAlign: 'center',
-    textShadowColor: Colors.orange,
-    textShadowOffset: { width: -1, height: 1 },
-    textShadowRadius: 3,
   },
   smallerMessage: {
     fontSize: 20,
