@@ -100,7 +100,7 @@ const WalletScreen = ({ route }) => {
         });
 
         setTransactionHistory(transactionsHistory);
-        setUserBalance(balance);
+        setUserBalance(balance ? balance : 0);
         setHasTransactionHistoryFetchError(false);
       }
     } catch (error) {
