@@ -11,9 +11,9 @@ const styles = StyleSheet.create({
   nameLogoText: {
     color: Colors.white,
     fontSize: 84,
-    textShadowColor: Colors.shadow2,
-    textShadowOffset: { width: 0, height: 2 },
-    textShadowRadius: 5,
+    //textShadowColor: Colors.shadow2,
+    //textShadowOffset: { width: 0, height: 2 },
+    //textShadowRadius: 5,
   },
 });
 

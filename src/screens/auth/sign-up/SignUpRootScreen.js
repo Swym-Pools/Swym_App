@@ -68,9 +68,6 @@ const styles = StyleSheet.create({
 
   logoImage: {
     height: '90%',
-    shadowColor: Colors.deepblue,
-    shadowOpacity: 0.3,
-    shadowRadius: 2,
     width: '90%',
   },
 
