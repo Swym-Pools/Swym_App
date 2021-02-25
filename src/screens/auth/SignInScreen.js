@@ -117,6 +117,9 @@ const SignInScreen = ({ route }) => {
           onPress={handleSubmit(onSignInSubmitted)}
         />
       </View>
+      <View>
+      <Text style={styles.countdownText}>Email info@swympools.org with issues</Text>
+      </View>
     </KeyboardAwareScrollView>
   );
 };
