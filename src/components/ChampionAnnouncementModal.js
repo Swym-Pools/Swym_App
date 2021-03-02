@@ -54,7 +54,7 @@ const ChampionAnnouncementModal = ({ modalVisible, onClose, winner }) => {
             <Text style={winner ? styles.messageText : [styles.messageText, styles.smallerMessage]}>
               {winner
                 ? `+${mostRecentWinner.amount} sats`
-                : `${mostRecentWinner?.user.username} won +${mostRecentWinner.amount} sats`}
+                : `${mostRecentWinner ? mostRecentWinner.user.username : ' '} won +${mostRecentWinner.amount} sats`}
             </Text>
             <Text style={styles.subMessageText}>
               {winner
