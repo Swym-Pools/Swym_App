@@ -22,7 +22,7 @@ const TotalSavingsSection = ({ totalSavings, isFetching }) => {
       ) : (
         <View style={styles.mainContentContainer}>
           <Text style={[HeadingStyles.largeHeadlineLabel, styles.headlineLabelText]}>
-            Total Savings (sats)
+            Pool Total (sats)
           </Text>
 
           <Text

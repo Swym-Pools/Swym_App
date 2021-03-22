@@ -88,7 +88,7 @@ function makeTabBarIcon({ name: routeName }, opts) {
 
   switch (routeName) {
     case 'Savings':
-      return <SimpleLineIcons name="wallet" size={size} color={color} />;
+      return <SimpleLineIcons name="graph" size={size} color={color} />;
     case 'Pool':
       return <Ionicons name="ios-water" size={size} color={color} />;
     case 'Account':
