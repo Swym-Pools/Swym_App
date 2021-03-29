@@ -18,7 +18,7 @@
     ],
     "ios": {
       "bundleIdentifier": "org.swympools.swym",
-      "buildNumber": "0.5.2",
+      "buildNumber": "0.5.3",
       "supportsTablet": true
     },
     "web": {
