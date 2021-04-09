@@ -205,7 +205,8 @@ const styles = StyleSheet.create({
   helpText: {
     color: Colors.purple,
     fontSize: 14,
-    fontWeight: 'bold',
+    fontFamily:'Krub-Bold',
+    //fontWeight: 'bold',
     textAlign: 'center',
   },
 });
