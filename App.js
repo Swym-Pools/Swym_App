@@ -8,8 +8,10 @@ import { AppLoading} from 'expo';
 import * as Font from 'expo-font'
 
 const getFonts = () => Font.loadAsync({
+  'LuckiestGuy-Regular': require('./assets/fonts/LuckiestGuy-Regular.ttf'),
   'Krub-Regular': require('./assets/fonts/Krub-Regular.ttf'),
-  'LuckiestGuy-Regular': require('./assets/fonts/LuckiestGuy-Regular.ttf')
+  'Krub-Bold': require('./assets/fonts/Krub-Bold.ttf'),
+  'Krub-SemiBold': require('./assets/fonts/Krub-SemiBold.ttf'),
 });
 
 export default function App() {
