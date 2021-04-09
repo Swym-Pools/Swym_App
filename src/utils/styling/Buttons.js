@@ -13,6 +13,7 @@ const ButtonStyles = StyleSheet.create({
     color: Colors.white,
     fontSize: 22,
     fontWeight: '500',
+    fontFamily: 'Krub-Regular',
   },
 
   actionButtonContainer: {
