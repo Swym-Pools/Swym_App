@@ -8,14 +8,17 @@ const FormStyles = StyleSheet.create({
 
   labelText: {
     fontSize: 15,
-    fontWeight: '600',
+    fontFamily:'Krub-Bold',
+    //fontWeight: '600',
     marginRight: 24,
   },
 
   errorText: {
+    fontFamily:'Krub-Regular',
     color: Colors.errorRed,
     fontSize: 13,
   },
 });
 
 export default FormStyles;
+
