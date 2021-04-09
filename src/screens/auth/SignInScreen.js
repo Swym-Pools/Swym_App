@@ -134,6 +134,7 @@ const styles = StyleSheet.create({
 
   logoNameContainer: {
     marginBottom: 22,
+    fontFamily:'LuckiestGuy-Regular',
   },
 
   logoImageContainer: {
@@ -168,6 +169,7 @@ const styles = StyleSheet.create({
   labelText: {
     ...FormStyles.labelText,
     color: Colors.purple,
+    fontFamily:'Krub-Regular',
   },
 });
 
