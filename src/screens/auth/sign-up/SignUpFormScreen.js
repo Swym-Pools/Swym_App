@@ -213,6 +213,7 @@ const styles = StyleSheet.create({
 
   logoNameContainer: {
     marginBottom: 22,
+    fontFamily:'LuckiestGuy-Regular',
   },
 
   formContainer: {
