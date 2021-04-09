@@ -106,7 +106,8 @@ const styles = StyleSheet.create({
     color: Colors.purple,
     flex: 1,
     fontSize: 15,
-    fontWeight: '600',
+    //fontWeight: '600',
+    fontFamily: 'Krub-SemiBold',
     marginRight: 24,
   },
 
@@ -114,6 +115,7 @@ const styles = StyleSheet.create({
     color: Colors.white,
     flex: 2,
     fontSize: 15,
+    fontFamily:'Krub-Regular',
   },
 
   nonTrailingViewSection: {
@@ -127,8 +129,9 @@ const styles = StyleSheet.create({
   helpText: {
     color: Colors.purple,
     fontSize: 14,
-    fontWeight: 'bold',
     textAlign: 'center',
+    fontFamily: 'Krub-Bold',
+    //fontWeight: 'bold',
   },
 });
 
