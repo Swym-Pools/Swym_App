@@ -157,20 +157,23 @@ const styles = StyleSheet.create({
   topText: {
     color: Colors.purple,
     fontSize: 20,
-    fontWeight: '600',
+    //fontWeight: '600',
     marginBottom: 2,
+    fontFamily:'Krub-SemiBold', 
   },
 
   amountLabel: {
     color: Colors.purple,
     fontSize: 40,
-    fontWeight: '600',
+    //fontWeight: '600',
+    fontFamily:'Krub-SemiBold',
   },
 
   successText: {
     color: Colors.white,
     fontSize: 24,
-    fontWeight: '600',
+    //fontWeight: '600',
+    fontFamily:'Krub-SemiBold',
     textAlign: 'center',
   },
 
@@ -193,7 +196,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     color: Colors.purple,
     fontSize: 30,
-    fontWeight: '600',
+    //fontWeight: '600',
+    fontFamily:'Krub-SemiBold',
     height: 50,
     padding: 10,
   },
@@ -201,7 +205,8 @@ const styles = StyleSheet.create({
   inputLabel: {
     color: Colors.purple,
     fontSize: 18,
-    fontWeight: '200',
+    //fontWeight: '200',
+    fontFamily:'Krub-ExtraLight',
   },
 
   inputContainer: {
