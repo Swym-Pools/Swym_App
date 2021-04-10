@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
 
   messageText: {
     color: Colors.purple,
+    fontFamily:'Krub-Regular',
     marginBottom: 36,
   },
 });
