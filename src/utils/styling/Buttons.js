@@ -12,8 +12,8 @@ const ButtonStyles = StyleSheet.create({
   actionButtonTitle: {
     color: Colors.white,
     fontSize: 22,
-    fontWeight: '500',
-    fontFamily: 'Krub-Regular',
+    //fontWeight: '500',
+    fontFamily: 'Krub-Medium',
   },
 
   actionButtonContainer: {
