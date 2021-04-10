@@ -89,7 +89,7 @@ const PoolScreen = () => {
               return (
                 <View style={styles.viewSectionContainer}>
                   {/* TODO: Un-hardcode this */}
-                  <Text style={styles.countdownText}>Swym champion announced first of every month</Text>
+                  <Text style={styles.countdownText}>Swym champion announced every Friday</Text>
                 </View>
               );
             },
@@ -156,7 +156,8 @@ const styles = StyleSheet.create({
   countdownText: {
     color: Colors.white,
     fontSize: 16,
-    fontWeight: '700',
+    //fontWeight: '700',
+    fontFamily: 'Krub-Bold',
     textShadowColor: Colors.shadow1,
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 4,
