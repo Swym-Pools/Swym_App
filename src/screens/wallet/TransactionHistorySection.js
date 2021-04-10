@@ -39,13 +39,16 @@ const styles = StyleSheet.create({
   sectionHeading: {
     color: Colors.purple,
     fontSize: 22,
-    fontWeight: '700',
+    //fontWeight: '700',
+    fontFamily:'Krub-Bold',
     marginBottom: 24,
   },
   growContainer: {
     display: 'flex',
     flex: 1,
     justifyContent: 'center',
+    fontSize: 13.4,
+    fontFamily:'Krub-SemiBold',
   },
 });
 
