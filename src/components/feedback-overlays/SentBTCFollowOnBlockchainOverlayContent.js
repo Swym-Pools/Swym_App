@@ -55,12 +55,14 @@ const styles = StyleSheet.create({
 
   amountText: {
     fontSize: 40,
-    fontWeight: '200',
+    //fontWeight: '200',
+    fontFamily:'Krub-ExtraLight',
     marginBottom: 2,
   },
 
   amountLabel: {
-    fontWeight: '600',
+    //fontWeight: '600',
+    fontFamily:'Krub-SemiBold',
   },
 
   messageText: {
