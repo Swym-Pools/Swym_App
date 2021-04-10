@@ -68,12 +68,14 @@ const styles = StyleSheet.create({
 
   addressHeadingText: {
     color: Colors.purple,
-    fontWeight: '700',
+    //fontWeight: '700',
+    fontFamily:'Krub-Bold', 
   },
 
   addressText: {
     color: Colors.purple,
     textAlign: 'center',
+    fontFamily:'Krub-Regular', 
   },
 
   optionTextContainer: {
@@ -89,8 +91,9 @@ const styles = StyleSheet.create({
 
   optionText: {
     color: Colors.blue,
-    fontWeight: '600',
     textAlign: 'center',
+    //fontWeight: '600',
+    fontFamily:'Krub-SemiBold', 
   },
 
   closeOptionText: {
@@ -114,3 +117,4 @@ DepositSheet.defaultProps = {
 };
 
 export default DepositSheet;
+ 
