@@ -8,7 +8,7 @@ const FormStyles = StyleSheet.create({
 
   labelText: {
     fontSize: 15,
-    fontFamily:'Krub-Bold',
+    fontFamily:'Krub-SemiBold',
     //fontWeight: '600',
     marginRight: 24,
   },
