@@ -10,7 +10,8 @@ const HeadingStyles = StyleSheet.create({
 
   largeHeadline: {
     fontSize: 50,
-    fontWeight: 'bold',
+    //fontWeight: 'bold',
+    fontFamily:'Krub-Bold',
   },
 
   largeHeadlineLabel: {
