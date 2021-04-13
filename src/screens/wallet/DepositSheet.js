@@ -69,13 +69,13 @@ const styles = StyleSheet.create({
   addressHeadingText: {
     color: Colors.purple,
     //fontWeight: '700',
-    fontFamily:'Krub-Bold', 
+    fontFamily:'Lato-Bold', 
   },
 
   addressText: {
     color: Colors.purple,
     textAlign: 'center',
-    fontFamily:'Krub-Regular', 
+    fontFamily:'Lato-Regular', 
   },
 
   optionTextContainer: {
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     color: Colors.blue,
     textAlign: 'center',
     //fontWeight: '600',
-    fontFamily:'Krub-SemiBold', 
+    fontFamily:'Lato-Bold', 
   },
 
   closeOptionText: {

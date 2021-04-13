@@ -13,7 +13,7 @@ const FeedbackOverlayStyles = StyleSheet.create({
     fontSize: 18,
     textAlign: 'center',
     //fontWeight: '700',
-    fontFamily:'Krub-Bold',
+    fontFamily:'Lato-Bold',
   },
 
   overlayWrapper: {
@@ -24,7 +24,7 @@ const FeedbackOverlayStyles = StyleSheet.create({
   confirmationButtonText: {
     fontSize: 16,
     //fontWeight: '600',
-    fontFamily:'Krub-SemiBold',
+    fontFamily:'Lato-Bold',
   },
 
   confirmationButtonContent: {

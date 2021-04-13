@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
   labelText: {
     ...FormStyles.labelText,
     color: Colors.purple,
-    fontFamily:'Krub-Regular',
+    fontFamily:'Lato-',
   },
 });
 

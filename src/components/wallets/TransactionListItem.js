@@ -27,14 +27,14 @@ const styles = StyleSheet.create({
     color: Colors.purple,
     fontSize: 20,
     //fontWeight: '300',
-    fontFamily: 'Krub-Light',
+    fontFamily: 'Lato-Light',
   },
 
   rightTitleText: {
     color: Colors.purple,
     fontSize: 20,
     //fontWeight: '500',
-    fontFamily: 'Krub-Medium',
+    fontFamily: 'Lato-Regular',
   },
 });
 

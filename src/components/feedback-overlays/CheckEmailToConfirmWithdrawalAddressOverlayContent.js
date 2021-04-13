@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     color: Colors.white,
     fontSize: 24,
     //fontWeight: '600',
-    fontFamily:'Krub-SemiBold',
+    fontFamily:'Lato-Bold',
     marginBottom: 36,
     textAlign: 'center',
   },

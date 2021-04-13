@@ -56,13 +56,13 @@ const styles = StyleSheet.create({
   amountText: {
     fontSize: 40,
     //fontWeight: '200',
-    fontFamily:'Krub-ExtraLight',
+    fontFamily:'Lato-ExtraLight',
     marginBottom: 2,
   },
 
   amountLabel: {
     //fontWeight: '600',
-    fontFamily:'Krub-SemiBold',
+    fontFamily:'Lato-Bold',
   },
 
   messageText: {

@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     color: Colors.white,
     fontSize: 16,
     //fontWeight: '700',
-    fontFamily: 'Krub-Bold',
+    fontFamily: 'Lato-Bold',
     textShadowColor: Colors.shadow1,
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 4,

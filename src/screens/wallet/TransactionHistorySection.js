@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     color: Colors.purple,
     fontSize: 22,
     //fontWeight: '700',
-    fontFamily:'Krub-Bold',
+    fontFamily:'Lato-Bold',
     marginBottom: 24,
   },
   growContainer: {
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     fontSize: 13.4,
-    fontFamily:'Krub-SemiBold',
+    fontFamily:'Lato-Bold',
   },
 });
 

@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 const HeadingStyles = StyleSheet.create({
   listSectionHeading: {
     //fontWeight: '500',
-    fontFamily:'Krub-Medium',
+    fontFamily:'Lato-Regular',
     fontSize: 28,
     marginBottom: 12,
   },
@@ -11,19 +11,19 @@ const HeadingStyles = StyleSheet.create({
   largeHeadline: {
     fontSize: 50,
     //fontWeight: 'bold',
-    fontFamily:'Krub-Bold',
+    fontFamily:'Lato-Bold',
   },
 
   largeHeadlineLabel: {
     fontSize: 18,
     //fontWeight: '700',
-    fontFamily:'Krub-Bold',
+    fontFamily:'Lato-Bold',
   },
 
   listHeadingLabel: {
     fontSize: 16,
     //fontWeight: '700',
-    fontFamily:'Krub-Bold',
+    fontFamily:'Lato-Bold',
   },
 });
 

@@ -86,13 +86,13 @@ const styles = StyleSheet.create({
     color: Colors.black,
     fontSize: 17,
     //fontWeight: '300',
-    fontFamily:'Krub-Light',
+    fontFamily:'Lato-Light',
   },
 
   signInLinkText: {
     color: Colors.white,
     fontSize: 17,
-    fontFamily:'Krub-Bold',
+    fontFamily:'Lato-Bold',
     //fontWeight: 'bold',
     paddingHorizontal: 12,
   },

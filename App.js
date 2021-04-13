@@ -9,12 +9,10 @@ import * as Font from 'expo-font'
 
 const getFonts = () => Font.loadAsync({
   'LuckiestGuy-Regular': require('./assets/fonts/LuckiestGuy-Regular.ttf'),  
-  'Krub-Bold': require('./assets/fonts/Krub-Bold.ttf'),
-  'Krub-SemiBold': require('./assets/fonts/Krub-SemiBold.ttf'),
-  'Krub-Medium': require('./assets/fonts/Krub-Medium.ttf'),
-  'Krub-Regular': require('./assets/fonts/Krub-Regular.ttf'),
-  'Krub-Light': require('./assets/fonts/Krub-Light.ttf'),
-  'Krub-ExtraLight': require('./assets/fonts/Krub-ExtraLight.ttf'),
+  'Lato-Bold': require('./assets/fonts/Lato-Bold.ttf'),
+  'Lato-Regular': require('./assets/fonts/Lato-Regular.ttf'),
+  'Lato-Light': require('./assets/fonts/Lato-Light.ttf'),
+  'Lato-Thin': require('./assets/fonts/Lato-Thin.ttf'),
   
 //Italics, uncomment when used
 

@@ -8,13 +8,13 @@ const FormStyles = StyleSheet.create({
 
   labelText: {
     fontSize: 15,
-    fontFamily:'Krub-SemiBold',
+    fontFamily:'Lato-Bold',
     //fontWeight: '600',
     marginRight: 24,
   },
 
   errorText: {
-    fontFamily:'Krub-Regular',
+    fontFamily:'Lato-Regular',
     color: Colors.errorRed,
     fontSize: 13,
   },

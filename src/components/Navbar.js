@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     color: Colors.white,
     fontSize: 15,
     //fontWeight: '600',
-    fontFamily:'Krub-SemiBold',
+    fontFamily:'Lato-Bold',
   },
 });
 
