@@ -44,7 +44,8 @@ const styles = StyleSheet.create({
     color: Colors.purple,
     flex: 1,
     fontSize: 16,
-    fontWeight: '400',
+    //fontWeight: '400',
+    fontFamily:'Krub-Regular',
     textAlign: 'left',
   },
 

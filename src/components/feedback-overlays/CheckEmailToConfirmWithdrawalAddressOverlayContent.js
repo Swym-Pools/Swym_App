@@ -56,7 +56,8 @@ const styles = StyleSheet.create({
   messageText: {
     color: Colors.white,
     fontSize: 24,
-    fontWeight: '600',
+    //fontWeight: '600',
+    fontFamily:'Krub-SemiBold',
     marginBottom: 36,
     textAlign: 'center',
   },
@@ -83,3 +84,4 @@ CheckEmailToConfirmWithdrawalAddressOverlayContent.defaultProps = {
 };
 
 export default CheckEmailToConfirmWithdrawalAddressOverlayContent;
+

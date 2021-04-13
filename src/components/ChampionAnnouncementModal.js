@@ -99,16 +99,19 @@ const styles = StyleSheet.create({
   headerText: {
     color: Colors.purple,
     fontSize: 25,
-    fontWeight: 'bold',
+    //fontWeight: 'bold',
+    fontFamily:'Krub-Bold',
     marginBottom: 100,
   },
   smallerHeader: {
     fontSize: 25,
+    fontFamily:'Krub-Bold',
   },
   messageText: {
     color: Colors.orange,
     fontSize: 40,
-    fontWeight: 'bold',
+    //fontWeight: 'bold',
+    fontFamily:'Krub-Bold',
     marginBottom: 10,
     textAlign: 'center',
   },
@@ -120,7 +123,8 @@ const styles = StyleSheet.create({
   subMessageText: {
     color: Colors.purple,
     fontSize: 16,
-    fontWeight: 'bold',
+    //fontWeight: 'bold',
+    fontFamily:'Krub-Bold',
     textAlign: 'center',
     width: '75%',
   },
@@ -134,7 +138,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     color: Colors.grayScale3,
     fontSize: 20,
-    fontWeight: 'bold',
+    fontFamily:'Krub-Bold',
+    //fontWeight: 'bold',
   },
   logoContainer: {},
   logo: {

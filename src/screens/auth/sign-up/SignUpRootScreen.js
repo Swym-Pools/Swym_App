@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
 
   logoNameContainer: {
     marginBottom: 22,
+    fontFamily:'LuckiestGuy-Regular',
   },
 
   logoImageContainer: {
@@ -83,14 +84,16 @@ const styles = StyleSheet.create({
 
   signInMessageText: {
     color: Colors.black,
-    fontSize: 18,
-    fontWeight: '300',
+    fontSize: 17,
+    //fontWeight: '300',
+    fontFamily:'Krub-Light',
   },
 
   signInLinkText: {
     color: Colors.white,
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: 17,
+    fontFamily:'Krub-Bold',
+    //fontWeight: 'bold',
     paddingHorizontal: 12,
   },
 });

@@ -4,8 +4,31 @@ import RootNavigation from './src/navigation/RootNavigation';
 import { NavigationContainer } from '@react-navigation/native';
 import { logoutUser } from './src/utils/networking/API';
 import { YellowBox } from 'react-native';
+import { AppLoading} from 'expo';
+import * as Font from 'expo-font'
+
+const getFonts = () => Font.loadAsync({
+  'LuckiestGuy-Regular': require('./assets/fonts/LuckiestGuy-Regular.ttf'),  
+  'Krub-Bold': require('./assets/fonts/Krub-Bold.ttf'),
+  'Krub-SemiBold': require('./assets/fonts/Krub-SemiBold.ttf'),
+  'Krub-Medium': require('./assets/fonts/Krub-Medium.ttf'),
+  'Krub-Regular': require('./assets/fonts/Krub-Regular.ttf'),
+  'Krub-Light': require('./assets/fonts/Krub-Light.ttf'),
+  'Krub-ExtraLight': require('./assets/fonts/Krub-ExtraLight.ttf'),
+  
+//Italics, uncomment when used
+
+//'Krub-BoldItalic': require('./assets/fonts/Krub-BoldItalic.ttf'),
+//'Krub-SemiBoldItalic': require('./assets/fonts/Krub-SemiBoldItalic.ttf'),
+//'Krub-MediumItalic': require('./assets/fonts/Krub-MediumItalic.ttf'),
+//'Krub-RegularItalic': require('./assets/fonts/Krub-Italic.ttf'),
+//'Krub-LightItalic': require('./assets/fonts/Krub-Light.ttf'),
+//'Krub-ExtraLightItalic': require('./assets/fonts/Krub-ExtraLight.ttf'),
+  
+});
 
 export default function App() {
+  const [fontsLoaded, setFontsLoaded] = useState(false);
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [userId, setUserId] = useState(null);
 
@@ -19,6 +42,7 @@ export default function App() {
   };
 
   YellowBox.ignoreWarnings(['Non-serializable values were found in the navigation state']);
+  if (fontsLoaded){
 
   return (
     <NavigationContainer>
@@ -31,4 +55,13 @@ export default function App() {
       />
     </NavigationContainer>
   );
+}  else {
+
+  return (<AppLoading
+    startAsync={getFonts}
+    onFinish={()=> setFontsLoaded(true)}
+  />
+  )
+}
+
 }

@@ -26,13 +26,15 @@ const styles = StyleSheet.create({
   leftTitleText: {
     color: Colors.purple,
     fontSize: 20,
-    fontWeight: '300',
+    //fontWeight: '300',
+    fontFamily: 'Krub-Light',
   },
 
   rightTitleText: {
     color: Colors.purple,
     fontSize: 20,
-    fontWeight: '500',
+    //fontWeight: '500',
+    fontFamily: 'Krub-Medium',
   },
 });
 

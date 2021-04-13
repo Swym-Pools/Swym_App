@@ -59,7 +59,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: Colors.purple,
     fontSize: 32,
-    fontWeight: 'bold',
+    //fontWeight: 'bold',
+    fontFamily: 'LuckiestGuy-Regular',
     paddingTop: absoluteTopOffset / 2,
   },
 
@@ -74,7 +75,8 @@ const styles = StyleSheet.create({
   logoutButtonText: {
     color: Colors.white,
     fontSize: 15,
-    fontWeight: '600',
+    //fontWeight: '600',
+    fontFamily:'Krub-SemiBold',
   },
 });
 
