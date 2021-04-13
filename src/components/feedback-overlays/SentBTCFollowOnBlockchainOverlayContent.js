@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   amountText: {
     fontSize: 40,
     //fontWeight: '200',
-    fontFamily:'Lato-ExtraLight',
+    fontFamily:'Lato-Light',
     marginBottom: 2,
   },
 

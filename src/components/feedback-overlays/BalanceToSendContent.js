@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
     color: Colors.purple,
     fontSize: 18,
     //fontWeight: '200',
-    fontFamily:'Lato-ExtraLight',
+    fontFamily:'Lato-Light',
   },
 
   inputContainer: {
