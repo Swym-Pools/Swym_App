@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import SignInScreen from '../screens/auth/SignInScreen';
 import SignUpRootScreen from '../screens/auth/sign-up/SignUpRootScreen';
 import SignUpFormScreen from '../screens/auth/sign-up/SignUpFormScreen';
+import SignUpQRScreen from '../screens/auth/sign-up/SignUpQRScreen';
 
 const SignUpNavigationStack = createStackNavigator();
 

@@ -20,6 +20,26 @@ export async function fetchTransactionHistory(userId) {
   }
 }
 
+export async function fetchQRCode(user) {
+  try {
+    const response = await axios.get(`${API_URL}/auth/setup-2fa`, user);
+    return response;
+  } catch (err) {
+    return err.response;
+  }
+}
+
+export async function setup2FA(user, params) {
+  try {
+    const response = await axios.post(`${API_URL}/auth/setup-2fa`, params);
+    return response;
+  } catch (err) {
+    return err.response;
+  }
+}
+
+
+
 export async function createUserAccount(user) {
   try {
     const response = await axios.post(`${API_URL}/auth/signup`, user);

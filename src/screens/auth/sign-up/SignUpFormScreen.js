@@ -36,6 +36,7 @@ const SignUpFormScreen = ({ route }) => {
       const userId = response.data.id;
       setUserId(userId);
       setIsSignedIn(true);
+      navigation.navigate('SignUpQRScreen', {});
     } else if (response.data === 'User already exists') {
       setError('username', { type: 'manual', message: 'User already exists' });
     }

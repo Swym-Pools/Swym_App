@@ -11,7 +11,7 @@ import FormStyles from '../../utils/styling/Forms';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { validateLogin } from '../../utils/networking/API';
 
-const SignInScreen = ({ route }) => {
+const SignInScreen = ({ route, navigation }) => {
   const { setIsSignedIn, setUserId } = route.params;
   const { control, handleSubmit, errors, setError } = useForm();
 
@@ -27,6 +27,10 @@ const SignInScreen = ({ route }) => {
       setError('username', { type: 'manual', message: 'Wrong username and/or password' });
     }
   };
+
+  const clickForgot = function() {
+    navigation.replace('Reset-Password');
+  }
 
   return (
     <KeyboardAwareScrollView contentContainerStyle={styles.rootContainer}>
@@ -119,6 +123,7 @@ const SignInScreen = ({ route }) => {
       </View>
       <View>
       <Text style={styles.countdownText}>Email info@swympools.org with issues</Text>
+      <Text onClick={clickForgot} style={styles.countdownText}>Forgot username or password ?</Text>
       </View>
     </KeyboardAwareScrollView>
   );
