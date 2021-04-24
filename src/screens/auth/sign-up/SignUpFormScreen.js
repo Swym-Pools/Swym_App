@@ -207,7 +207,7 @@ const SignUpFormScreen = ({ route }) => {
 const styles = StyleSheet.create({
   rootContainer: {
     alignItems: 'center',
-    backgroundColor: Colors.blue,
+    backgroundColor: Colors.white,
     flex: 1,
     justifyContent: 'center',
   },
