@@ -114,7 +114,7 @@ const MainNavigation = ({ userId, logout }) => {
       tabBarOptions={{
         activeBackgroundColor: Colors.blue,
         inactiveBackgroundColor: Colors.blue,
-        activeTintColor: Colors.purple,
+        activeTintColor: Colors.white,
         inactiveTintColor: Colors.iconDisabled,
         style: { backgroundColor: Colors.blue },
       }}

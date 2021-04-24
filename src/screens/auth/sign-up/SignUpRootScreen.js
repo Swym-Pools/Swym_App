@@ -51,7 +51,7 @@ const SignUpRootScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   rootContainer: {
     alignItems: 'center',
-    backgroundColor: Colors.blue,
+    backgroundColor: Colors.white,
     flex: 1,
     justifyContent: 'center',
   },
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
   },
 
   signInLinkText: {
-    color: Colors.white,
+    color: Colors.blue,
     fontSize: 17,
     fontFamily:'Lato-Bold',
     //fontWeight: 'bold',

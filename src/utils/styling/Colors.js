@@ -4,7 +4,7 @@ const Colors = {
   white: '#ffffff',
   offWhite: '#F5F5F5',
   orange: '#FF975F',
-  blue: '#0DECD7',
+  blue: '#04BEAD',
   purple: '#02312C',
   errorRed: '#C02020',
   deepblue: '#001A33',

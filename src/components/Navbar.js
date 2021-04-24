@@ -9,7 +9,7 @@ const Navbar = ({ title, logout }) => {
     <View style={styles.rootContainer}>
       <Image
         containerStyle={styles.logoContainer}
-        source={require('../../assets/images/logo-orange.png')}
+        source={require('../../assets/images/logo-allwhite.png')}
         style={styles.logo}
       />
 
@@ -57,11 +57,11 @@ const styles = StyleSheet.create({
 
   titleText: {
     alignSelf: 'center',
-    color: Colors.purple,
-    fontSize: 32,
+    color: Colors.white,
+    fontSize: 36,
     //fontWeight: 'bold',
     fontFamily: 'LuckiestGuy-Regular',
-    paddingTop: absoluteTopOffset / 2,
+    paddingTop: absoluteTopOffset / 1,
   },
 
   logoutButtonContainer: {
