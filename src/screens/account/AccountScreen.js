@@ -88,9 +88,9 @@ const AccountScreen = ({ navigation, route }) => {
         <View style={[styles.nonTrailingViewSection, styles.actionButtonSection]}>
           <Button
             containerStyle={ButtonStyles.actionButtonContainer}
-            buttonStyle={[ButtonStyles.actionButton]}
-            titleStyle={ButtonStyles.actionButtonTitle}
-            titleStyle={ButtonStyles.actionButtonTitle}
+            buttonStyle={[ButtonStyles.actionButton2]}
+            titleStyle={ButtonStyles.actionButtonTitle2}
+            titleStyle={ButtonStyles.actionButtonTitle2}
             title="Redeem Reward"
             onPress={openRewardOverlay}
           />
@@ -99,9 +99,9 @@ const AccountScreen = ({ navigation, route }) => {
         {(referralError !== '') && <Text>{referralError}</Text>}
         <View style={[styles.nonTrailingViewSection, styles.actionButtonSection]}>
           <Button 
-            containerStyle={ButtonStyles.actionButtonContainer}
-            buttonStyle={[ButtonStyles.actionButton]}
-            titleStyle={ButtonStyles.actionButtonTitle}
+            containerStyle={ButtonStyles.actionButtonContainer2}
+            buttonStyle={[ButtonStyles.actionButton2]}
+            titleStyle={ButtonStyles.actionButtonTitle2}
             title="Refer a friend, get 100 satoshi"
             onPress={sendReferralSMS}
             raised
