@@ -15,21 +15,15 @@ import { createUserAccount, fetchQRCode } from '../../../utils/networking/API';
 const ResetPasswordScreen = ({ route }) => {
   const { setIsSignedIn, setUserId } = route.params;
   const [errorsExist, setErrorsExist] = useState(false);
+  const [email, setEmail] = useState(null);
   const { control, formState, handleSubmit, watch, errors, setError } = useForm();
   const password = useRef({});
   password.current = watch('password', '');
 
-  const onSignUpSubmitted = async ({ username, email, password }) => {
+  const onSubmitted = async ({ username, email, password }) => {
     if (Object.keys(errors).length) {
       return;
     }
-
-    const newUser = {
-      username,
-      email,
-      password,
-    };
-
     const response = await setup2FA(newUser);
 
     if (response.status === 200) {
@@ -45,30 +39,59 @@ const ResetPasswordScreen = ({ route }) => {
   useEffect(async () => {
     var qr = await fetchQRCode(user);
   }, []);
-
   return (
     <KeyboardAwareScrollView contentContainerStyle={styles.rootContainer}>
       <SwymNameLogo style={styles.logoNameContainer} />
 
+      <Image
+        containerStyle={styles.logoImageContainer}
+        style={styles.logoImage}
+        source={require('../../../assets/images/logo-white.png')}
+      />
+
+      <Text>Please enter the email address associated with your account</Text>
+
       <View style={styles.formContainer}>
-        <Text style={FormStyles.errorText}>
-          To setup 2FA please scan the QR code below:
-        </Text>
-        <Image
-            source={qr}
-          />
+        <Controller
+          control={control}
+          name="email"
+          defaultValue=""
+          rules={{ required: true, minLength: 2 }}
+          render={({ onChange, value, name }) => (
+            <View style={styles.formFieldContainer}>
+              <Input
+                name="email"
+                inputContainerStyle={FormStyles.inputContainer}
+                label="Username"
+                labelStyle={styles.labelText}
+                placeholder="Enter an email"
+                placeholderTextColor={Colors.grayScale1}
+                selectionColor={Colors.grayScale1}
+                underlineColorAndroid={Colors.grayScale1}
+                textContentType="email"
+                value={value}
+                onChangeText={(value) => {
+                  setEmail( value )
+                }}
+                onSubmitEditing={handleSubmit(onSubmitted)}
+              />
+            </View>
+          )}
+        />
       </View>
 
       <View style={styles.actionButtonsContainer}>
         <Button
-          title="Submit"
+          title="Reset Password"
           raised
           containerStyle={[ButtonStyles.actionButtonContainer]}
           buttonStyle={[ButtonStyles.actionButton]}
           titleStyle={ButtonStyles.actionButtonTitle}
-          onPress={handleSubmit(onSignUpSubmitted)}
-          disabled={errorsExist || formState.isSubmitting}
+          onPress={handleSubmit(onSubmitted)}
         />
+      </View>
+      <View>
+      <Text style={styles.countdownText}>Check your Swym email for a temporary recovery password</Text>
       </View>
     </KeyboardAwareScrollView>
   );
@@ -107,14 +130,14 @@ const styles = StyleSheet.create({
   },
 });
 
-SignUpQRScreen.propTypes = {
+ResetPasswordScreen.propTypes = {
   navigation: NavigationShape.isRequired,
   route: PropTypes.object,
 };
 
-SignUpQRScreen.defaultProps = {};
+ResetPasswordScreen.defaultProps = {};
 
-SignUpQRScreen.navigationOptions = ({ navigation }) => {
+ResetPasswordScreen.navigationOptions = ({ navigation }) => {
   return {
     headerBackTitle: '',
     headerTitle: () => {

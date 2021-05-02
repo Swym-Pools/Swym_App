@@ -1,7 +1,16 @@
 import sleep from '../sleep';
 import axios from 'axios';
 import poolResultsHistory from './mock-data/pool-results-history';
-const API_URL = process.env.API_URL || 'https://swym-backend.herokuapp.com';
+/*
+if ( !process.env.MODE || process.env.MODE === 'production' ) {
+  const API_URL =  'https://swym-backend.herokuapp.com';
+} else {
+  const API_URL = 'https://swym-dev.herokuapp.com';
+}
+*/
+
+const API_URL =  'https://swym-backend.herokuapp.com';
+console.log('API url = ' + API_URL);
 
 function mapPoolResultsHistory(result) {
   return {
@@ -29,6 +38,17 @@ export async function fetchQRCode(user) {
   }
 }
 
+export async function fetchTOTPCode(user) {
+  try {
+    const response = await axios.get(`${API_URL}/auth/create-b32-totp-code`, user);
+    return response;
+  } catch (err) {
+    return err.response;
+  }
+}
+
+
+
 export async function setup2FA(user, params) {
   try {
     const response = await axios.post(`${API_URL}/auth/setup-2fa`, params);
@@ -38,15 +58,31 @@ export async function setup2FA(user, params) {
   }
 }
 
-
-
-export async function createUserAccount(user) {
+export async function saveTOTP(user, params) {
   try {
-    const response = await axios.post(`${API_URL}/auth/signup`, user);
+    const response = await axios.post(`${API_URL}/auth/create-b32-totp-code`, params);
     return response;
   } catch (err) {
     return err.response;
   }
+}
+
+export async function resetPassword(params) {
+  try {
+    const response = await axios.post(`${API_URL}/auth/create-b32-totp-code`, params);
+    return response;
+  } catch (err) {
+    return err.response;
+  }
+}
+
+
+
+export async function createUserAccount(user) {
+  console.log('Registering..');
+  console.log('API url = ' + API_URL);
+  const response = await axios.post(`${API_URL}/auth/signup`, user);
+  return response;
 }
 
 export async function validateLogin(user) {

@@ -12,7 +12,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import NavbarStyles from '../../../utils/styling/Navbar';
 import { createUserAccount } from '../../../utils/networking/API';
 
-const SignUpFormScreen = ({ route }) => {
+const SignUpFormScreen = ({ route, navigation }) => {
   const { setIsSignedIn, setUserId } = route.params;
   const [errorsExist, setErrorsExist] = useState(false);
   const { control, formState, handleSubmit, watch, errors, setError } = useForm();
@@ -30,13 +30,16 @@ const SignUpFormScreen = ({ route }) => {
       password,
     };
 
+    console.log('creating account..');
     const response = await createUserAccount(newUser);
 
     if (response.status === 200) {
       const userId = response.data.id;
-      setUserId(userId);
-      setIsSignedIn(true);
-      navigation.navigate('SignUpQRScreen', {});
+      //setUserId(userId);
+      //setIsSignedIn(true);
+      navigation.navigate('SignUpTOTPScreen', {
+        userId
+      });
     } else if (response.data === 'User already exists') {
       setError('username', { type: 'manual', message: 'User already exists' });
     }

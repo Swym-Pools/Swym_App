@@ -10,41 +10,43 @@ import Colors from '../../../utils/styling/Colors';
 import ButtonStyles from '../../../utils/styling/Buttons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import NavbarStyles from '../../../utils/styling/Navbar';
-import { createUserAccount, fetchQRCode } from '../../../utils/networking/API';
+import { createUserAccount, fetchTOTP, saveTOTP } from '../../../utils/networking/API';
 
-const SignUpQRScreen = ({ route }) => {
+const SignUpTOTPScreen = ({ route }) => {
   const { setIsSignedIn, setUserId } = route.params;
   const [errorsExist, setErrorsExist] = useState(false);
+  const [code, setCode] = useState(null);
   const { control, formState, handleSubmit, watch, errors, setError } = useForm();
   const password = useRef({});
   password.current = watch('password', '');
 
-  const onSignUpSubmitted = async ({ username, email, password }) => {
+  const onSubmitted = async () => {
     if (Object.keys(errors).length) {
       return;
     }
 
-    const newUser = {
-      username,
-      email,
-      password,
-    };
-
-    const response = await setup2FA(newUser);
+    const response = await saveTOTP(code);
 
     if (response.status === 200) {
       const userId = response.data.id;
       setUserId(userId);
       setIsSignedIn(true);
-    } else if (response.data === 'User already exists') {
-      setError('username', { type: 'manual', message: 'User already exists' });
+    } else {
+      setError('api', { type: 'manual', message: 'API error' });
     }
   };
 
-  var qr = '';
   useEffect(async () => {
-    var qr = await fetchQRCode(user);
+    var code = await fetchTOTPCode(user);
+    setCode( code );
   }, []);
+  if ( !code ) {
+    return (
+        <>
+         <Text>Loading..</Text>
+        </>
+    );
+  }
 
   return (
     <KeyboardAwareScrollView contentContainerStyle={styles.rootContainer}>
@@ -52,11 +54,11 @@ const SignUpQRScreen = ({ route }) => {
 
       <View style={styles.formContainer}>
         <Text style={FormStyles.errorText}>
-          To setup 2FA please scan the QR code below:
+          To setup 2FA please add the following code to your authenticator:
         </Text>
-        <Image
-            source={qr}
-          />
+        <Text style={FormStyles.totp}>
+          {{code}}
+        </Text>
       </View>
 
       <View style={styles.actionButtonsContainer}>
@@ -66,7 +68,7 @@ const SignUpQRScreen = ({ route }) => {
           containerStyle={[ButtonStyles.actionButtonContainer]}
           buttonStyle={[ButtonStyles.actionButton]}
           titleStyle={ButtonStyles.actionButtonTitle}
-          onPress={handleSubmit(onSignUpSubmitted)}
+          onPress={handleSubmit(onSubmitted)}
           disabled={errorsExist || formState.isSubmitting}
         />
       </View>
@@ -105,16 +107,19 @@ const styles = StyleSheet.create({
     ...FormStyles.labelText,
     color: Colors.purple,
   },
+  totp: {
+    color: Colors.black
+  },
 });
 
-SignUpQRScreen.propTypes = {
+SignUpTOTPScreen.propTypes = {
   navigation: NavigationShape.isRequired,
   route: PropTypes.object,
 };
 
-SignUpQRScreen.defaultProps = {};
+SignUpTOTPScreen.defaultProps = {};
 
-SignUpQRScreen.navigationOptions = ({ navigation }) => {
+SignUpTOTPScreen.navigationOptions = ({ navigation }) => {
   return {
     headerBackTitle: '',
     headerTitle: () => {
@@ -124,4 +129,4 @@ SignUpQRScreen.navigationOptions = ({ navigation }) => {
   };
 };
 
-export default SignUpQRScreen;
+export default SignUpTOTPScreen;
