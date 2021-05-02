@@ -9,7 +9,7 @@ const SwymNameLogo = ({ style }) => {
 
 const styles = StyleSheet.create({
   nameLogoText: {
-    color: Colors.white,
+    color: Colors.blue,
     fontSize: 84,
     //textShadowColor: Colors.shadow2,
     //textShadowOffset: { width: 0, height: 2 },
