@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
-import { Button } from 'react-native-elements';
+import { Button, Input, Overlay } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import ButtonStyles from '../../utils/styling/Buttons';
 import useUserAccountState from '../../utils/hooks/UseUserAccountState';
 import Colors from '../../utils/styling/Colors';
 import Navbar from '../../components/Navbar';
 import NavigationShape from '../../data/shapes/Navigation';
-import { editUserAccount } from '../../utils/networking/API';
+import { editUserAccount, getReferralLink } from '../../utils/networking/API';
+import RewardOverlay from '../../components/RewardOverlay';
+import * as SMS from 'expo-sms';
 
 const AccountScreen = ({ navigation, route }) => {
   const { userId } = route.params;
@@ -17,6 +19,8 @@ const AccountScreen = ({ navigation, route }) => {
     hasUserAccountFetchError,
     updateUser,
   } = useUserAccountState(userId);
+  const [rewardOverlayVisible, setRewardOverlayVisible] = useState(false);
+  const [referralError, setReferralError] = useState();
 
   function onEditingSaved(editedAccount) {
     return editUserAccount(editedAccount);
@@ -28,6 +32,28 @@ const AccountScreen = ({ navigation, route }) => {
       onSave: onEditingSaved,
       updateUser,
     });
+  }
+
+  function openRewardOverlay() {
+    setRewardOverlayVisible(true);
+  }
+
+  async function sendReferralSMS() {
+    const response = await getReferralLink({ userId });
+    if (response.status === 200) {
+      setReferralError('');
+      const message = "Hey! I've been using Swym App to save and win Bitcoin."
+        + " Try it using my code and you'll get 100 Satoshi. "
+        + response.data.code;
+      const isAvailable = await SMS.isAvailableAsync();
+      if (isAvailable) {
+        await SMS.sendSMSAsync([], message);
+      } else {
+        setReferralError('SMS not available on this device');
+      }
+    } else {
+      setReferralError(response.data.error);
+    }
   }
 
   const AccountInfoSection = () => {
@@ -56,6 +82,35 @@ const AccountScreen = ({ navigation, route }) => {
     );
   };
 
+  const ReferralSection = () => {
+    return (
+      <View>
+        <View style={[styles.nonTrailingViewSection, styles.actionButtonSection]}>
+          <Button
+            containerStyle={ButtonStyles.actionButtonContainer}
+            buttonStyle={[ButtonStyles.actionButton]}
+            titleStyle={ButtonStyles.actionButtonTitle}
+            titleStyle={ButtonStyles.actionButtonTitle}
+            title="Redeem Reward"
+            onPress={openRewardOverlay}
+          />
+        </View>
+
+        {(referralError !== '') && <Text>{referralError}</Text>}
+        <View style={[styles.nonTrailingViewSection, styles.actionButtonSection]}>
+          <Button 
+            containerStyle={ButtonStyles.actionButtonContainer}
+            buttonStyle={[ButtonStyles.actionButton]}
+            titleStyle={ButtonStyles.actionButtonTitle}
+            title="Refer a friend, get 100 satoshi"
+            onPress={sendReferralSMS}
+            raised
+          />
+        </View>
+      </View>
+    );
+  };
+
   if (isFetchingUserAccount) {
     return (
       <View style={styles.rootContainer}>
@@ -79,7 +134,13 @@ const AccountScreen = ({ navigation, route }) => {
         />
       </View>
 
+      <ReferralSection />
       <Text style={styles.helpText}>Need more help? Contact support at info@swympools.org</Text>
+      <RewardOverlay
+        visible={rewardOverlayVisible}
+        setVisible={setRewardOverlayVisible}
+        userId={userId}
+      />
     </View>
   );
 };

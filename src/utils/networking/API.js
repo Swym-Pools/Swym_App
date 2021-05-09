@@ -170,3 +170,31 @@ export async function fetchPoolResultsHistory() {
 
   return poolResultsHistory.results.map(mapPoolResultsHistory);
 }
+
+export async function getReferralLink(params) {
+  try {
+    let response = await axios.get(`${API_URL}/api/rewards/getreferralcode`, { params: params });
+    response.data.code = API_URL + '/view/referral/' + response.data.code;
+    return response;
+  } catch (err) {
+    return err.response;
+  }
+}
+
+export async function getReferralCode(params) {
+  try {
+    const response = await axios.get(`${API_URL}/api/rewards/getreferralcode`, { params: params });
+    return response;
+  } catch (err) {
+    return err.response;
+  }
+}
+
+export async function redeemCode(params) {
+  try {
+    const response = await axios.post(`${API_URL}/api/rewards/redeem/`, params);
+    return response;
+  } catch (err) {
+    return err.response;
+  }
+}
