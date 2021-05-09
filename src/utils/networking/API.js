@@ -40,7 +40,8 @@ export async function fetchQRCode(user) {
 
 export async function fetchTOTPCode(user) {
   try {
-    const response = await axios.get(`${API_URL}/auth/create-b32-totp-code`, user);
+    console.log("user is ", user);
+    const response = await axios.get(`${API_URL}/auth/create-b32-totp-code`);
     return response;
   } catch (err) {
     return err.response;
@@ -58,18 +59,26 @@ export async function setup2FA(user, params) {
   }
 }
 
-export async function saveTOTP(user, params) {
+export async function saveTOTP(userId, params) {
   try {
-    const response = await axios.post(`${API_URL}/auth/create-b32-totp-code`, params);
+    const response = await axios.post(`${API_URL}/auth/save-b32-totp-code?userId=${userId}`, params);
+    return response;
+  } catch (err) {
+    return err.response;
+  }
+}
+export async function validateTOTP(userId, params) {
+  try {
+    const response = await axios.post(`${API_URL}/auth/validate-totp?userId=${userId}`, params);
     return response;
   } catch (err) {
     return err.response;
   }
 }
 
-export async function resetPassword(params) {
+export async function resetPassword(email) {
   try {
-    const response = await axios.post(`${API_URL}/auth/create-b32-totp-code`, params);
+    const response = await axios.post(`${API_URL}/auth/reset?email=${email}`, params);
     return response;
   } catch (err) {
     return err.response;

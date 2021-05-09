@@ -10,37 +10,37 @@ import Colors from '../../../utils/styling/Colors';
 import ButtonStyles from '../../../utils/styling/Buttons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import NavbarStyles from '../../../utils/styling/Navbar';
-import { createUserAccount, fetchTOTP, saveTOTP } from '../../../utils/networking/API';
+import { createUserAccount, fetchTOTPCode, saveTOTP } from '../../../utils/networking/API';
 
 const SignUpTOTPScreen = ({ route }) => {
+  var userId = route.params.userId;
   const { setIsSignedIn, setUserId } = route.params;
   const [errorsExist, setErrorsExist] = useState(false);
-  const [code, setCode] = useState(null);
   const { control, formState, handleSubmit, watch, errors, setError } = useForm();
   const password = useRef({});
   password.current = watch('password', '');
 
+  const [code, setCode] = useState({"loaded": false, "code": null});
   const onSubmitted = async () => {
-    if (Object.keys(errors).length) {
-      return;
-    }
-
-    const response = await saveTOTP(code);
-
+    console.log("SUBMIT");
+    const response = await saveTOTP(userId, code.code);
+    console.log("status", response.status)
     if (response.status === 200) {
-      const userId = response.data.id;
-      setUserId(userId);
       setIsSignedIn(true);
     } else {
       setError('api', { type: 'manual', message: 'API error' });
     }
   };
-
-  useEffect(async () => {
-    var code = await fetchTOTPCode(user);
-    setCode( code );
+useEffect(() => {
+    (async() => {
+      var response = await fetchTOTPCode(userId);
+      var data = response.data;
+      console.log('code is ', data.code);
+      setCode( {"loaded": true, "code": data.code });
+    })();
   }, []);
-  if ( !code ) {
+
+  if ( !code.loaded ) {
     return (
         <>
          <Text>Loading..</Text>
@@ -57,7 +57,7 @@ const SignUpTOTPScreen = ({ route }) => {
           To setup 2FA please add the following code to your authenticator:
         </Text>
         <Text style={FormStyles.totp}>
-          {{code}}
+          {code.code}
         </Text>
       </View>
 
@@ -68,7 +68,7 @@ const SignUpTOTPScreen = ({ route }) => {
           containerStyle={[ButtonStyles.actionButtonContainer]}
           buttonStyle={[ButtonStyles.actionButton]}
           titleStyle={ButtonStyles.actionButtonTitle}
-          onPress={handleSubmit(onSubmitted)}
+          onPress={onSubmitted}
           disabled={errorsExist || formState.isSubmitting}
         />
       </View>

@@ -37,7 +37,7 @@ const SignUpFormScreen = ({ route, navigation }) => {
       const userId = response.data.id;
       //setUserId(userId);
       //setIsSignedIn(true);
-      navigation.navigate('SignUpTOTPScreen', {
+      navigation.navigate('Sign-Up-TOTP', {
         userId
       });
     } else if (response.data === 'User already exists') {

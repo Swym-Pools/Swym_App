@@ -10,7 +10,8 @@ import Colors from '../../../utils/styling/Colors';
 import ButtonStyles from '../../../utils/styling/Buttons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import NavbarStyles from '../../../utils/styling/Navbar';
-import { createUserAccount, fetchQRCode } from '../../../utils/networking/API';
+import { createUserAccount, fetchQRCode, resetPassword } from '../../../utils/networking/API';
+import { View, StyleSheet, Button, Alert } from "react-native";
 
 const ResetPasswordScreen = ({ route }) => {
   const { setIsSignedIn, setUserId } = route.params;
@@ -19,19 +20,24 @@ const ResetPasswordScreen = ({ route }) => {
   const { control, formState, handleSubmit, watch, errors, setError } = useForm();
   const password = useRef({});
   password.current = watch('password', '');
+  const createAlert = () =>
+    Alert.alert(
+      "Password sent",
+      "Please check your email for further instructions",
+      [
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ]
+    );
 
   const onSubmitted = async ({ username, email, password }) => {
     if (Object.keys(errors).length) {
       return;
     }
-    const response = await setup2FA(newUser);
+    const response = await resetPassword(email);
 
     if (response.status === 200) {
-      const userId = response.data.id;
-      setUserId(userId);
-      setIsSignedIn(true);
+      showAlert();
     } else if (response.data === 'User already exists') {
-      setError('username', { type: 'manual', message: 'User already exists' });
     }
   };
 

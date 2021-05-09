@@ -11,28 +11,29 @@ import FormStyles from '../../utils/styling/Forms';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { validateLogin } from '../../utils/networking/API';
 
-const SignInScreen = ({ route, navigation }) => {
+const SignIn2FAScreen = ({ route, navigation }) => {
+  var userId = route.params.userId;
   const { setIsSignedIn, setUserId } = route.params;
   const { control, handleSubmit, errors, setError } = useForm();
 
-  const onSignInSubmitted = async ({ username, password }) => {
+  const on2FASubmitted = async ({ code }) => {
     // TODO: Process User sign in here
-    const response = await validateLogin({ username, password });
+    const response = await validate2FA(userId, {code});
 
     if (response.status === 200) {
-      const userId = response.data.id;
-      //setUserId(userId);
-      //setIsSignedIn(true);
-      navigation.navigate('Sign-In-2FA', {
-        userId
-      })
-    } else if (response.data === 'Wrong username and/or password') {
+      var json = JSON.parse( response.data );
+      if ( json.success ) {
+        setUserId(userId);
+        setIsSignedIn(true);
+      } else {
+        setError('code', { type: 'manual', message: 'Wrong code' });
+      }
+    } else {
       setError('username', { type: 'manual', message: 'Wrong username and/or password' });
     }
   };
 
   const clickForgot = function() {
-    console.log("FORGOT");
     navigation.replace('Reset-Password');
   }
 
@@ -49,7 +50,7 @@ const SignInScreen = ({ route, navigation }) => {
       <View style={styles.formContainer}>
         <Controller
           control={control}
-          name="username"
+          name="code"
           defaultValue=""
           rules={{ required: true, minLength: 2 }}
           render={({ onChange, value, name }) => (
@@ -57,58 +58,19 @@ const SignInScreen = ({ route, navigation }) => {
               <Input
                 name={name}
                 inputContainerStyle={FormStyles.inputContainer}
-                label="Username"
+                label="Code"
                 labelStyle={styles.labelText}
-                placeholder="Enter a username"
+                placeholder="Enter your TOTP code"
                 placeholderTextColor={Colors.grayScale1}
                 selectionColor={Colors.grayScale1}
                 underlineColorAndroid={Colors.grayScale1}
-                textContentType="username"
+                textContentType="code"
                 value={value}
                 onChangeText={(value) => onChange(value)}
                 onSubmitEditing={handleSubmit(onSignInSubmitted)}
               />
-              {errors.username?.type === 'required' && (
-                <Text style={FormStyles.errorText}>A username is required.</Text>
-              )}
-              {errors.username?.type === 'minLength' && (
-                <Text style={FormStyles.errorText}>Please choose a longer name.</Text>
-              )}
-              {errors.username?.message === 'Wrong username and/or password' && (
-                <Text style={FormStyles.errorText}>{errors.username.message}</Text>
-              )}
-            </View>
-          )}
-        />
-
-        <Controller
-          control={control}
-          name="password"
-          defaultValue=""
-          rules={{ required: true, minLength: 4 }}
-          render={({ onChange, value, name }) => (
-            <View style={styles.formFieldContainer}>
-              <Input
-                name={name}
-                inputContainerStyle={{ ...FormStyles.inputContainer }}
-                label="Password"
-                labelStyle={styles.labelText}
-                placeholder="Enter a password"
-                placeholderTextColor={Colors.grayScale1}
-                selectionColor={Colors.grayScale1}
-                underlineColorAndroid={Colors.grayScale1}
-                textContentType="password"
-                secureTextEntry
-                value={value}
-                onChangeText={(value) => onChange(value)}
-                onSubmitEditing={handleSubmit(onSignInSubmitted)}
-              />
-
-              {errors.password?.type === 'required' && (
-                <Text style={FormStyles.errorText}>A password is required.</Text>
-              )}
-              {errors.password?.type === 'minLength' && (
-                <Text style={FormStyles.errorText}>Please try a longer password.</Text>
+              {errors.code?.type === 'required' && (
+                <Text style={FormStyles.errorText}>A code is required.</Text>
               )}
             </View>
           )}
@@ -117,17 +79,13 @@ const SignInScreen = ({ route, navigation }) => {
 
       <View style={styles.actionButtonsContainer}>
         <Button
-          title="Sign In"
+          title="Verify"
           raised
           containerStyle={[ButtonStyles.actionButtonContainer]}
           buttonStyle={[ButtonStyles.actionButton]}
           titleStyle={ButtonStyles.actionButtonTitle}
-          onPress={handleSubmit(onSignInSubmitted)}
+          onPress={handleSubmit(on2FASubmitted)}
         />
-      </View>
-      <View>
-      <Text style={styles.countdownText}>Email info@swympools.org with issues</Text>
-      <Text onPress={clickForgot} style={styles.countdownText}>Forgot username or password ?</Text>
       </View>
     </KeyboardAwareScrollView>
   );
@@ -182,15 +140,15 @@ const styles = StyleSheet.create({
   },
 });
 
-SignInScreen.propTypes = {
+SignIn2FAScreen.propTypes = {
   navigation: NavigationShape.isRequired,
   route: PropTypes.object,
   setIsSignedIn: PropTypes.func,
 };
 
-SignInScreen.defaultProps = {};
+SignIn2FAScreen.defaultProps = {};
 
-SignInScreen.navigationOptions = ({ navigation }) => {
+SignIn2FAScreen.navigationOptions = ({ navigation }) => {
   return {
     headerTitle: () => {},
     headerRight: () => {
@@ -208,4 +166,4 @@ SignInScreen.navigationOptions = ({ navigation }) => {
   };
 };
 
-export default SignInScreen;
+export default SignIn2FAScreen;
