@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
 import { Button, Input } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import SwymNameLogo from '../../../components/SwymNameLogo';
@@ -11,7 +10,7 @@ import ButtonStyles from '../../../utils/styling/Buttons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import NavbarStyles from '../../../utils/styling/Navbar';
 import { createUserAccount, fetchQRCode, resetPassword } from '../../../utils/networking/API';
-import { View, StyleSheet, Button, Alert } from "react-native";
+import { View, StyleSheet, Alert, Text } from "react-native";
 
 const ResetPasswordScreen = ({ route }) => {
   const { setIsSignedIn, setUserId } = route.params;
@@ -52,7 +51,7 @@ const ResetPasswordScreen = ({ route }) => {
       <Image
         containerStyle={styles.logoImageContainer}
         style={styles.logoImage}
-        source={require('../../../assets/images/logo-white.png')}
+        source={require('../../../../assets/images/logo-white.png')}
       />
 
       <Text>Please enter the email address associated with your account</Text>
