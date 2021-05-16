@@ -67,7 +67,7 @@ const SignIn2FAScreen = ({ route, navigation }) => {
                 textContentType="code"
                 value={value}
                 onChangeText={(value) => onChange(value)}
-                onSubmitEditing={handleSubmit(onSignInSubmitted)}
+                // onSubmitEditing={handleSubmit(onSignInSubmitted)}
               />
               {errors.code?.type === 'required' && (
                 <Text style={FormStyles.errorText}>A code is required.</Text>

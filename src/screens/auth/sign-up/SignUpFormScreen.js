@@ -20,19 +20,17 @@ const SignUpFormScreen = ({ route, navigation }) => {
   password.current = watch('password', '');
 
   const onSignUpSubmitted = async ({ username, email, password }) => {
+    try{
     if (Object.keys(errors).length) {
       return;
     }
-
     const newUser = {
       username,
       email,
       password,
     };
-
     console.log('creating account..');
     const response = await createUserAccount(newUser);
-
     if (response.status === 200) {
       const userId = response.data.id;
       //setUserId(userId);
@@ -43,8 +41,10 @@ const SignUpFormScreen = ({ route, navigation }) => {
     } else if (response.data === 'User already exists') {
       setError('username', { type: 'manual', message: 'User already exists' });
     }
+    }
+    catch (error){console.log(error)}
   };
-
+  
   useEffect(() => {
     if (errors.username || errors.email || errors.password || errors.passwordConfirmation) {
       setErrorsExist(true);
@@ -77,7 +77,7 @@ const SignUpFormScreen = ({ route, navigation }) => {
                 textContentType="username"
                 value={value}
                 onChangeText={(value) => onChange(value)}
-                onSubmitEditing={handleSubmit(onSignUpSubmitted)}
+                // onSubmitEditing={handleSubmit(onSignUpSubmitted)}
               />
 
               {errors.username && (
@@ -114,7 +114,7 @@ const SignUpFormScreen = ({ route, navigation }) => {
                 textContentType="emailAddress"
                 value={value}
                 onChangeText={(value) => onChange(value)}
-                onSubmitEditing={handleSubmit(onSignUpSubmitted)}
+                // onSubmitEditing={handleSubmit(onSignUpSubmitted)}
               />
 
               {errors.email && (
@@ -146,7 +146,7 @@ const SignUpFormScreen = ({ route, navigation }) => {
                 secureTextEntry
                 value={value}
                 onChangeText={(value) => onChange(value)}
-                onSubmitEditing={handleSubmit(onSignUpSubmitted)}
+                // onSubmitEditing={handleSubmit(onSignUpSubmitted)}
               />
 
               {errors.password && <Text style={FormStyles.errorText}>A password is required.</Text>}
@@ -177,7 +177,7 @@ const SignUpFormScreen = ({ route, navigation }) => {
                 secureTextEntry
                 value={value}
                 onChangeText={(value) => onChange(value)}
-                onSubmitEditing={handleSubmit(onSignUpSubmitted)}
+                // onSubmitEditing={handleSubmit(onSignUpSubmitted)}
               />
 
               {errors.passwordConfirmation && (
