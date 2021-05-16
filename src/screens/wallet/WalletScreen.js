@@ -76,9 +76,11 @@ const WalletScreen = ({ route }) => {
   }, [userAccount, generateAddress]);
 
   useEffect(() => {
+    let mounted=true
     if (userAccount !== null && typeof userAccount.isWinner === 'boolean') {
-      setShowAnnouncementModal(true);
+      if(mounted)setShowAnnouncementModal(true);
     }
+    return ()=>mounted=false
   }, [userAccount]);
 
   async function loadTransactionHistory(userId) {
