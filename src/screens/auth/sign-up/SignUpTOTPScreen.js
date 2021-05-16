@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TextInput } from 'react-native';
 import { Button, Input } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import SwymNameLogo from '../../../components/SwymNameLogo';
@@ -53,12 +53,17 @@ useEffect(() => {
       <SwymNameLogo style={styles.logoNameContainer} />
 
       <View style={styles.formContainer}>
-        <Text style={FormStyles.errorText}>
+        <Text style={styles.totpHeader}>
           To setup 2FA please add the following code to your authenticator:
         </Text>
-        <Text style={FormStyles.totp}>
-          {code.code}
-        </Text>
+        <TextInput 
+        style={styles.totp} 
+        defaultValue={code.code} 
+        value={code.code}
+        onChange={(evt) => {
+          setCode( code ); 
+        }}
+        ></TextInput>
       </View>
 
       <View style={styles.actionButtonsContainer}>
@@ -107,8 +112,13 @@ const styles = StyleSheet.create({
     ...FormStyles.labelText,
     color: Colors.purple,
   },
+  totpHeader: {
+    color: Colors.black,
+    fontSize:16 
+  },
   totp: {
-    color: Colors.black
+    color: Colors.black,
+    fontSize: 32
   },
 });
 
