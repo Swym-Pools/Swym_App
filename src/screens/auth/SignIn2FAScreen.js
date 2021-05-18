@@ -21,7 +21,9 @@ const SignIn2FAScreen = ({ route, navigation }) => {
     const response = await validateTOTP(userId, {code});
 
     if (response.status === 200) {
-      var json = JSON.parse( response.data );
+      console.log("data is ", response.data);
+      var json = response.data;
+
       if ( json.success ) {
         setUserId(userId);
         setIsSignedIn(true);

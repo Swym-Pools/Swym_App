@@ -69,7 +69,9 @@ export async function saveTOTP(userId, params) {
 }
 export async function validateTOTP(userId, params) {
   try {
-    const response = await axios.post(`${API_URL}/auth/validate-totp?userId=${userId}`, params);
+    var url = `${API_URL}/auth/validate-totp?userId=${userId}`;
+    console.log('URL is ', url);
+    const response = await axios.post(url, params);
     return response;
   } catch (err) {
     return err.response;
