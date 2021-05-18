@@ -61,6 +61,8 @@ export async function setup2FA(user, params) {
 
 export async function saveTOTP(userId, params) {
   try {
+    console.log("USER ID= " + userId);
+    console.log(params);
     const response = await axios.post(`${API_URL}/auth/save-b32-totp-code?userId=${userId}`, params);
     return response;
   } catch (err) {

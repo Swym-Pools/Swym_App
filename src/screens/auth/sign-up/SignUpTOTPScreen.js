@@ -23,7 +23,8 @@ const SignUpTOTPScreen = ({ route }) => {
   const [code, setCode] = useState({"loaded": false, "code": null});
   const onSubmitted = async () => {
     console.log("SUBMIT");
-    const response = await saveTOTP(userId, code.code);
+    const response = await saveTOTP(userId, {code: code.code});
+
     console.log("status", response.status)
     
     if (response.status === 200 && response.data.success) {
