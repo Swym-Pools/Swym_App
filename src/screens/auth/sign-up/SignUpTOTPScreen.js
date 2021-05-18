@@ -25,7 +25,8 @@ const SignUpTOTPScreen = ({ route }) => {
     console.log("SUBMIT");
     const response = await saveTOTP(userId, code.code);
     console.log("status", response.status)
-    if (response.status === 200) {
+    
+    if (response.status === 200 && response.data.success) {
       setIsSignedIn(true);
     } else {
       setError('api', { type: 'manual', message: 'API error' });
