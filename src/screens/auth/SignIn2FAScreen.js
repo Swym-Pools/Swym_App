@@ -9,7 +9,7 @@ import NavigationShape from '../../data/shapes/Navigation';
 import { useForm, Controller } from 'react-hook-form';
 import FormStyles from '../../utils/styling/Forms';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { validateLogin } from '../../utils/networking/API';
+import { validateTOTP } from '../../utils/networking/API';
 
 const SignIn2FAScreen = ({ route, navigation }) => {
   var userId = route.params.userId;
@@ -18,7 +18,7 @@ const SignIn2FAScreen = ({ route, navigation }) => {
 
   const on2FASubmitted = async ({ code }) => {
     // TODO: Process User sign in here
-    const response = await validate2FA(userId, {code});
+    const response = await validateTOTP(userId, {code});
 
     if (response.status === 200) {
       var json = JSON.parse( response.data );
