@@ -15,7 +15,7 @@ import { View, Text, StyleSheet, Alert } from "react-native";
 const ResetPasswordScreen = ({ route }) => {
   const { setIsSignedIn, setUserId } = route.params;
   const [errorsExist, setErrorsExist] = useState(false);
-  const [email, setEmail] = useState(null);
+  const [email, setEmail] = useState("");
   const { control, formState, handleSubmit, watch, errors, setError } = useForm();
   const password = useRef({});
   password.current = watch('password', '');
@@ -48,11 +48,11 @@ const ResetPasswordScreen = ({ route }) => {
     <KeyboardAwareScrollView contentContainerStyle={styles.rootContainer}>
       <SwymNameLogo style={styles.logoNameContainer} />
 
-      <Image
+      {/* <Image
         containerStyle={styles.logoImageContainer}
         style={styles.logoImage}
         source={require('../../../../assets/images/logo-white.png')}
-      />
+      /> */}
 
       <Text>Please enter the email address associated with your account</Text>
 
@@ -74,9 +74,9 @@ const ResetPasswordScreen = ({ route }) => {
                 selectionColor={Colors.grayScale1}
                 underlineColorAndroid={Colors.grayScale1}
                 textContentType="email"
-                value={value}
-                onChangeText={(value) => {
-                  setEmail( value )
+                value={email}
+                onChangeText={(newEmail) => {
+                  setEmail( newEmail )
                 }}
                 onSubmitEditing={handleSubmit(onSubmitted)}
               />
