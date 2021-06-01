@@ -61,18 +61,21 @@ const WalletScreen = ({ route }) => {
     return userAccount === null ? 0 : userBalance;
   }, [userAccount, userBalance]);
 
-  const generateAddress = useCallback(async () => {
-    if (userAccount) {
+  const generateAddress = useCallback(async (mounted) => {
+    if (userAccount && mounted) {
       const response = await generateCode(userAccount.id);
       setAddress(response.data);
     }
   }, [userAccount]);
 
   useEffect(() => {
-    if (userAccount !== null) {
-      loadTransactionHistory(userAccount.id);
-      generateAddress();
-    }
+     let mounted=true
+     if (userAccount !== null) {
+       if(!mounted) return 
+       loadTransactionHistory(userAccount.id,mounted);
+       generateAddress(mounted);
+     }
+     return ()=>mounted=false
   }, [userAccount, generateAddress]);
 
   useEffect(() => {
@@ -80,11 +83,13 @@ const WalletScreen = ({ route }) => {
     if (userAccount !== null && typeof userAccount.isWinner === 'boolean') {
       if(mounted)setShowAnnouncementModal(true);
     }
-    return ()=>mounted=false
+  return ()=>mounted=false
   }, [userAccount]);
 
-  async function loadTransactionHistory(userId) {
-    setIsFetchingTransactionHistory(true);
+  async function loadTransactionHistory(userId,mounted) {
+    if(!mounted) return
+
+   mounted && setIsFetchingTransactionHistory(true);
 
     try {
       const response = await fetchTransactionHistory(userId);
@@ -100,15 +105,17 @@ const WalletScreen = ({ route }) => {
             timestamp: transaction.createdAt,
           };
         });
-
-        setTransactionHistory(transactionsHistory);
-        setUserBalance(balance ? balance : 0);
-        setHasTransactionHistoryFetchError(false);
+         if(mounted){
+           
+           setTransactionHistory(transactionsHistory);
+           setUserBalance(balance ? balance : 0);
+           setHasTransactionHistoryFetchError(false);
+         }
       }
     } catch (error) {
-      setHasTransactionHistoryFetchError(true);
+     mounted && setHasTransactionHistoryFetchError(true);
     } finally {
-      setIsFetchingTransactionHistory(false);
+     mounted && setIsFetchingTransactionHistory(false);
     }
   }
 

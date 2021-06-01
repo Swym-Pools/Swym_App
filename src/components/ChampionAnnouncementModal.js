@@ -10,15 +10,17 @@ const ChampionAnnouncementModal = ({ modalVisible, onClose, winner }) => {
   const [mostRecentWinner, setMostRecentWinner] = useState(null);
 
   useEffect(() => {
+    let mounted= true 
     async function loadMostRecentWinner() {
       const response = await fetchMostRecentWinner();
       if (response.status === 200) {
-        setMostRecentWinner(response.data);
+          mounted && setMostRecentWinner(response.data);
       }
-      setIsLoading(false);
+      mounted && setIsLoading(false);
     }
 
     loadMostRecentWinner();
+    return ()=>mounted =false
   }, []);
 
   return (
