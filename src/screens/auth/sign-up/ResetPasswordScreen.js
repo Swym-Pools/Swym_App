@@ -30,6 +30,19 @@ const ResetPasswordScreen = ({ route, navigation }) => {
         }
       ]
     );
+  const createIssueAlert = (msg) =>
+    Alert.alert(
+      "Error", 
+      msg,
+      [
+        { 
+          text: "OK", 
+          onPress: () => {
+         }
+        }
+      ]
+    );
+
 
   const onSubmitted = async () => {
     if (Object.keys(errors).length) {
@@ -37,8 +50,10 @@ const ResetPasswordScreen = ({ route, navigation }) => {
     }
     const response = await resetPassword(email);
 
-    if (response.status === 200) {
+    if (response.status === 200 && response.data.success) {
       createAlert();
+    } else if (response.status === 200 && !response.data.success) {
+      createIssueAlert(response.data.msg);
     }
   };
 
