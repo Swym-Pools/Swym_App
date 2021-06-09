@@ -31,7 +31,7 @@ const ResetPasswordScreen = ({ route, navigation }) => {
       ]
     );
 
-  const onSubmitted = async ({ email }) => {
+  const onSubmitted = async () => {
     if (Object.keys(errors).length) {
       return;
     }
@@ -79,7 +79,7 @@ const ResetPasswordScreen = ({ route, navigation }) => {
                 onChangeText={(newEmail) => {
                   setEmail( newEmail )
                 }}
-                onSubmitEditing={handleSubmit(onSubmitted)}
+                onPress={handleSubmit(onSubmitted)}
               />
             </View>
           )}
@@ -93,7 +93,7 @@ const ResetPasswordScreen = ({ route, navigation }) => {
           containerStyle={[ButtonStyles.actionButtonContainer]}
           buttonStyle={[ButtonStyles.actionButton]}
           titleStyle={ButtonStyles.actionButtonTitle}
-          onPress={handleSubmit(onSubmitted)}
+          onPress={onSubmitted}
         />
       </View>
       <View>
