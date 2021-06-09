@@ -25,7 +25,7 @@ const ResetPasswordScreen = ({ route, navigation }) => {
       "Please check your email for further instructions",
       [
         { text: "OK", onPress: () => {
-              navigation.navigate('Sign-In',{}0;
+              navigation.navigate('Sign-In',{});
          }
       ]
     );
@@ -38,7 +38,6 @@ const ResetPasswordScreen = ({ route, navigation }) => {
 
     if (response.status === 200) {
       createAlert();
-    } else if (response.data === 'User already exists') {
     }
   };
 
