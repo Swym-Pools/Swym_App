@@ -28,7 +28,7 @@ const ResetPasswordScreen = ({ route }) => {
       ]
     );
 
-  const onSubmitted = async ({ username, email, password }) => {
+  const onSubmitted = async ({ email }) => {
     if (Object.keys(errors).length) {
       return;
     }
@@ -42,7 +42,6 @@ const ResetPasswordScreen = ({ route }) => {
 
   var qr = '';
   useEffect(async () => {
-    var qr = await fetchQRCode(user);
   }, []);
   return (
     <KeyboardAwareScrollView contentContainerStyle={styles.rootContainer}>
@@ -67,7 +66,7 @@ const ResetPasswordScreen = ({ route }) => {
               <Input
                 name="email"
                 inputContainerStyle={FormStyles.inputContainer}
-                label="Username"
+                label="Email"
                 labelStyle={styles.labelText}
                 placeholder="Enter an email"
                 placeholderTextColor={Colors.grayScale1}

@@ -82,7 +82,7 @@ export async function validateTOTP(userId, params) {
 
 export async function resetPassword(email) {
   try {
-    const response = await axios.post(`${API_URL}/auth/reset?email=${email}`, params);
+    const response = await axios.post(`${API_URL}/auth/reset`, {email});
     return response;
   } catch (err) {
     return err.response;
