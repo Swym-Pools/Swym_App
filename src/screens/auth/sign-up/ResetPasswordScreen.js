@@ -17,16 +17,17 @@ const ResetPasswordScreen = ({ route, navigation }) => {
   const [errorsExist, setErrorsExist] = useState(false);
   const [email, setEmail] = useState("");
   const { control, formState, handleSubmit, watch, errors, setError } = useForm();
-  const password = useRef({});
-  password.current = watch('password', '');
   const createAlert = () =>
     Alert.alert(
       "Password sent",
       "Please check your email for further instructions",
       [
-        { text: "OK", onPress: () => {
+        { 
+          text: "OK", 
+          onPress: () => {
               navigation.navigate('Sign-In',{});
          }
+        }
       ]
     );
 
