@@ -3139,6 +3139,11 @@
   "resolved" "https://registry.npmjs.org/expo-permissions/-/expo-permissions-9.0.1.tgz"
   "version" "9.0.1"
 
+"expo-sms@^9.0.0":
+  "integrity" "sha512-QH4nSD58AASfGDsuGUG+nMnioQPJEyK9oWGTh6U/45ndMAn1rmqEHKouGWHqgzWEQbpBCpzY++ZbALme/XpCQQ=="
+  "resolved" "https://registry.npmjs.org/expo-sms/-/expo-sms-9.0.0.tgz"
+  "version" "9.0.0"
+
 "expo-splash-screen@^0.5.0":
   "integrity" "sha512-MqYHCbqGtmnA/b+D2JQHxeQzlSfbU4SAGQ2DmzmaBekqRMkRrVrsiBXF7b3wpHTW6R3pC5lsXoH9vq91e5a9xg=="
   "resolved" "https://registry.npmjs.org/expo-splash-screen/-/expo-splash-screen-0.5.0.tgz"
@@ -4139,7 +4144,6 @@
     "@jest/types" "^24.9.0"
     "anymatch" "^2.0.0"
     "fb-watchman" "^2.0.0"
-    "fsevents" "^1.2.7"
     "graceful-fs" "^4.1.15"
     "invariant" "^2.2.4"
     "jest-serializer" "^24.9.0"
@@ -5715,7 +5719,7 @@
     "css-select" "^2.1.0"
     "css-tree" "^1.0.0-alpha.39"
 
-"react-native-vector-icons@^7.0.0":
+"react-native-vector-icons@^7.1.0":
   "integrity" "sha512-V2a1zJ4i+kS8O4j183gIwX14St9AxxXabxwYpFBgRhvr2NDXyFcjHDEAgrOYYlt2W57e20aN1tBDU/I+wn9WtQ=="
   "resolved" "https://registry.npmjs.org/react-native-vector-icons/-/react-native-vector-icons-7.1.0.tgz"
   "version" "7.1.0"

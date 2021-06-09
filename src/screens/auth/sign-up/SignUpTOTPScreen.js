@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TextInput,TouchableOpacity,Clipboard,Alert,ScrollView } from 'react-native';
 import { Button, Input } from 'react-native-elements';
 import PropTypes from 'prop-types';
+import { FontAwesome5} from '@expo/vector-icons';
 import SwymNameLogo from '../../../components/SwymNameLogo';
 import NavigationShape from '../../../data/shapes/Navigation';
 import { useForm, Controller } from 'react-hook-form';
@@ -12,8 +13,11 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import NavbarStyles from '../../../utils/styling/Navbar';
 import { createUserAccount, fetchTOTPCode, saveTOTP } from '../../../utils/networking/API';
 
+
+// const COLOR = '#e9e9e9'
 const SignUpTOTPScreen = ({ route }) => {
   var userId = route.params.userId;
+  const [copyButtonText, setcopyButtonText] = useState('')
   const { setIsSignedIn, setUserId } = route.params;
   const [errorsExist, setErrorsExist] = useState(false);
   const { control, formState, handleSubmit, watch, errors, setError } = useForm();
@@ -33,13 +37,23 @@ const SignUpTOTPScreen = ({ route }) => {
       setError('api', { type: 'manual', message: 'API error' });
     }
   };
+
+
+//TODO useCallback 
+const handlerFetchTOTP =async (mounted)=>{
+   var response = await fetchTOTPCode(userId);
+    var data = response.data;
+    console.log('code is ', data.code);
+    if(mounted){ 
+     setcopyButtonText(data.code)
+     setCode( {"loaded": true, "code": data.code });
+    }
+      
+}
 useEffect(() => {
-    (async() => {
-      var response = await fetchTOTPCode(userId);
-      var data = response.data;
-      console.log('code is ', data.code);
-      setCode( {"loaded": true, "code": data.code });
-    })();
+    let mounted = true 
+    handlerFetchTOTP(mounted)
+    return ()=> mounted =false
   }, []);
 
   if ( !code.loaded ) {
@@ -50,33 +64,51 @@ useEffect(() => {
     );
   }
 
+  const handleCopyToClipBoard=(e)=>{
+      //set clipboard string to code.code 
+       Clipboard.setString(code.code)
+       setcopyButtonText('TOTP CODE COPIED !')
+  }
+
   return (
     <KeyboardAwareScrollView contentContainerStyle={styles.rootContainer}>
       <SwymNameLogo style={styles.logoNameContainer} />
+      
+         <View style={styles.formContainer}>
+             <Text style={styles.totpHeader}>
+               To setup 2FA please add the following code to your authenticator:
+             </Text>
+            <TouchableOpacity onPress={handleCopyToClipBoard} >
+              <View style={{
+                backgroundColor: Colors.white,
+                padding : 4 ,
+                borderRadius:12,
+                display:'flex',
+                justifyContent:'space-between',
+                flexDirection:'row',
+                alignItems:'center',
+              }}>
 
-      <View style={styles.formContainer}>
-        <Text style={styles.totpHeader}>
-          To setup 2FA please add the following code to your authenticator:
-        </Text>
-        <TextInput 
-        style={styles.totp} 
-        defaultValue={code.code} 
-        value={code.code}
-        onChange={(evt) => {
-          setCode( code ); 
-        }}
-        ></TextInput>
-      </View>
+                    <Text style={{
+                      color : Colors.orange,
+                      fontSize : 12
+                    }} >{copyButtonText.length <20 ?copyButtonText:`${copyButtonText.slice(0,20)}... `}</Text>
+                 <FontAwesome5 name='copy' size={16} color={Colors.orange}  />
+              </View>
+            </TouchableOpacity>
+         </View>
+
 
       <View style={styles.actionButtonsContainer}>
         <Button
           title="Submit"
           raised
           containerStyle={[ButtonStyles.actionButtonContainer]}
-          buttonStyle={[ButtonStyles.actionButton]}
-          titleStyle={ButtonStyles.actionButtonTitle}
+          buttonStyle={{...ButtonStyles.actionButton , width:'100%'}}
+          titleStyle={{...ButtonStyles.actionButtonTitle,fontSize:16}}
           onPress={onSubmitted}
-          disabled={errorsExist || formState.isSubmitting}
+          disabledTitleStyle={{color:Colors.orange}}
+          disabled={errorsExist || formState.isSubmitting }
         />
       </View>
     </KeyboardAwareScrollView>
@@ -108,6 +140,8 @@ const styles = StyleSheet.create({
 
   actionButtonsContainer: {
     marginBottom: 22,
+    padding:32,
+    width:'100%'
   },
 
   labelText: {

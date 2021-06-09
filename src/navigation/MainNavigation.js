@@ -6,8 +6,8 @@ import WalletScreen from '../screens/wallet/WalletScreen';
 import PoolScreen from '../screens/pool/PoolScreen';
 import AccountScreen from '../screens/account/AccountScreen';
 import AccountEditScreen from '../screens/account/AccountEditScreen';
-import { Ionicons, FontAwesome, SimpleLineIcons } from '@expo/vector-icons';
 import Colors from '../utils/styling/Colors';
+import TabBar from './TabBar'
 
 const WalletNavigationStack = createStackNavigator();
 
@@ -50,7 +50,8 @@ const PoolScreenNavigation = ({ route }) => {
     </PoolNavigationStack.Navigator>
   );
 };
-
+ //debuggin now 
+ //give me a sec boiiiiii
 PoolScreenNavigation.propTypes = {
   route: PropTypes.object,
 };
@@ -83,20 +84,6 @@ AccountScreenNavigation.propTypes = {
   route: PropTypes.object,
 };
 
-function makeTabBarIcon({ name: routeName }, opts) {
-  const { color, size } = opts;
-
-  switch (routeName) {
-    case 'Savings':
-      return <SimpleLineIcons name="graph" size={size} color={color} />;
-    case 'Pool':
-      return <Ionicons name="ios-water" size={size} color={color} />;
-    case 'Account':
-      return <FontAwesome name="user-circle-o" size={size} color={color} />;
-    default:
-      break;
-  }
-}
 
 const MainNavigationStack = createBottomTabNavigator();
 
@@ -104,20 +91,8 @@ const MainNavigation = ({ userId, logout }) => {
   return (
     <MainNavigationStack.Navigator
       initialRouteName="Savings"
-      screenOptions={({ route }) => {
-        return {
-          tabBarIcon: ({ focused, color, size }) => {
-            return makeTabBarIcon(route, { focused, color, size });
-          },
-        };
-      }}
-      tabBarOptions={{
-        activeBackgroundColor: Colors.blue,
-        inactiveBackgroundColor: Colors.blue,
-        activeTintColor: Colors.white,
-        inactiveTintColor: Colors.iconDisabled,
-        style: { backgroundColor: Colors.blue },
-      }}
+      tabBar={TabBar}
+
     >
       <MainNavigationStack.Screen
         name="Savings"
