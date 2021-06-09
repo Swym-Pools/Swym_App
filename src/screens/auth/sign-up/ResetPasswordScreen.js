@@ -12,7 +12,7 @@ import NavbarStyles from '../../../utils/styling/Navbar';
 import { createUserAccount, fetchQRCode, resetPassword } from '../../../utils/networking/API';
 import { View, Text, StyleSheet, Alert } from "react-native";
 
-const ResetPasswordScreen = ({ route }) => {
+const ResetPasswordScreen = ({ route, navigation }) => {
   const { setIsSignedIn, setUserId } = route.params;
   const [errorsExist, setErrorsExist] = useState(false);
   const [email, setEmail] = useState("");
@@ -24,7 +24,9 @@ const ResetPasswordScreen = ({ route }) => {
       "Password sent",
       "Please check your email for further instructions",
       [
-        { text: "OK", onPress: () => console.log("OK Pressed") }
+        { text: "OK", onPress: () => {
+              navigation.navigate('Sign-In',{}0;
+         }
       ]
     );
 
@@ -35,7 +37,7 @@ const ResetPasswordScreen = ({ route }) => {
     const response = await resetPassword(email);
 
     if (response.status === 200) {
-      showAlert();
+      createAlert();
     } else if (response.data === 'User already exists') {
     }
   };
