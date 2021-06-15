@@ -256,7 +256,7 @@ const onSubmitted3 = async () => {
           containerStyle={[ButtonStyles.actionButtonContainer]}
           buttonStyle={[ButtonStyles.actionButton]}
           titleStyle={ButtonStyles.actionButtonTitle}
-          onPress={onSubmitted1}
+          onPress={onSubmitted3}
         />
       </View>
       <View>
