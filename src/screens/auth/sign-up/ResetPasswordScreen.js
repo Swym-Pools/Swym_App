@@ -65,7 +65,7 @@ const onSubmitted2 = async () => {
     if (Object.keys(errors).length) {
       return;
     }
-    const response = await resetVerify(temp);
+    const response = await resetVerify(email, temp);
 
     if (response.status === 200 && response.data.success) {
         setStep( 3 );
