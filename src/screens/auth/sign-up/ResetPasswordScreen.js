@@ -113,6 +113,7 @@ const onSubmitted3 = async () => {
                 textContentType="email"
                 value={email}
                 onChangeText={(newEmail) => {
+                    console.log("setting email to ", newEmail)
                   setEmail( newEmail )
                 }}
                 onPress={handleSubmit(onSubmitted1)}

@@ -89,8 +89,22 @@ export async function resetPassword(email) {
   }
 }
 
-
-
+export async function resetVerify(email, temp) {
+  try {
+    const response = await axios.post(`${API_URL}/auth/reset_verify`, {password: temp, email});
+    return response;
+  } catch (err) {
+    return err.response;
+  }
+}
+export async function resetFinalize(email, password) {
+  try {
+    const response = await axios.post(`${API_URL}/auth/reset_finalize`, {email, password});
+    return response;
+  } catch (err) {
+    return err.response;
+  }
+}
 export async function createUserAccount(user) {
   console.log('Registering..');
   console.log('API url = ' + API_URL);

@@ -5,7 +5,9 @@ const FormStyles = StyleSheet.create({
   inputContainer: {
     borderBottomColor: Colors.grayScale1,
   },
-
+  inputContainer_reset: {
+    marginTop:10,
+  },
   labelText: {
     fontSize: 15,
     fontFamily:'Lato-Bold',
