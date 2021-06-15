@@ -77,6 +77,11 @@ const onSubmitted3 = async () => {
     if (Object.keys(errors).length) {
       return;
     }
+
+    if ( password !== confirm ) {
+        createIssueAlert("Passwords dont match..");
+        return;
+    }
     const response = await resetFinalize(email, password);
 
     if (response.status === 200 && response.data.success) {
@@ -161,7 +166,7 @@ const onSubmitted3 = async () => {
                 selectionColor={Colors.grayScale1}
                 underlineColorAndroid={Colors.grayScale1}
                 textContentType="text"
-                value={email}
+                value={temp}
                 onChangeText={(newValue) => {
                   setTemp( newValue )
                 }}
@@ -212,7 +217,7 @@ const onSubmitted3 = async () => {
                 selectionColor={Colors.grayScale1}
                 underlineColorAndroid={Colors.grayScale1}
                 textContentType="password"
-                value={email}
+                value={password}
                 onChangeText={(value) => {
                   setPassword( value )
                 }}
@@ -230,9 +235,9 @@ const onSubmitted3 = async () => {
                 selectionColor={Colors.grayScale1}
                 underlineColorAndroid={Colors.grayScale1}
                 textContentType="password"
-                value={email}
+                value={confirm}
                 onChangeText={(value) => {
-                  setValue( value )
+                  setConfirm( value )
                 }}
                 onPress={handleSubmit(onSubmitted3)}
               />
