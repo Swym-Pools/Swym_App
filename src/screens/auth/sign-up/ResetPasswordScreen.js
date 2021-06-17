@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Button, Input } from 'react-native-elements';
+import { Button, colors, Input } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import SwymNameLogo from '../../../components/SwymNameLogo';
 import NavigationShape from '../../../data/shapes/Navigation';
@@ -79,7 +79,7 @@ const onSubmitted3 = async () => {
     }
 
     if ( password !== confirm ) {
-        createIssueAlert("Passwords dont match..");
+        createIssueAlert("Passwords do not match");
         return;
     }
     const response = await resetFinalize(email, password);
@@ -145,7 +145,7 @@ const onSubmitted3 = async () => {
     } else if ( step === 2 ) {
     return (
             <>
-               <Text style={styles.topText}>Please enter your reset token (you should've got this by email)</Text>
+               <Text style={styles.topText}>Please enter your reset token recieved via email</Text>
 
       <View style={styles.formContainer}>
         <Controller
@@ -230,10 +230,10 @@ const onSubmitted3 = async () => {
                 inputContainerStyle={FormStyles.inputContainer_reset}
                 label="confirm"
                 labelStyle={styles.labelText}
-                placeholder="Re enter password"
+                placeholder="Re-enter password"
                 placeholderTextColor={Colors.grayScale1}
                 selectionColor={Colors.grayScale1}
-                underlineColorAndroid={Colors.grayScale1}
+                underlineColorA1ndroid={Colors.grayScale1}
                 textContentType="password"
                 value={confirm}
                 onChangeText={(value) => {
@@ -337,13 +337,14 @@ const styles = StyleSheet.create({
         marginTop: 10,
         minWidth: 240,
         width: '80%',
-        fontSize: 24,
-        marginBottom: 20
-
+        fontSize: 18,
+        marginBottom: 20,
+        color: Colors.purple,
     },
+
   rootContainer: {
     alignItems: 'center',
-    backgroundColor: Colors.blue,
+    backgroundColor: Colors.white,
     flex: 1,
     justifyContent: 'center',
   },

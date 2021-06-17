@@ -126,7 +126,7 @@ const SignInScreen = ({ route, navigation }) => {
         />
       </View>
       <View>
-      <Text style={styles.countdownText}>Email info@swympools.org with issues</Text>
+      {/* <Text style={styles.countdownText}>Email info@swympools.org with issues</Text> */}
       <Text onPress={clickForgot} style={styles.countdownText}>Forgot username or password ?</Text>
       </View>
     </KeyboardAwareScrollView>
