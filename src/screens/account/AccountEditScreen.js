@@ -47,7 +47,7 @@ const AccountEditScreen = ({
       updateUser(response.data);
       navigation.goBack();
     } else if (response.data === 'Validation error') {
-      setErrors({ ...errors, username: 'Username or Email is taken' });
+      setErrors({ ...errors, username: 'Username, Email or withdrawal address is taken' });
     }
   }
 

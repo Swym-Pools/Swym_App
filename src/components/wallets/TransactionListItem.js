@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     color: Colors.purple,
     fontSize: 20,
     //fontWeight: '500',
-    fontFamily: 'Lato-Regular',
+    fontFamily: 'Lato-Light',
   },
 });
 
