@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import RootNavigation from './src/navigation/RootNavigation';
 import { NavigationContainer } from '@react-navigation/native';
 import { logoutUser } from './src/utils/networking/API';
-import { YellowBox } from 'react-native';
+import { LogBox } from 'react-native';
 import { AppLoading} from 'expo';
 import * as Font from 'expo-font'
 
@@ -39,7 +39,7 @@ export default function App() {
     }
   };
 
-  YellowBox.ignoreWarnings(['Non-serializable values were found in the navigation state']);
+  LogBox.ignoreLogs(['Non-serializable values were found in the navigation state']);
   if (fontsLoaded){
 
   return (
