@@ -4,7 +4,7 @@ import RootNavigation from './src/navigation/RootNavigation';
 import { NavigationContainer } from '@react-navigation/native';
 import { logoutUser } from './src/utils/networking/API';
 import { LogBox } from 'react-native';
-import { AppLoading} from 'expo';
+import AppLoading from 'expo-app-loading';
 import * as Font from 'expo-font'
 
 const getFonts = () => Font.loadAsync({
@@ -58,6 +58,7 @@ export default function App() {
   return (<AppLoading
     startAsync={getFonts}
     onFinish={()=> setFontsLoaded(true)}
+    onError={(e)=> console.log(e)}
   />
   )
 }
